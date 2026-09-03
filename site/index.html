@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rehaan Shaw — Software engineer, UCI CS '28</title>
+<meta name="description" content="Rehaan Shaw. Junior CS student at UC Irvine, class of 2028. Ships production software alone: SpotterAI, Hearth, Transfer Navigator, Woven Hymns. Seeking Summer 2027 SWE internships." />
+<meta name="theme-color" content="#09090b" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Rehaan Shaw — Software engineer, UCI CS '28" />
+<meta property="og:description" content="Five shipped projects, built and deployed solo. Seeking Summer 2027 SWE internships." />
+
+<!-- Google Fonts: Geist (headings) + Inter (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          geist: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono:  ['Geist Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          inter: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<!-- Icons are inlined SVG. No icon library, no runtime request. -->
+
+<style>
+  :root {
+    --ease-lumina: cubic-bezier(0.15, 0.83, 0.66, 1);
+  }
+
+  /* ---------- Keyframes (source definitions, preserved verbatim in name) ---------- */
+
+  @keyframes animationIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes lumina-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+
+  @keyframes lumina-pulse {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.06); }
+  }
+
+  @keyframes lumina-scan {
+    0%   { transform: translateY(-120%); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { transform: translateY(120%);  opacity: 0; }
+  }
+
+  @keyframes lumina-shine {
+    0%   { transform: translateX(-130%) skewX(-12deg); }
+    100% { transform: translateX(230%)  skewX(-12deg); }
+  }
+
+  @keyframes lumina-highlight {
+    0%, 100% { background-color: rgba(255, 255, 255, 0.02); }
+    50%      { background-color: rgba(255, 255, 255, 0.07); }
+  }
+
+  @keyframes lumina-scale {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.05); }
+  }
+
+  @keyframes lumina-blink {
+    0%, 49%   { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  @keyframes lumina-load {
+    0%   { width: 0%; }
+    100% { width: 100%; }
+  }
+
+  /* ---------- Glassmorphism ---------- */
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+      0 8px 32px rgba(0, 0, 0, 0.45),
+      0 24px 64px rgba(0, 0, 0, 0.28);
+    transition: transform 1000ms var(--ease-lumina), box-shadow 1000ms var(--ease-lumina);
+  }
+
+  /* Hovering a glass card lifts it above its neighbours in the cluster. */
+  .glass-card:hover {
+    z-index: 100;
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.10),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+      0 12px 40px rgba(0, 0, 0, 0.55),
+      0 32px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  .glass-highlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.03) 18%,
+      rgba(255, 255, 255, 0) 45%
+    );
+    mix-blend-mode: overlay;
+  }
+
+  /* ---------- Scrollbar suppression (dashboard sidebar) ---------- */
+
+  /* ---------- Hero cluster ----------
+     The scattered, rotated cluster is the desktop composition. Below 640px the
+     cards overlap enough to clip their own text, so they fall back to a plain
+     stack and every number stays readable. */
+
+  @media (max-width: 639.98px) {
+    div.hero-cluster {
+      position: static;
+      display: grid;
+      gap: 0.75rem;
+      height: auto;
+    }
+    div.hero-cluster > div.glass-card {
+      position: static;
+      inset: auto;
+      width: 100%;
+      transform: none;
+    }
+  }
+
+  /* ---------- Inline icons ---------- */
+
+  .rs-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    flex: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ---------- Scroll-driven entrance ---------- */
+
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 900ms var(--ease-lumina),
+      transform 900ms var(--ease-lumina);
+    will-change: opacity, transform;
+  }
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Aura background component (z: -10) ---------- */
+
+  .aura-background-component {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    background-color: #09090b;
+    pointer-events: none;
+  }
+  .aura-background-component::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(60% 40% at 50% 0%,   rgba(120, 119, 198, 0.22) 0%, rgba(9, 9, 11, 0) 70%),
+      radial-gradient(40% 30% at 12% 18%,  rgba(56, 189, 248, 0.14)  0%, rgba(9, 9, 11, 0) 70%),
+      radial-gradient(45% 35% at 88% 26%,  rgba(232, 121, 249, 0.12) 0%, rgba(9, 9, 11, 0) 70%),
+      radial-gradient(70% 50% at 50% 100%, rgba(63, 63, 70, 0.30)    0%, rgba(9, 9, 11, 0) 75%);
+    filter: blur(40px);
+  }
+  .aura-background-component canvas,
+  .aura-background-component [data-us-project] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Grain over the aura so the gradients never band on wide displays. */
+  .aura-background-component::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Misc ---------- */
+
+  .inner-shadow-btn {
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.40),
+      0 1px 2px rgba(0, 0, 0, 0.50);
+  }
+
+  .text-mask-vertical {
+    background: linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0.55) 42%, rgba(255, 255, 255, 0.06) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .animate-on-scroll { opacity: 1; transform: none; }
+  }
+</style>
+<noscript>
+  <!-- Scroll entrance is progressive enhancement. With JS off every section
+       renders at full opacity instead of staying hidden. -->
+  <style>
+    .animate-on-scroll { opacity: 1; transform: none; }
+  </style>
+</noscript>
+</head>
+
+<body class="bg-[#09090b] text-white selection:bg-white/10 font-inter antialiased overflow-x-hidden">
+
+<a href="#work" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:text-black">Skip to work</a>
+
+<!-- ============================================================
+     BACKGROUND LAYER (z: -10)
+     ============================================================ -->
+<div class="aura-background-component" aria-hidden="true">
+  <div data-us-project="portfolio-aura" style="width: 100%; height: 100%;"></div>
+</div>
+<script>
+  /* UnicornStudio.js v1.4.29
+     Set RS_US_PROJECT to a real Unicorn Studio project id to switch the
+     animated aura on. The layered CSS aura in .aura-background-component
+     renders either way, so the background is never a flat colour. */
+  window.RS_US_PROJECT = "";
+
+  (function () {
+    var mount = document.querySelector("[data-us-project]");
+    if (!window.RS_US_PROJECT) {
+      if (mount) mount.removeAttribute("data-us-project");
+      return;
+    }
+    mount.setAttribute("data-us-project", window.RS_US_PROJECT);
+
+    if (!window.UnicornStudio) {
+      window.UnicornStudio = { isInitialized: !1 };
+      var i = document.createElement("script");
+      i.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
+      i.onload = function () {
+        window.UnicornStudio.isInitialized ||
+          (UnicornStudio.init(), (window.UnicornStudio.isInitialized = !0));
+      };
+      (document.head || document.body).appendChild(i);
+    }
+  })();
+</script>
+
+<!-- ============================================================
+     GLOW LAYER (z: 0)
+     ============================================================ -->
+<div class="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+  <div class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-zinc-500/5 to-transparent"></div>
+  <div class="absolute left-1/2 -top-[22rem] h-[44rem] w-[44rem] -translate-x-1/2 rounded-full bg-white/[0.045] blur-[130px]"></div>
+  <div class="absolute left-1/2 top-[8rem] h-[150vw] w-[150vw] -translate-x-1/2 rounded-[50%] border border-white/[0.045]"></div>
+  <div class="absolute left-1/2 top-[15rem] h-[120vw] w-[120vw] -translate-x-1/2 rounded-[50%] border border-white/[0.03]"></div>
+</div>
+
+<!-- ============================================================
+     NAV LAYER (z: 50)
+     ============================================================ -->
+<header class="fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+    <a href="#" class="flex items-center gap-2.5">
+      <svg class="rs-icon rotate-90 text-2xl text-white" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M7.62442 4.4489C9.50121 3.69796 10.6208 3.25 12 3.25C13.3792 3.25 14.4988 3.69796 16.3756 4.4489L19.3451 5.6367C20.2996 6.01851 21.0728 6.32776 21.6035 6.60601C21.8721 6.74683 22.1323 6.90648 22.333 7.09894C22.5392 7.29668 22.75 7.59658 22.75 8C22.75 8.40342 22.5392 8.70332 22.333 8.90106C22.1323 9.09352 21.8721 9.25317 21.6035 9.39399C21.0728 9.67223 20.2996 9.98148 19.3451 10.3633L16.3756 11.5511C14.4988 12.302 13.3792 12.75 12 12.75C10.6208 12.75 9.50121 12.302 7.62443 11.5511L4.65495 10.3633C3.70037 9.98149 2.9272 9.67223 2.39647 9.39399C2.12786 9.25317 1.86765 9.09352 1.66701 8.90106C1.46085 8.70332 1.25 8.40342 1.25 8C1.25 7.59658 1.46085 7.29668 1.66701 7.09894C1.86765 6.90648 2.12786 6.74683 2.39647 6.60601C2.92721 6.32776 3.70037 6.01851 4.65496 5.63669L7.62442 4.4489Z"/><path d="M2.50248 11.4432L2.49899 11.4402C2.19062 11.1654 1.71762 11.1915 1.44158 11.4992C1.16499 11.8075 1.19103 12.282 1.49936 12.5586C1.49936 12.5586 1.49905 12.5583 1.99987 12L1.49936 12.5586L1.50044 12.5595L1.5022 12.5611L1.50682 12.5652L1.52052 12.5772C1.53164 12.5868 1.54671 12.5997 1.56573 12.6155C1.60379 12.6473 1.65768 12.6911 1.72743 12.745C1.86692 12.8528 2.06992 13.001 2.33649 13.1739C2.86958 13.5196 3.65745 13.9644 4.70015 14.3814L7.50862 15.5048L7.62429 15.5511C9.50108 16.302 10.6206 16.75 11.9999 16.75C13.3791 16.75 14.4987 16.302 16.3754 15.5511L16.4911 15.5048L19.2996 14.3814C20.3423 13.9644 21.1302 13.5196 21.6632 13.1739C21.9298 13.001 22.1328 12.8528 22.2723 12.745C22.3421 12.6911 22.3959 12.6473 22.434 12.6155C22.453 12.5997 22.4681 12.5868 22.4792 12.5772L22.4929 12.5652L22.4975 12.5611L22.4993 12.5595L22.5007 12.5583C22.809 12.2817 22.8347 11.8075 22.5582 11.4992C22.2821 11.1915 21.8093 11.1652 21.501 11.44L21.4993 11.4415L21.4973 11.4432C21.4929 11.4471 21.4846 11.4541 21.4726 11.4641C21.4486 11.4842 21.4094 11.5161 21.3551 11.5581C21.2463 11.6422 21.077 11.7663 20.8471 11.9154C20.3872 12.2136 19.6857 12.6115 18.7425 12.9887L15.934 14.1121C13.9092 14.922 13.0603 15.25 11.9999 15.25C10.9395 15.25 10.0905 14.922 8.06571 14.1121L5.25724 12.9887C4.31406 12.6115 3.61251 12.2136 3.15267 11.9154C2.92276 11.7663 2.7534 11.6422 2.64465 11.5581C2.59029 11.5161 2.5511 11.4842 2.52709 11.4641C2.51509 11.4541 2.50689 11.4471 2.50248 11.4432Z" opacity=".5"/><path d="M2.50248 11.4432L2.49899 11.4402C2.19062 11.1654 1.71762 11.1915 1.44158 11.4992C1.16499 11.8075 1.19103 12.282 1.49936 12.5586C1.49936 12.5586 1.49905 12.5583 1.99987 12L1.49936 12.5586L1.50044 12.5595L1.5022 12.5611L1.50682 12.5652L1.52052 12.5772C1.53164 12.5868 1.54671 12.5997 1.56573 12.6155C1.60379 12.6473 1.65768 12.6911 1.72743 12.745C1.86692 12.8528 2.06992 13.001 2.33649 13.1739C2.86958 13.5196 3.65745 13.9644 4.70015 14.3814L7.50862 15.5048L7.62429 15.5511C9.50108 16.302 10.6206 16.75 11.9999 16.75C13.3791 16.75 14.4987 16.302 16.3754 15.5511L16.4911 15.5048L19.2996 14.3814C20.3423 13.9644 21.1302 13.5196 21.6632 13.1739C21.9298 13.001 22.1328 12.8528 22.2723 12.745C22.3421 12.6911 22.3959 12.6473 22.434 12.6155C22.453 12.5997 22.4681 12.5868 22.4792 12.5772L22.4929 12.5652L22.4975 12.5611L22.4993 12.5595L22.5007 12.5583C22.809 12.2817 22.8347 11.8075 22.5582 11.4992C22.2821 11.1915 21.8093 11.1652 21.501 11.44L21.4993 11.4415L21.4973 11.4432C21.4929 11.4471 21.4846 11.4541 21.4726 11.4641C21.4486 11.4842 21.4094 11.5161 21.3551 11.5581C21.2463 11.6422 21.077 11.7663 20.8471 11.9154C20.3872 12.2136 19.6857 12.6115 18.7425 12.9887L15.934 14.1121C13.9092 14.922 13.0603 15.25 11.9999 15.25C10.9395 15.25 10.0905 14.922 8.06571 14.1121L5.25724 12.9887C4.31406 12.6115 3.61251 12.2136 3.15267 11.9154C2.92276 11.7663 2.7534 11.6422 2.64465 11.5581C2.59029 11.5161 2.5511 11.4842 2.52709 11.4641C2.51509 11.4541 2.50689 11.4471 2.50248 11.4432Z" opacity=".5"/><path d="M2.49883 15.4991C2.19045 15.2243 1.71762 15.2506 1.44158 15.5583C1.16499 15.8666 1.19103 16.3411 1.49936 16.6177L1.50044 16.6186L1.5022 16.6202L1.50682 16.6243L1.52052 16.6362C1.53164 16.6459 1.54671 16.6587 1.56573 16.6746C1.60379 16.7064 1.65768 16.7502 1.72743 16.8041C1.86692 16.9119 2.06992 17.0601 2.33649 17.233C2.86958 17.5787 3.65745 18.0234 4.70015 18.4405L7.50862 19.5639L7.62429 19.6102C9.50108 20.3611 10.6206 20.8091 11.9999 20.8091C13.3791 20.8091 14.4987 20.3611 16.3754 19.6102L16.4911 19.5639L19.2996 18.4405C20.3423 18.0234 21.1302 17.5787 21.6632 17.233C21.9298 17.0601 22.1328 16.9119 22.2723 16.8041C22.3421 16.7502 22.3959 16.7064 22.434 16.6746C22.453 16.6587 22.4681 16.6459 22.4792 16.6362L22.4929 16.6243L22.4975 16.6202L22.4993 16.6186L22.5007 16.6174C22.809 16.3408 22.8347 15.8666 22.5582 15.5583C22.2821 15.2506 21.8093 15.2243 21.501 15.4991L21.4993 15.5005L21.4973 15.5023C21.4929 15.5061 21.4846 15.5132 21.4726 15.5232C21.4486 15.5432 21.4094 15.5752 21.3551 15.6172C21.2463 15.7013 21.077 15.8254 20.8471 15.9745C20.3872 16.2727 19.6857 16.6705 18.7425 17.0478L15.934 18.1712C13.9092 18.9811 13.0603 19.3091 11.9999 19.3091C10.9395 19.3091 10.0905 18.9811 8.06571 18.1712L5.25724 17.0478C4.31406 16.6705 3.61251 16.2727 3.15267 15.9745C2.92276 15.8254 2.7534 15.7013 2.64465 15.6172C2.59029 15.5752 2.5511 15.5432 2.52709 15.5232C2.51509 15.5132 2.50689 15.5061 2.50248 15.5023L2.49883 15.4991Z" opacity=".5"/></g></svg>
+      <span class="font-geist text-[17px] font-medium tracking-tight">Rehaan Shaw</span>
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex">
+      <a href="#work"      class="text-sm text-white/55 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">Work</a>
+      <a href="#evaluator" class="text-sm text-white/55 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">The hard part</a>
+      <a href="#depth"     class="text-sm text-white/55 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">In depth</a>
+      <a href="#about"     class="text-sm text-white/55 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">About</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="/resume.pdf" class="hidden rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/80 backdrop-blur-sm transition-all duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:border-white/20 hover:bg-white/[0.08] hover:text-white sm:block">
+        Resume
+      </a>
+      <a href="mailto:rehaanshaw@gmail.com" class="group relative block overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-medium text-black backdrop-blur-sm transition-all duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/90">
+        <span class="block transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-[150%]">Email me</span>
+        <span class="absolute inset-0 flex -translate-y-[150%] items-center justify-center transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-0">Email me</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     MAIN CONTENT (z: 20)
+     ============================================================ -->
+<main class="relative z-20">
+
+  <!-- ==========================================================
+       SECTION 1 — HERO
+       ========================================================== -->
+  <section class="relative mx-auto max-w-7xl px-6 pb-28 pt-40 md:pt-48">
+    <div class="grid items-center gap-16 lg:grid-cols-2 lg:gap-8">
+
+      <!-- Left column -->
+      <div class="relative z-20">
+        <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-white/60 backdrop-blur-sm [animation:animationIn_1s_ease-out_0.05s_both]">
+          <span class="relative flex h-1.5 w-1.5">
+            <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 [animation:lumina-pulse_2s_ease-in-out_infinite]"></span>
+            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+          </span>
+          Open to Summer 2027 SWE internships
+        </div>
+
+        <h1 class="font-geist text-[3.25rem] font-medium leading-[0.98] tracking-[-0.045em] text-white sm:text-6xl lg:text-[4.25rem] [animation:animationIn_1s_ease-out_0.15s_both]">
+          I build software<br />
+          that has to be<br />
+          <span class="text-white/40">trusted,</span><br />
+          not just demoed.
+        </h1>
+
+        <p class="mt-7 max-w-md text-[15px] leading-relaxed text-white/50 [animation:animationIn_1s_ease-out_0.3s_both]">
+          Junior CS at UC Irvine. Five products designed, built and deployed solo. The
+          newest is an AI training copilot whose every generated plan is audited by a
+          deterministic safety evaluator before a user is allowed to see it.
+        </p>
+
+        <p class="mt-6 font-mono text-[12.5px] leading-relaxed text-white/40 [animation:animationIn_1s_ease-out_0.38s_both]">
+          UCI CS '28 &middot; Summer 2027 SWE internship &middot; Irvine, CA &middot; US citizen
+        </p>
+
+        <!-- Nested button group with Double Text hover -->
+        <div class="mt-10 flex flex-wrap items-center gap-3 [animation:animationIn_1s_ease-out_0.45s_both]">
+          <a href="#work" class="group relative block overflow-hidden rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-all duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/90">
+            <span class="block transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-[150%]">See the work</span>
+            <span class="absolute inset-0 flex -translate-y-[150%] items-center justify-center transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-0">See the work</span>
+          </a>
+
+          <a href="/resume.pdf" class="group relative block overflow-hidden rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm text-white/80 backdrop-blur-sm transition-all duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:border-white/20 hover:bg-white/[0.07] hover:text-white">
+            <span class="flex items-center gap-2 transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-[150%]">
+              Resume
+              <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M3 10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H13C16.7712 2 18.6569 2 19.8284 3.17157C21 4.34315 21 6.22876 21 10V14C21 17.7712 21 19.6569 19.8284 20.8284C18.6569 22 16.7712 22 13 22H11C7.22876 22 5.34315 22 4.17157 20.8284C3 19.6569 3 17.7712 3 14V10Z" opacity=".5"/><path fill-rule="evenodd" d="M7.25 12C7.25 11.5858 7.58579 11.25 8 11.25H16C16.4142 11.25 16.75 11.5858 16.75 12C16.75 12.4142 16.4142 12.75 16 12.75H8C7.58579 12.75 7.25 12.4142 7.25 12Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.25 8C7.25 7.58579 7.58579 7.25 8 7.25H16C16.4142 7.25 16.75 7.58579 16.75 8C16.75 8.41421 16.4142 8.75 16 8.75H8C7.58579 8.75 7.25 8.41421 7.25 8Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.25 16C7.25 15.5858 7.58579 15.25 8 15.25H13C13.4142 15.25 13.75 15.5858 13.75 16C13.75 16.4142 13.4142 16.75 13 16.75H8C7.58579 16.75 7.25 16.4142 7.25 16Z" clip-rule="evenodd"/></g></svg>
+            </span>
+            <span class="absolute inset-0 flex -translate-y-[150%] items-center justify-center gap-2 transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-0">
+              Resume
+              <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M3 10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H13C16.7712 2 18.6569 2 19.8284 3.17157C21 4.34315 21 6.22876 21 10V14C21 17.7712 21 19.6569 19.8284 20.8284C18.6569 22 16.7712 22 13 22H11C7.22876 22 5.34315 22 4.17157 20.8284C3 19.6569 3 17.7712 3 14V10Z" opacity=".5"/><path fill-rule="evenodd" d="M7.25 12C7.25 11.5858 7.58579 11.25 8 11.25H16C16.4142 11.25 16.75 11.5858 16.75 12C16.75 12.4142 16.4142 12.75 16 12.75H8C7.58579 12.75 7.25 12.4142 7.25 12Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.25 8C7.25 7.58579 7.58579 7.25 8 7.25H16C16.4142 7.25 16.75 7.58579 16.75 8C16.75 8.41421 16.4142 8.75 16 8.75H8C7.58579 8.75 7.25 8.41421 7.25 8Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.25 16C7.25 15.5858 7.58579 15.25 8 15.25H13C13.4142 15.25 13.75 15.5858 13.75 16C13.75 16.4142 13.4142 16.75 13 16.75H8C7.58579 16.75 7.25 16.4142 7.25 16Z" clip-rule="evenodd"/></g></svg>
+            </span>
+          </a>
+        </div>
+
+        <div class="mt-14 flex items-center gap-8 [animation:animationIn_1s_ease-out_0.6s_both]">
+          <div>
+            <div class="font-geist text-2xl font-medium tracking-tight">5</div>
+            <div class="mt-1 text-xs text-white/40">products shipped</div>
+          </div>
+          <div class="h-8 w-px bg-white/10"></div>
+          <div>
+            <div class="font-geist text-2xl font-medium tracking-tight">479</div>
+            <div class="mt-1 text-xs text-white/40">commits since June</div>
+          </div>
+          <div class="h-8 w-px bg-white/10"></div>
+          <div>
+            <div class="font-geist text-2xl font-medium tracking-tight">$0</div>
+            <div class="mt-1 text-xs text-white/40">infrastructure cost</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: SPOTTERAI PROOF CLUSTER (z: 50/60+) -->
+      <div class="hero-cluster relative h-[520px] sm:h-[600px]" aria-label="SpotterAI at a glance">
+
+        <!-- 1. Evaluator flag panel, with scan line -->
+        <div class="glass-card group absolute left-0 top-2 z-50 w-52 rotate-[-4deg] overflow-hidden rounded-2xl p-4 hover:scale-105 sm:w-64 [animation:animationIn_1.1s_ease-out_0.2s_both]">
+          <div class="mb-3 flex items-center justify-between">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-white/45">evaluator</span>
+            <span class="rounded-full bg-amber-400/10 px-2 py-0.5 text-[10px] text-amber-300">2 flags</span>
+          </div>
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2 rounded-lg bg-white/[0.04] px-2.5 py-1.5">
+              <svg class="rs-icon text-[13px] text-amber-300" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M12 3C9.68925 3 8.23007 5.58716 5.31171 10.7615L4.94805 11.4063C2.52291 15.7061 1.31034 17.856 2.40626 19.428C3.50217 21 6.21356 21 11.6363 21H12.3637C17.7864 21 20.4978 21 21.5937 19.428C22.6897 17.856 21.4771 15.7061 19.0519 11.4063L18.6883 10.7615C15.7699 5.58716 14.3107 3 12 3Z" opacity=".5"/><path d="M12 7.25C12.4142 7.25 12.75 7.58579 12.75 8V13C12.75 13.4142 12.4142 13.75 12 13.75C11.5858 13.75 11.25 13.4142 11.25 13V8C11.25 7.58579 11.5858 7.25 12 7.25Z"/><path d="M12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z"/></g></svg>
+              <span class="font-mono text-[10px] text-white/70">weekly_volume_jump</span>
+            </div>
+            <div class="flex items-center gap-2 rounded-lg bg-white/[0.04] px-2.5 py-1.5">
+              <svg class="rs-icon text-[13px] text-amber-300" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M12 3C9.68925 3 8.23007 5.58716 5.31171 10.7615L4.94805 11.4063C2.52291 15.7061 1.31034 17.856 2.40626 19.428C3.50217 21 6.21356 21 11.6363 21H12.3637C17.7864 21 20.4978 21 21.5937 19.428C22.6897 17.856 21.4771 15.7061 19.0519 11.4063L18.6883 10.7615C15.7699 5.58716 14.3107 3 12 3Z" opacity=".5"/><path d="M12 7.25C12.4142 7.25 12.75 7.58579 12.75 8V13C12.75 13.4142 12.4142 13.75 12 13.75C11.5858 13.75 11.25 13.4142 11.25 13V8C11.25 7.58579 11.5858 7.25 12 7.25Z"/><path d="M12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z"/></g></svg>
+              <span class="font-mono text-[10px] text-white/70">no_rest_day</span>
+            </div>
+            <div class="flex items-center gap-2 rounded-lg bg-white/[0.04] px-2.5 py-1.5">
+              <svg class="rs-icon text-[13px] text-emerald-300" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" clip-rule="evenodd"/></svg>
+              <span class="font-mono text-[10px] text-white/45">progression_ok</span>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-transparent via-white/20 to-transparent [animation:lumina-scan_3s_ease-in-out_infinite]"></div>
+          <span class="glass-highlight rounded-2xl"></span>
+        </div>
+
+        <!-- 2. Numbers panel -->
+        <div class="glass-card group absolute right-0 top-16 z-[60] w-52 rotate-[3deg] overflow-hidden rounded-2xl p-4 hover:scale-105 sm:w-56 [animation:animationIn_1.1s_ease-out_0.35s_both]">
+          <div class="mb-3 font-mono text-[10px] uppercase tracking-wider text-white/45">spotterai</div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <div class="font-geist text-xl font-medium tracking-tight">334</div>
+              <div class="text-[10px] text-white/40">commits</div>
+            </div>
+            <div>
+              <div class="font-geist text-xl font-medium tracking-tight">78</div>
+              <div class="text-[10px] text-white/40">test files</div>
+            </div>
+            <div>
+              <div class="font-geist text-xl font-medium tracking-tight">6</div>
+              <div class="text-[10px] text-white/40">serverless fns</div>
+            </div>
+            <div>
+              <div class="font-geist text-xl font-medium tracking-tight">2</div>
+              <div class="text-[10px] text-white/40">eval suites</div>
+            </div>
+          </div>
+          <span class="glass-highlight rounded-2xl"></span>
+        </div>
+
+        <!-- 3. License chip -->
+        <div class="glass-card group absolute left-8 top-[15.5rem] z-[70] w-36 rotate-[-2deg] overflow-hidden rounded-2xl p-4 hover:scale-105 sm:w-40 [animation:animationIn_1.1s_ease-out_0.5s_both]">
+          <svg class="rs-icon text-xl text-emerald-300" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M3.37752 5.08241C3 5.62028 3 7.21907 3 10.4167V11.9914C3 17.6294 7.23896 20.3655 9.89856 21.5273C10.62 21.8424 10.9807 22 12 22C13.0193 22 13.38 21.8424 14.1014 21.5273C16.761 20.3655 21 17.6294 21 11.9914V10.4167C21 7.21907 21 5.62028 20.6225 5.08241C20.245 4.54454 18.7417 4.02996 15.7351 3.00079L15.1623 2.80472C13.595 2.26824 12.8114 2 12 2C11.1886 2 10.405 2.26824 8.83772 2.80472L8.26491 3.00079C5.25832 4.02996 3.75503 4.54454 3.37752 5.08241Z" opacity=".5"/><path d="M15.0595 10.4995C15.3353 10.1905 15.3085 9.71643 14.9995 9.44055C14.6905 9.16468 14.2164 9.19152 13.9406 9.5005L10.9286 12.8739L10.0595 11.9005C9.78359 11.5915 9.30947 11.5647 9.0005 11.8406C8.69152 12.1164 8.66468 12.5905 8.94055 12.8995L10.3691 14.4995C10.5114 14.6589 10.7149 14.75 10.9286 14.75C11.1422 14.75 11.3457 14.6589 11.488 14.4995L15.0595 10.4995Z"/></g></svg>
+          <div class="mt-2 font-geist text-sm font-medium tracking-tight">MIT licensed</div>
+          <div class="mt-0.5 text-[10px] leading-snug text-white/40">Source is public. So is the red-team page.</div>
+          <span class="glass-highlight rounded-2xl"></span>
+        </div>
+
+        <!-- 4. Stack chips -->
+        <div class="glass-card group absolute right-6 top-[17.5rem] z-[60] w-44 rotate-[4deg] overflow-hidden rounded-2xl p-4 hover:scale-105 sm:w-52 [animation:animationIn_1.1s_ease-out_0.65s_both]">
+          <div class="mb-2.5 font-mono text-[10px] uppercase tracking-wider text-white/45">stack</div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="rounded-md border border-white/[0.07] bg-white/[0.04] px-2 py-1 font-mono text-[10px] text-white/65">Vanilla JS</span>
+            <span class="rounded-md border border-white/[0.07] bg-white/[0.04] px-2 py-1 font-mono text-[10px] text-white/65">Gemini</span>
+            <span class="rounded-md border border-white/[0.07] bg-white/[0.04] px-2 py-1 font-mono text-[10px] text-white/65">Firebase</span>
+            <span class="rounded-md border border-white/[0.07] bg-white/[0.04] px-2 py-1 font-mono text-[10px] text-white/65">Vercel</span>
+          </div>
+          <span class="glass-highlight rounded-2xl"></span>
+        </div>
+
+        <!-- 5. Mini terminal with lumina-load -->
+        <div class="glass-card group absolute bottom-2 left-1/4 z-[55] w-48 rotate-[-3deg] overflow-hidden rounded-2xl p-4 hover:scale-105 sm:w-60 [animation:animationIn_1.1s_ease-out_0.8s_both]">
+          <div class="mb-2 flex gap-1.5">
+            <span class="h-2 w-2 rounded-full bg-white/15"></span>
+            <span class="h-2 w-2 rounded-full bg-white/15"></span>
+            <span class="h-2 w-2 rounded-full bg-white/15"></span>
+          </div>
+          <div class="font-mono text-[10px] leading-relaxed text-white/60">
+            <div><span class="text-white/30">$</span> node --test</div>
+            <div class="text-emerald-300/80">pass 78 files</div>
+            <div class="flex items-center gap-1">
+              <span class="text-white/30">$</span> node eval.mjs
+              <span class="inline-block h-3 w-1.5 bg-white/60 [animation:lumina-blink_1.1s_step-end_infinite]"></span>
+            </div>
+          </div>
+          <div class="mt-2.5 h-1 overflow-hidden rounded-full bg-white/[0.06]">
+            <div class="h-full rounded-full bg-white/50 [animation:lumina-load_2.6s_ease-in-out_infinite]"></div>
+          </div>
+          <span class="glass-highlight rounded-2xl"></span>
+        </div>
+
+        <!-- 6. Cost -->
+        <div class="glass-card group absolute bottom-20 right-2 z-[65] w-32 rotate-[2deg] overflow-hidden rounded-2xl p-3.5 hover:scale-105 sm:w-36 [animation:animationIn_1.1s_ease-out_0.95s_both]">
+          <div class="font-geist text-2xl font-medium tracking-tight">$0</div>
+          <div class="mt-0.5 text-[10px] leading-snug text-white/40">monthly infra, by design</div>
+          <span class="glass-highlight rounded-2xl"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       SECTION 2 — SELECTED WORK
+       ========================================================== -->
+  <section id="work" class="animate-on-scroll relative mx-auto max-w-7xl px-6 py-24">
+    <div class="mb-14 max-w-2xl">
+      <div class="mb-4 text-xs uppercase tracking-[0.18em] text-white/35">Selected work</div>
+      <h2 class="font-geist text-4xl font-medium leading-tight tracking-[-0.035em] sm:text-5xl">
+        Five things I built,<br />
+        <span class="text-white/40">shipped and left running.</span>
+      </h2>
+      <p class="mt-5 max-w-lg text-[15px] leading-relaxed text-white/45">
+        Every one of these is live right now and deployed by me.
+        Nothing here is coursework and nothing here is a tutorial.
+      </p>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+
+      <!-- 1. SpotterAI -->
+      <article class="overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="relative h-64 overflow-hidden border-b border-white/[0.06]">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(120,119,198,0.16),transparent_65%)]"></div>
+          <div class="absolute inset-0 flex items-center justify-center [animation:lumina-float_6s_ease-in-out_infinite]">
+            <div class="glass-card relative w-60 overflow-hidden rounded-2xl p-4">
+              <div class="space-y-2">
+                <div class="flex items-center gap-2 rounded-lg bg-white/[0.04] px-2.5 py-2">
+                  <span class="h-1.5 w-1.5 rounded-full bg-violet-300/70"></span>
+                  <span class="font-mono text-[10px] text-white/65">model generates plan</span>
+                </div>
+                <div class="ml-3 h-3 w-px bg-white/15"></div>
+                <div class="flex items-center gap-2 rounded-lg border border-emerald-300/20 bg-emerald-300/[0.06] px-2.5 py-2 [animation:lumina-pulse_2.8s_ease-in-out_infinite]">
+                  <svg class="rs-icon text-[13px] text-emerald-300" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M3.37752 5.08241C3 5.62028 3 7.21907 3 10.4167V11.9914C3 17.6294 7.23896 20.3655 9.89856 21.5273C10.62 21.8424 10.9807 22 12 22C13.0193 22 13.38 21.8424 14.1014 21.5273C16.761 20.3655 21 17.6294 21 11.9914V10.4167C21 7.21907 21 5.62028 20.6225 5.08241C20.245 4.54454 18.7417 4.02996 15.7351 3.00079L15.1623 2.80472C13.595 2.26824 12.8114 2 12 2C11.1886 2 10.405 2.26824 8.83772 2.80472L8.26491 3.00079C5.25832 4.02996 3.75503 4.54454 3.37752 5.08241Z" opacity=".5"/><path d="M15.0595 10.4995C15.3353 10.1905 15.3085 9.71643 14.9995 9.44055C14.6905 9.16468 14.2164 9.19152 13.9406 9.5005L10.9286 12.8739L10.0595 11.9005C9.78359 11.5915 9.30947 11.5647 9.0005 11.8406C8.69152 12.1164 8.66468 12.5905 8.94055 12.8995L10.3691 14.4995C10.5114 14.6589 10.7149 14.75 10.9286 14.75C11.1422 14.75 11.3457 14.6589 11.488 14.4995L15.0595 10.4995Z"/></g></svg>
+                  <span class="font-mono text-[10px] text-white/80">pure-code evaluator</span>
+                </div>
+                <div class="ml-3 h-3 w-px bg-white/15"></div>
+                <div class="flex items-center gap-2 rounded-lg bg-white/[0.04] px-2.5 py-2">
+                  <svg class="rs-icon text-[13px] text-amber-300" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M12 3C9.68925 3 8.23007 5.58716 5.31171 10.7615L4.94805 11.4063C2.52291 15.7061 1.31034 17.856 2.40626 19.428C3.50217 21 6.21356 21 11.6363 21H12.3637C17.7864 21 20.4978 21 21.5937 19.428C22.6897 17.856 21.4771 15.7061 19.0519 11.4063L18.6883 10.7615C15.7699 5.58716 14.3107 3 12 3Z" opacity=".5"/><path d="M12 7.25C12.4142 7.25 12.75 7.58579 12.75 8V13C12.75 13.4142 12.4142 13.75 12 13.75C11.5858 13.75 11.25 13.4142 11.25 13V8C11.25 7.58579 11.5858 7.25 12 7.25Z"/><path d="M12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z"/></g></svg>
+                  <span class="font-mono text-[10px] text-white/65">flags first, then the plan</span>
+                </div>
+              </div>
+              <span class="glass-highlight rounded-2xl"></span>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03]">
+            <svg class="rs-icon text-lg text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path fill-rule="evenodd" d="M22 10V14C22 14.9319 22 15.3978 21.8478 15.7654C21.6448 16.2554 21.2554 16.6448 20.7654 16.8478C20.3978 17 19.9319 17 19 17C18.0681 17 17.6022 17 17.2346 16.8478C16.7446 16.6448 16.3552 16.2554 16.1522 15.7654C16 15.3978 16 14.4319 16 13.5V10.5C16 9.56812 16 8.60218 16.1522 8.23463C16.3552 7.74458 16.7446 7.35523 17.2346 7.15224C17.6022 7 18.0681 7 19 7C19.9319 7 20.3978 7 20.7654 7.15224C21.2554 7.35523 21.6448 7.74458 21.8478 8.23463C22 8.60218 22 9.06812 22 10ZM8 10.5V13.5C8 14.4319 8 15.3978 7.84776 15.7654C7.64477 16.2554 7.25542 16.6448 6.76537 16.8478C6.39782 17 5.93188 17 5 17C4.06812 17 3.60218 17 3.23463 16.8478C2.74458 16.6448 2.35523 16.2554 2.15224 15.7654C2 15.3978 2 14.9319 2 14V10C2 9.06812 2 8.60218 2.15224 8.23463C2.35523 7.74458 2.74458 7.35523 3.23463 7.15224C3.60218 7 4.06812 7 5 7C5.93188 7 6.39782 7 6.76537 7.15224C7.25542 7.35523 7.64477 7.74458 7.84776 8.23463C8 8.60218 8 9.56812 8 10.5Z" clip-rule="evenodd"/><path d="M16 10.5H8V13.5H16V10.5Z" opacity=".5"/></g></svg>
+          </div>
+          <h3 class="font-geist text-lg font-medium tracking-tight">SpotterAI</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/45">
+            An AI training copilot. A model writes the plan, then a deterministic evaluator
+            written in plain code audits it and shows you what is wrong with it before you trust it.
+          </p>
+          <p class="mt-4 font-mono text-[11px] text-white/35">Vanilla JS &middot; Gemini &middot; Firebase Admin &middot; Vercel</p>
+          <a href="#spotterai" class="mt-4 inline-flex items-center gap-1.5 text-sm text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">
+            Read the detail <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12H20M14 18L20 12L14 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 2. Hearth -->
+      <article class="overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="relative h-64 overflow-hidden border-b border-white/[0.06]">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.14),transparent_65%)]"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="glass-card relative w-60 overflow-hidden rounded-2xl p-4">
+              <div class="mb-3 flex items-center justify-between">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-white/45">12 &times; 14 ft</span>
+                <span class="rounded-full bg-white/[0.06] px-2 py-0.5 text-[10px] text-white/60">3 layouts</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="relative aspect-square rounded-lg border border-white/20 bg-white/[0.05] [animation:lumina-scale_4s_ease-in-out_infinite]">
+                  <span class="absolute left-1 top-1 h-3 w-6 rounded-sm bg-white/30"></span>
+                  <span class="absolute bottom-1.5 right-1.5 h-4 w-3 rounded-sm bg-white/20"></span>
+                </div>
+                <div class="relative aspect-square rounded-lg border border-white/[0.09] bg-white/[0.03]">
+                  <span class="absolute bottom-1 left-1 h-3 w-6 rounded-sm bg-white/20"></span>
+                  <span class="absolute right-1.5 top-1.5 h-3 w-3 rounded-sm bg-white/15"></span>
+                </div>
+                <div class="relative aspect-square rounded-lg border border-white/[0.09] bg-white/[0.03]">
+                  <span class="absolute left-1.5 top-1.5 h-5 w-3 rounded-sm bg-white/20"></span>
+                  <span class="absolute bottom-1 right-1 h-3 w-5 rounded-sm bg-white/15"></span>
+                </div>
+              </div>
+              <p class="mt-3 text-[10px] leading-snug text-white/45">
+                &ldquo;Sofa faces the window because that is the only wall long enough.&rdquo;
+              </p>
+              <span class="glass-highlight rounded-2xl"></span>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03]">
+            <svg class="rs-icon text-lg text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z" opacity=".5"/><path d="M9.44666 15.3975C9.11389 15.1509 8.64418 15.2207 8.39752 15.5534C8.15086 15.8862 8.22067 16.3559 8.55343 16.6026C9.52585 17.3234 10.7151 17.75 12 17.75C13.285 17.75 14.4742 17.3234 15.4467 16.6026C15.7794 16.3559 15.8492 15.8862 15.6026 15.5534C15.3559 15.2207 14.8862 15.1509 14.5534 15.3975C13.8251 15.9374 12.9459 16.25 12 16.25C11.0541 16.25 10.175 15.9374 9.44666 15.3975Z"/></g></svg>
+          </div>
+          <h3 class="font-geist text-lg font-medium tracking-tight">Hearth</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/45">
+            Give it two numbers and it arranges your room three ways, explains in plain English
+            why each one works, renders it in draggable 3D, and prices what you are missing.
+          </p>
+          <p class="mt-4 font-mono text-[11px] text-white/35">Next.js 15 &middot; React 19 &middot; Sentry &middot; Vercel</p>
+          <a href="#hearth" class="mt-4 inline-flex items-center gap-1.5 text-sm text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">
+            Read the detail <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12H20M14 18L20 12L14 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 3. Transfer Navigator -->
+      <article class="overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="relative h-64 overflow-hidden border-b border-white/[0.06]">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(232,121,249,0.13),transparent_65%)]"></div>
+          <div class="absolute inset-0 flex items-center justify-center [animation:lumina-float_7s_ease-in-out_infinite]">
+            <div class="glass-card relative w-60 overflow-hidden rounded-2xl p-4">
+              <div class="mb-3 flex items-center justify-between">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-white/45">PCC &rarr; UCI CS</span>
+                <span class="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] text-emerald-300">reachable</span>
+              </div>
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between rounded-lg px-2.5 py-1.5 [animation:lumina-highlight_3.4s_ease-in-out_infinite]">
+                  <span class="font-mono text-[10px] text-white/70">CS 3A &middot; done</span>
+                  <svg class="rs-icon text-[13px] text-emerald-300" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" clip-rule="evenodd"/></svg>
+                </div>
+                <div class="flex items-center justify-between rounded-lg bg-white/[0.04] px-2.5 py-1.5">
+                  <span class="font-mono text-[10px] text-white/70">MATH 5A &middot; Fa26</span>
+                  <svg class="rs-icon text-[13px] text-white/40" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8V12L14.5 14.5"/></g></svg>
+                </div>
+                <div class="flex items-center justify-between rounded-lg bg-white/[0.04] px-2.5 py-1.5">
+                  <span class="font-mono text-[10px] text-white/70">PHYS 1A &middot; Sp27</span>
+                  <svg class="rs-icon text-[13px] text-white/40" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8V12L14.5 14.5"/></g></svg>
+                </div>
+              </div>
+              <span class="glass-highlight rounded-2xl"></span>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03]">
+            <svg class="rs-icon text-lg text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><g fill-rule="evenodd" clip-rule="evenodd" opacity=".5"><path d="M18.5 14C16.567 14 15 15.4584 15 17.2573C15 19.0422 16.1171 21.125 17.86 21.8698C18.2663 22.0434 18.7337 22.0434 19.14 21.8698C20.8829 21.125 22 19.0422 22 17.2573C22 15.4584 20.433 14 18.5 14Z"/><path d="M5.5 2C3.567 2 2 3.45835 2 5.25732C2 7.04219 3.11708 9.12497 4.85997 9.86978C5.26626 10.0434 5.73374 10.0434 6.14003 9.86978C7.88292 9.12497 9 7.04219 9 5.25732C9 3.45835 7.433 2 5.5 2Z"/></g><path d="M19.5 17.5C19.5 18.0523 19.0523 18.5 18.5 18.5C17.9477 18.5 17.5 18.0523 17.5 17.5C17.5 16.9477 17.9477 16.5 18.5 16.5C19.0523 16.5 19.5 16.9477 19.5 17.5Z"/><path d="M6.5 5.5C6.5 6.05228 6.05228 6.5 5.5 6.5C4.94772 6.5 4.5 6.05228 4.5 5.5C4.5 4.94772 4.94772 4.5 5.5 4.5C6.05228 4.5 6.5 4.94772 6.5 5.5Z"/><path fill-rule="evenodd" d="M11.2501 5C11.2501 4.58579 11.5859 4.25 12.0001 4.25H16.132C18.8832 4.25 19.9295 7.843 17.6084 9.32007L7.19713 15.9454C6.14207 16.6168 6.61766 18.25 7.86821 18.25H10.1894L9.96977 18.0303C9.67688 17.7374 9.67688 17.2626 9.96977 16.9697C10.2627 16.6768 10.7375 16.6768 11.0304 16.9697L12.5304 18.4697C12.8233 18.7626 12.8233 19.2374 12.5304 19.5303L11.0304 21.0303C10.7375 21.3232 10.2627 21.3232 9.96977 21.0303C9.67688 20.7374 9.67688 20.2626 9.96977 19.9697L10.1894 19.75H7.86821C5.11697 19.75 4.07071 16.157 6.39181 14.6799L16.8031 8.05458C17.8581 7.38318 17.3825 5.75 16.132 5.75H12.0001C11.5859 5.75 11.2501 5.41421 11.2501 5Z" clip-rule="evenodd"/></g></svg>
+          </div>
+          <h3 class="font-geist text-lg font-medium tracking-tight">Transfer Navigator</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/45">
+            Reads real ASSIST articulation agreements and turns them into a transfer route:
+            which courses, which term, and whether your target term is even reachable.
+          </p>
+          <p class="mt-4 font-mono text-[11px] text-white/35">Next.js 16 &middot; pdfjs-dist &middot; ASSIST JSON API</p>
+          <a href="#transfer-navigator" class="mt-4 inline-flex items-center gap-1.5 text-sm text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">
+            Read the detail <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12H20M14 18L20 12L14 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 4. Woven Hymns -->
+      <article class="overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="relative h-64 overflow-hidden border-b border-white/[0.06]">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(251,191,36,0.10),transparent_65%)]"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="glass-card relative w-60 overflow-hidden rounded-2xl p-4">
+              <div class="mb-3 font-mono text-[10px] uppercase tracking-wider text-white/45">eight stages</div>
+              <div class="space-y-2">
+                <div class="h-1 w-full rounded-full bg-white/[0.07]"></div>
+                <div class="h-1 w-11/12 rounded-full bg-white/[0.10]"></div>
+                <div class="h-1 w-full rounded-full bg-white/[0.07]"></div>
+                <div class="h-1 w-9/12 rounded-full bg-white/[0.10]"></div>
+                <div class="h-1 w-full rounded-full bg-white/[0.07]"></div>
+              </div>
+              <div class="mt-3 flex gap-1">
+                <span class="h-1.5 w-8 rounded-full bg-white/40"></span>
+                <span class="h-1.5 w-1.5 rounded-full bg-white/15"></span>
+                <span class="h-1.5 w-1.5 rounded-full bg-white/15"></span>
+                <span class="h-1.5 w-1.5 rounded-full bg-white/15"></span>
+              </div>
+              <div class="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent [animation:lumina-shine_4.5s_ease-in-out_infinite]"></div>
+              <span class="glass-highlight rounded-2xl"></span>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03]">
+            <svg class="rs-icon text-lg text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M18 8C18 9.10457 17.1046 10 16 10C14.8954 10 14 9.10457 14 8C14 6.89543 14.8954 6 16 6C17.1046 6 18 6.89543 18 8Z"/><path fill-rule="evenodd" d="M11.9426 1.25H12.0574C14.3658 1.24999 16.1748 1.24998 17.5863 1.43975C19.031 1.63399 20.1711 2.03933 21.0659 2.93414C21.9607 3.82895 22.366 4.96897 22.5603 6.41371C22.75 7.82519 22.75 9.63423 22.75 11.9426V12.0309C22.75 13.9397 22.75 15.5023 22.6463 16.7745C22.5422 18.0531 22.3287 19.1214 21.8509 20.0087C21.6401 20.4001 21.3812 20.7506 21.0659 21.0659C20.1711 21.9607 19.031 22.366 17.5863 22.5603C16.1748 22.75 14.3658 22.75 12.0574 22.75H11.9426C9.63423 22.75 7.82519 22.75 6.41371 22.5603C4.96897 22.366 3.82895 21.9607 2.93414 21.0659C2.14086 20.2726 1.7312 19.2852 1.51335 18.0604C1.29935 16.8573 1.2602 15.3603 1.25207 13.5015C1.25 13.0287 1.25 12.5286 1.25 12.001L1.25 11.9426C1.24999 9.63423 1.24998 7.82519 1.43975 6.41371C1.63399 4.96897 2.03933 3.82895 2.93414 2.93414C3.82895 2.03933 4.96897 1.63399 6.41371 1.43975C7.82519 1.24998 9.63423 1.24999 11.9426 1.25ZM6.61358 2.92637C5.33517 3.09825 4.56445 3.42514 3.9948 3.9948C3.42514 4.56445 3.09825 5.33517 2.92637 6.61358C2.75159 7.91356 2.75 9.62177 2.75 12C2.75 12.5287 2.75 13.0257 2.75205 13.4949C2.76025 15.369 2.80214 16.7406 2.99017 17.7978C3.17436 18.8333 3.48774 19.4981 3.9948 20.0052C4.56445 20.5749 5.33517 20.9018 6.61358 21.0736C7.91356 21.2484 9.62177 21.25 12 21.25C14.3782 21.25 16.0864 21.2484 17.3864 21.0736C18.6648 20.9018 19.4355 20.5749 20.0052 20.0052C20.2151 19.7953 20.3872 19.5631 20.5302 19.2976C20.8619 18.6816 21.0531 17.8578 21.1513 16.6527C21.2494 15.4482 21.25 13.9459 21.25 12C21.25 9.62177 21.2484 7.91356 21.0736 6.61358C20.9018 5.33517 20.5749 4.56445 20.0052 3.9948C19.4355 3.42514 18.6648 3.09825 17.3864 2.92637C16.0864 2.75159 14.3782 2.75 12 2.75C9.62177 2.75 7.91356 2.75159 6.61358 2.92637Z" clip-rule="evenodd"/><path d="M20.6069 19.1463L17.7765 16.599C16.737 15.6634 15.1889 15.5702 14.0446 16.3744L13.7464 16.5839C12.9513 17.1428 11.8695 17.0491 11.1822 16.3618L6.89252 12.0721C6.03631 11.2159 4.66289 11.1702 3.75162 11.9675L2.75049 12.8435C2.75077 13.0665 2.75128 13.2835 2.7522 13.4949C2.7604 15.369 2.80229 16.7406 2.99032 17.7978C3.17451 18.8333 3.48788 19.4981 3.99494 20.0052C4.5646 20.5749 5.33532 20.9018 6.61372 21.0736C7.9137 21.2484 9.62192 21.25 12.0001 21.25C14.3784 21.25 16.0866 21.2484 17.3866 21.0736C18.665 20.9018 19.4357 20.5749 20.0054 20.0052C20.2153 19.7953 20.3873 19.5631 20.5303 19.2976C20.5568 19.2485 20.5823 19.1981 20.6069 19.1463Z" opacity=".5"/></g></svg>
+          </div>
+          <h3 class="font-geist text-lg font-medium tracking-tight">Woven Hymns</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/45">
+            A story-first exhibition preview on Kashmiri pashmina, built for my family's shawl
+            business. Text-led, because the client had no photography budget.
+          </p>
+          <p class="mt-4 font-mono text-[11px] text-white/35">Next.js 16 &middot; React 19 &middot; GitHub Pages</p>
+          <a href="#woven-hymns" class="mt-4 inline-flex items-center gap-1.5 text-sm text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">
+            Read the detail <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12H20M14 18L20 12L14 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 5. GMA Creative House -->
+      <article class="overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="relative h-64 overflow-hidden border-b border-white/[0.06]">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(63,63,70,0.45),transparent_65%)]"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="glass-card relative w-60 overflow-hidden rounded-2xl p-4">
+              <div class="mb-3 flex items-center justify-between">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-white/45">week log</span>
+                <span class="rounded-full bg-white/[0.06] px-2 py-0.5 text-[10px] text-white/60">billed</span>
+              </div>
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between rounded-lg bg-white/[0.04] px-2.5 py-1.5">
+                  <span class="font-mono text-[10px] text-white/70">landing copy pass</span><span class="font-mono text-[10px] text-white/45">1.5h</span>
+                </div>
+                <div class="flex items-center justify-between rounded-lg px-2.5 py-1.5 [animation:lumina-highlight_3s_ease-in-out_infinite]">
+                  <span class="font-mono text-[10px] text-white/70">gallery rebuild</span><span class="font-mono text-[10px] text-white/45">3.0h</span>
+                </div>
+                <div class="flex items-center justify-between rounded-lg bg-white/[0.04] px-2.5 py-1.5">
+                  <span class="font-mono text-[10px] text-white/70">mobile nav fix</span><span class="font-mono text-[10px] text-white/45">0.75h</span>
+                </div>
+              </div>
+              <span class="glass-highlight rounded-2xl"></span>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03]">
+            <svg class="rs-icon text-lg text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" opacity=".5"/><path d="M13.4881 6.44591C13.8882 6.55311 14.1256 6.96437 14.0184 7.36447L11.4302 17.0237C11.323 17.4238 10.9117 17.6613 10.5116 17.5541C10.1115 17.4468 9.8741 17.0356 9.98131 16.6355L12.5695 6.97624C12.6767 6.57614 13.088 6.3387 13.4881 6.44591Z"/><path d="M14.9697 8.46967C15.2626 8.17678 15.7374 8.17678 16.0303 8.46967L16.2387 8.67801C16.874 9.3133 17.4038 9.84308 17.7678 10.3202C18.1521 10.8238 18.4216 11.3559 18.4216 12C18.4216 12.6441 18.1521 13.1762 17.7678 13.6798C17.4038 14.1569 16.874 14.6867 16.2387 15.322L16.0303 15.5303C15.7374 15.8232 15.2626 15.8232 14.9697 15.5303C14.6768 15.2374 14.6768 14.7626 14.9697 14.4697L15.1412 14.2981C15.8229 13.6164 16.2797 13.1574 16.5753 12.7699C16.8577 12.3998 16.9216 12.1843 16.9216 12C16.9216 11.8157 16.8577 11.6002 16.5753 11.2301C16.2797 10.8426 15.8229 10.3836 15.1412 9.70191L14.9697 9.53033C14.6768 9.23744 14.6768 8.76257 14.9697 8.46967Z"/><path d="M7.96986 8.46967C8.26275 8.17678 8.73762 8.17678 9.03052 8.46967C9.32341 8.76257 9.32341 9.23744 9.03052 9.53033L8.85894 9.70191C8.17729 10.3836 7.72052 10.8426 7.42488 11.2301C7.14245 11.6002 7.07861 11.8157 7.07861 12C7.07861 12.1843 7.14245 12.3998 7.42488 12.7699C7.72052 13.1574 8.17729 13.6164 8.85894 14.2981L9.03052 14.4697C9.32341 14.7626 9.32341 15.2374 9.03052 15.5303C8.73762 15.8232 8.26275 15.8232 7.96986 15.5303L7.76151 15.322C7.12617 14.6867 6.59638 14.1569 6.23235 13.6798C5.84811 13.1762 5.57861 12.6441 5.57861 12C5.57861 11.3559 5.84811 10.8238 6.23235 10.3202C6.59638 9.84308 7.12617 9.31331 7.76151 8.67801L7.96986 8.46967Z"/></g></svg>
+          </div>
+          <h3 class="font-geist text-lg font-medium tracking-tight">GMA Creative House</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/45">
+            Ongoing paid contract work. Weekly website tasks for a creative studio, scoped and
+            billed hourly. Someone who is not related to the outcome pays for this.
+          </p>
+          <p class="mt-4 font-mono text-[11px] text-white/35">HTML &middot; CSS &middot; JavaScript</p>
+          <a href="#gma-creative" class="mt-4 inline-flex items-center gap-1.5 text-sm text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">
+            Read the detail <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12H20M14 18L20 12L14 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 6. Everything is live -->
+      <article class="relative overflow-hidden rounded-3xl border border-white/[0.07] bg-gradient-to-b from-[#131316] to-[#0e0e11]">
+        <div class="absolute left-1/2 top-0 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.10),transparent_65%)]"></div>
+        <div class="relative flex h-full flex-col justify-between p-6">
+          <div>
+            <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03]">
+              <svg class="rs-icon text-lg text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><g opacity=".5"><path d="M14 21H10C6.22876 21 4.34315 21 3.17157 19.8284C2 18.6569 2 16.7712 2 13V12.75H22V13C22 16.7712 22 18.6569 20.8284 19.8284C19.6569 21 17.7712 21 14 21Z"/><path d="M10 3H14C17.7712 3 19.6569 3 20.8284 4.17157C22 5.34315 22 7.22876 22 11V11.25H2V11C2 7.22876 2 5.34315 3.17157 4.17157C4.34315 3 6.22876 3 10 3Z"/></g><path fill-rule="evenodd" d="M22 12.75H2V11.25H22V12.75Z" clip-rule="evenodd"/><path d="M12.75 16.5C12.75 16.0858 13.0858 15.75 13.5 15.75H18C18.4142 15.75 18.75 16.0858 18.75 16.5C18.75 16.9142 18.4142 17.25 18 17.25H13.5C13.0858 17.25 12.75 16.9142 12.75 16.5Z"/><path d="M12.75 7.5C12.75 7.08579 13.0858 6.75 13.5 6.75H18C18.4142 6.75 18.75 7.08579 18.75 7.5C18.75 7.91421 18.4142 8.25 18 8.25H13.5C13.0858 8.25 12.75 7.91421 12.75 7.5Z"/><path d="M6 18.25C5.58579 18.25 5.25 17.9142 5.25 17.5V15.5C5.25 15.0858 5.58579 14.75 6 14.75C6.41421 14.75 6.75 15.0858 6.75 15.5V17.5C6.75 17.9142 6.41421 18.25 6 18.25Z"/><path d="M6 9.25C5.58579 9.25 5.25 8.91421 5.25 8.5V6.5C5.25 6.08579 5.58579 5.75 6 5.75C6.41421 5.75 6.75 6.08579 6.75 6.5V8.5C6.75 8.91421 6.41421 9.25 6 9.25Z"/><path d="M9 18.25C8.58579 18.25 8.25 17.9142 8.25 17.5V15.5C8.25 15.0858 8.58579 14.75 9 14.75C9.41421 14.75 9.75 15.0858 9.75 15.5V17.5C9.75 17.9142 9.41421 18.25 9 18.25Z"/><path d="M9 9.25C8.58579 9.25 8.25 8.91421 8.25 8.5V6.5C8.25 6.08579 8.58579 5.75 9 5.75C9.41421 5.75 9.75 6.08579 9.75 6.5V8.5C9.75 8.91421 9.41421 9.25 9 9.25Z"/></g></svg>
+            </div>
+            <h3 class="font-geist text-lg font-medium tracking-tight">All four apps are up right now</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/45">
+              Not screenshots. Open them and try to break them. The deploys, the error tracking
+              and test suites are mine too.
+            </p>
+          </div>
+          <div class="mt-6 space-y-2">
+            <a href="https://spotterai.vercel.app" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-2 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.07]">
+              <span class="font-mono text-[11px] text-white/70">spotterai.vercel.app</span>
+              <svg class="rs-icon text-sm text-white/40" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M18 15V6H9"/></svg>
+            </a>
+            <a href="https://hearth-theta-eight.vercel.app" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-2 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.07]">
+              <span class="font-mono text-[11px] text-white/70">hearth-theta-eight.vercel.app</span>
+              <svg class="rs-icon text-sm text-white/40" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M18 15V6H9"/></svg>
+            </a>
+            <a href="https://transfer-navigator.vercel.app" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-2 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.07]">
+              <span class="font-mono text-[11px] text-white/70">transfer-navigator.vercel.app</span>
+              <svg class="rs-icon text-sm text-white/40" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M18 15V6H9"/></svg>
+            </a>
+            <a href="https://ray-shaw06.github.io" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-2 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.07]">
+              <span class="font-mono text-[11px] text-white/70">ray-shaw06.github.io</span>
+              <svg class="rs-icon text-sm text-white/40" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M18 15V6H9"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       SECTION 3 — THE HARD PART
+       ========================================================== -->
+  <section id="evaluator" class="animate-on-scroll relative mx-auto max-w-7xl px-6 py-24">
+    <div class="mb-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-end">
+      <div>
+        <div class="mb-4 text-xs uppercase tracking-[0.18em] text-white/35">The hard part</div>
+        <h2 class="font-geist text-4xl font-medium leading-tight tracking-[-0.035em] sm:text-5xl">
+          Making a model's output<br />
+          <span class="text-white/40">something you can check.</span>
+        </h2>
+      </div>
+      <div class="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 backdrop-blur-sm">
+        <p class="text-[15px] leading-relaxed text-white/60">
+          Gemini writes the training plan. A pure-code evaluator, with no second model call
+          anywhere in the path, then grades that plan against fourteen named checks whose
+          thresholds all live in one readable constants block. The output is flags first and
+          the plan second, worded as a potential concern rather than an approval, because the
+          evaluator is allowed to raise doubt and is never allowed to certify. The red-team
+          Safety Lab page is public, so anyone can sit down and try to get a bad plan past it.
+        </p>
+        <p class="mt-5 border-t border-white/[0.07] pt-5 text-sm leading-relaxed text-white/45">
+          <span class="text-white/70">Why pure code and not a second model.</span> A second
+          model call would be nondeterministic, would cost money per plan, and could not be
+          unit tested. A rubric in code gives the same verdict every run, costs nothing, and
+          has 78 test files pointed at it. Every threshold is cited in
+          <span class="font-mono text-[12.5px] text-white/60">docs/rubric-sources.md</span>,
+          graded by how well the evidence actually supports it, including the three that are
+          judgment calls and say so.
+        </p>
+      </div>
+    </div>
+
+    <!-- Evaluator panel -->
+    <div class="glass-card overflow-hidden rounded-3xl">
+      <div class="flex min-h-[620px] flex-col md:flex-row">
+
+        <!-- Sidebar -->
+        <aside class="no-scrollbar shrink-0 overflow-x-auto border-b border-white/[0.06] p-4 md:w-60 md:border-b-0 md:border-r">
+          <div class="mb-4 flex items-center gap-2 px-2">
+            <svg class="rs-icon text-lg text-emerald-300" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M3.37752 5.08241C3 5.62028 3 7.21907 3 10.4167V11.9914C3 17.6294 7.23896 20.3655 9.89856 21.5273C10.62 21.8424 10.9807 22 12 22C13.0193 22 13.38 21.8424 14.1014 21.5273C16.761 20.3655 21 17.6294 21 11.9914V10.4167C21 7.21907 21 5.62028 20.6225 5.08241C20.245 4.54454 18.7417 4.02996 15.7351 3.00079L15.1623 2.80472C13.595 2.26824 12.8114 2 12 2C11.1886 2 10.405 2.26824 8.83772 2.80472L8.26491 3.00079C5.25832 4.02996 3.75503 4.54454 3.37752 5.08241Z" opacity=".5"/><path d="M15.0595 10.4995C15.3353 10.1905 15.3085 9.71643 14.9995 9.44055C14.6905 9.16468 14.2164 9.19152 13.9406 9.5005L10.9286 12.8739L10.0595 11.9005C9.78359 11.5915 9.30947 11.5647 9.0005 11.8406C8.69152 12.1164 8.66468 12.5905 8.94055 12.8995L10.3691 14.4995C10.5114 14.6589 10.7149 14.75 10.9286 14.75C11.1422 14.75 11.3457 14.6589 11.488 14.4995L15.0595 10.4995Z"/></g></svg>
+            <span class="font-geist text-sm font-medium tracking-tight">evaluator.js</span>
+          </div>
+          <nav class="flex gap-1.5 md:flex-col">
+            <span class="flex shrink-0 items-center gap-2 rounded-lg bg-white/[0.06] px-2.5 py-2 font-mono text-[11px] text-white/85">rest_days</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">weekly_volume</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">muscle_balance</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">muscle_frequency</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">progressive_overload</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">injury_knee</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">injury_lower_back</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">beginner_load</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">goal_fit</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">leg_balance</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">equipment_fit</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">session_load</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">cardio_load</span>
+            <span class="flex shrink-0 items-center gap-2 rounded-lg px-2.5 py-2 font-mono text-[11px] text-white/45">coverage</span>
+          </nav>
+        </aside>
+
+        <!-- Main -->
+        <div class="min-w-0 flex-1">
+          <!-- Topbar -->
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.06] px-5 py-4">
+            <span class="font-mono text-[12px] text-white/55">evaluatePlan(plan, userInputs)</span>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-amber-400/10 px-2.5 py-1 text-[11px] text-amber-300">1 critical</span>
+              <span class="rounded-full bg-white/[0.06] px-2.5 py-1 text-[11px] text-white/60">3 warnings</span>
+            </div>
+          </div>
+
+          <div class="p-5">
+            <!-- Quick actions -->
+            <div class="mb-6 flex flex-wrap gap-2">
+              <a href="https://spotterai.vercel.app" target="_blank" rel="noopener" class="inner-shadow-btn flex items-center gap-2 rounded-lg bg-white/[0.06] px-3 py-2 text-[12px] text-white/75 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.10] hover:text-white">
+                <svg class="rs-icon text-sm" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><g opacity=".5"><path d="M20 17.0002C21.1046 17.0002 22 16.0674 22 14.9168C22 14.1969 21.217 13.2361 20.6309 12.6176C20.2839 12.2515 19.7161 12.2515 19.3691 12.6176C18.783 13.2361 18 14.1969 18 14.9168C18 16.0674 18.8954 17.0002 20 17.0002Z"/><path d="M16.278 10.5677L17.7828 7.97036L9.37268 3.14355L2.65093 14.7458C1.31093 17.0587 2.10615 20.0163 4.42709 21.3517C6.74803 22.687 9.7158 21.8946 11.0558 19.5816L12.1751 17.6497L16.278 10.5677Z"/></g><path d="M9.2939 1.35449C8.93733 1.14371 8.47739 1.26188 8.2666 1.61845C8.05581 1.97502 8.17399 2.43495 8.53056 2.64574L9.36645 3.13989L9.37231 3.14332L17.7824 7.97013L18.6261 8.45434C18.9853 8.66053 19.4437 8.53644 19.6499 8.17719C19.8561 7.81794 19.732 7.35957 19.3727 7.15338L10.1256 1.84619L9.2939 1.35449Z"/><path d="M12.9271 16.3515L12.9253 16.3505L10.3126 14.8472C9.9536 14.6407 9.49509 14.7643 9.28852 15.1233C9.08195 15.4823 9.20555 15.9408 9.56457 16.1474L12.1752 17.6495L12.9271 16.3515Z"/><path d="M14.5647 13.525L14.5629 13.5239L10.3599 11.1057C10.0009 10.8992 9.54239 11.0227 9.33582 11.3818C9.12925 11.7408 9.25284 12.1993 9.61187 12.4059L13.8128 14.8229L14.5647 13.525Z"/><path d="M16.2763 10.5665L13.7183 9.09468C13.3592 8.88811 12.9007 9.0117 12.6941 9.37073C12.4876 9.72976 12.6112 10.1883 12.9702 10.3948L15.5262 11.8654L16.2763 10.5665Z"/></g></svg> Open the Safety Lab
+              </a>
+              <a href="https://github.com/Ray-Shaw06/spotterai" target="_blank" rel="noopener" class="inner-shadow-btn flex items-center gap-2 rounded-lg bg-white/[0.06] px-3 py-2 text-[12px] text-white/75 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.10] hover:text-white">
+                <svg class="rs-icon text-sm" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> Read evaluator.js
+              </a>
+              <span class="inner-shadow-btn flex items-center gap-2 rounded-lg bg-white/[0.06] px-3 py-2 font-mono text-[12px] text-white/55">MIT</span>
+            </div>
+
+            <!-- Stat cards -->
+            <div class="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <div class="rounded-xl border border-white/[0.07] bg-white/[0.02] p-4">
+                <div class="text-[11px] text-white/40">Checks in the rubric</div>
+                <div class="mt-1.5 font-geist text-2xl font-medium tracking-tight">14</div>
+                <div class="mt-1 text-[11px] text-white/35">each one named and testable</div>
+              </div>
+              <div class="rounded-xl border border-white/[0.07] bg-white/[0.02] p-4">
+                <div class="text-[11px] text-white/40">Test files</div>
+                <div class="mt-1.5 font-geist text-2xl font-medium tracking-tight">78</div>
+                <div class="mt-1 flex items-center gap-1 text-[11px] text-emerald-300/80">
+                  <svg class="rs-icon text-xs" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 20L12 4M6 10L12 4L18 10"/></svg> plus 2 eval suites
+                </div>
+              </div>
+              <div class="rounded-xl border border-white/[0.07] bg-white/[0.02] p-4">
+                <div class="text-[11px] text-white/40">LLM calls in the audit</div>
+                <div class="mt-1.5 font-geist text-2xl font-medium tracking-tight">0</div>
+                <div class="mt-1 text-[11px] text-white/35">deterministic by construction</div>
+              </div>
+              <div class="rounded-xl border border-white/[0.07] bg-white/[0.02] p-4">
+                <div class="text-[11px] text-white/40">Monthly infra cost</div>
+                <div class="mt-1.5 font-geist text-2xl font-medium tracking-tight">$0</div>
+                <div class="mt-1 text-[11px] text-white/35">free tiers, on purpose</div>
+              </div>
+            </div>
+
+            <!-- Commit activity: pure CSS bar chart -->
+            <div class="mb-6 rounded-xl border border-white/[0.07] bg-white/[0.02] p-5">
+              <div class="mb-4 flex items-baseline justify-between">
+                <div>
+                  <div class="font-geist text-sm font-medium tracking-tight">Commits per week</div>
+                  <div class="mt-0.5 text-[11px] text-white/35">SpotterAI, 24 Jun to 1 Sep 2026</div>
+                </div>
+                <div class="font-mono text-[11px] text-white/45">334 total</div>
+              </div>
+              <div class="flex h-36 items-end gap-1.5">
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 90%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 42%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 2%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/60" style="height: 100%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 27%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 16%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 21%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 52%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 52%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 30%"></div>
+                <div class="flex-1 rounded-t bg-gradient-to-t from-white/[0.08] to-white/40" style="height: 5%"></div>
+              </div>
+              <div class="mt-3 flex justify-between font-mono text-[10px] text-white/30">
+                <span>Jun 24</span><span>Jul 20</span><span>Aug 10</span><span>Sep 1</span>
+              </div>
+            </div>
+
+            <!-- Check results table -->
+            <div class="overflow-x-auto rounded-xl border border-white/[0.07]">
+              <table class="w-full min-w-[560px] text-left">
+                <thead>
+                  <tr class="border-b border-white/[0.07] text-[11px] uppercase tracking-wider text-white/35">
+                    <th class="px-4 py-3 font-normal">Check</th>
+                    <th class="px-4 py-3 font-normal">Threshold</th>
+                    <th class="px-4 py-3 font-normal">Result</th>
+                    <th class="px-4 py-3 font-normal">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                  <tr>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/70">rest_days</td>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/40">TRAINING_DAYS_FAIL = 7</td>
+                    <td class="px-4 py-3 text-[12px] text-white/55">7 training days, no rest day</td>
+                    <td class="px-4 py-3"><span class="rounded-full bg-red-400/10 px-2 py-0.5 text-[11px] text-red-300">fail</span></td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/70">weekly_volume</td>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/40">HIGH_WEEKLY_SETS_WARN = 24</td>
+                    <td class="px-4 py-3 text-[12px] text-white/55">28 sets on chest</td>
+                    <td class="px-4 py-3"><span class="rounded-full bg-amber-400/10 px-2 py-0.5 text-[11px] text-amber-300">warn</span></td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/70">muscle_balance</td>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/40">BALANCE_RATIO_WARN</td>
+                    <td class="px-4 py-3 text-[12px] text-white/55">push to pull skewed</td>
+                    <td class="px-4 py-3"><span class="rounded-full bg-amber-400/10 px-2 py-0.5 text-[11px] text-amber-300">warn</span></td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/70">progressive_overload</td>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/40">PROGRESSION_MIN_SIGNALS</td>
+                    <td class="px-4 py-3 text-[12px] text-white/55">no week-to-week progression</td>
+                    <td class="px-4 py-3"><span class="rounded-full bg-amber-400/10 px-2 py-0.5 text-[11px] text-amber-300">warn</span></td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/70">injury_knee</td>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/40">INJURY_MATCHES_FOR_FAIL</td>
+                    <td class="px-4 py-3 text-[12px] text-white/55">no contraindicated lifts found</td>
+                    <td class="px-4 py-3"><span class="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[11px] text-emerald-300">pass</span></td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/70">coverage</td>
+                    <td class="px-4 py-3 font-mono text-[12px] text-white/40">COVERAGE_MIN</td>
+                    <td class="px-4 py-3 text-[12px] text-white/55">all major groups trained</td>
+                    <td class="px-4 py-3"><span class="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[11px] text-emerald-300">pass</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-3 text-[11px] leading-relaxed text-white/30">
+              Illustrative run against a deliberately bad plan. Check names and threshold
+              constants are the real ones from
+              <span class="font-mono">evaluator.js</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <span class="glass-highlight rounded-3xl"></span>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       SECTION 4 — IN DEPTH
+       ========================================================== -->
+  <section id="depth" class="animate-on-scroll relative mx-auto max-w-7xl px-6 py-24">
+    <div class="mb-14 max-w-2xl">
+      <div class="mb-4 text-xs uppercase tracking-[0.18em] text-white/35">In depth</div>
+      <h2 class="font-geist text-4xl font-medium leading-tight tracking-[-0.035em] sm:text-5xl">
+        Same seven questions,<br />
+        <span class="text-white/40">asked of every project.</span>
+      </h2>
+      <p class="mt-5 max-w-lg text-[15px] leading-relaxed text-white/45">
+        What it is, what made it hard, and the one call I had to make. If you only read one
+        field, read <span class="text-white/70">what I decided and why</span>.
+      </p>
+    </div>
+
+    <div class="space-y-5">
+
+      <!-- SpotterAI -->
+      <article id="spotterai" class="scroll-mt-28 overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.07] px-6 py-5">
+          <div class="flex items-center gap-3">
+            <svg class="rs-icon text-xl text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path fill-rule="evenodd" d="M22 10V14C22 14.9319 22 15.3978 21.8478 15.7654C21.6448 16.2554 21.2554 16.6448 20.7654 16.8478C20.3978 17 19.9319 17 19 17C18.0681 17 17.6022 17 17.2346 16.8478C16.7446 16.6448 16.3552 16.2554 16.1522 15.7654C16 15.3978 16 14.4319 16 13.5V10.5C16 9.56812 16 8.60218 16.1522 8.23463C16.3552 7.74458 16.7446 7.35523 17.2346 7.15224C17.6022 7 18.0681 7 19 7C19.9319 7 20.3978 7 20.7654 7.15224C21.2554 7.35523 21.6448 7.74458 21.8478 8.23463C22 8.60218 22 9.06812 22 10ZM8 10.5V13.5C8 14.4319 8 15.3978 7.84776 15.7654C7.64477 16.2554 7.25542 16.6448 6.76537 16.8478C6.39782 17 5.93188 17 5 17C4.06812 17 3.60218 17 3.23463 16.8478C2.74458 16.6448 2.35523 16.2554 2.15224 15.7654C2 15.3978 2 14.9319 2 14V10C2 9.06812 2 8.60218 2.15224 8.23463C2.35523 7.74458 2.74458 7.35523 3.23463 7.15224C3.60218 7 4.06812 7 5 7C5.93188 7 6.39782 7 6.76537 7.15224C7.25542 7.35523 7.64477 7.74458 7.84776 8.23463C8 8.60218 8 9.56812 8 10.5Z" clip-rule="evenodd"/><path d="M16 10.5H8V13.5H16V10.5Z" opacity=".5"/></g></svg>
+            <h3 class="font-geist text-xl font-medium tracking-tight">SpotterAI</h3>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">Live &middot; ongoing since Jun 2026</span>
+            <span class="rounded-full bg-white/[0.06] px-2.5 py-1 text-[11px] text-white/60">MIT</span>
+          </div>
+        </div>
+        <dl class="divide-y divide-white/5">
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What it is</dt>
+            <dd class="text-sm leading-relaxed text-white/60">An AI fitness copilot that generates a weekly training plan, then audits it. Plans, nutrition targets, a coach chat, and a public red-team page all in one app.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The constraint</dt>
+            <dd class="text-sm leading-relaxed text-white/60">A language model will confidently write a training week that hurts someone. Shipping the raw output was never an option, and I had no budget for a human reviewer or a second paid model.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The hard part</dt>
+            <dd class="text-sm leading-relaxed text-white/60">A deterministic evaluator in plain code that grades a generated plan against fourteen named checks, returns a score and a per-check pass, warn or fail, and puts the flags above the plan instead of under it. A separate pure screen refuses pain, injury, medical and disordered-eating requests before any API call is made at all.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What I decided and why</dt>
+            <dd class="text-sm leading-relaxed text-white/75">The auditor is code, not a second model call. A model grading a model is nondeterministic, costs money on every plan, and cannot be unit tested. A rubric in code returns the same verdict every run, costs nothing, and has a test suite pointed at it. The tradeoff I accepted: my rubric is heuristic and will miss things a doctor would catch, so the evaluator is written to flag and never to certify, and every threshold is cited in a sources file that grades how good the evidence behind it actually is.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Stack</dt>
+            <dd class="font-mono text-[12.5px] leading-relaxed text-white/50">Vanilla JS ES modules, Gemini, Firebase Admin, 6 Vercel serverless functions, Vercel Analytics, node:test</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Links</dt>
+            <dd class="flex flex-wrap gap-2">
+              <a href="https://spotterai.vercel.app" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.08] hover:text-white">Live app <svg class="rs-icon text-sm" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M18 15V6H9"/></svg></a>
+              <a href="https://github.com/Ray-Shaw06/spotterai" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.08] hover:text-white"><svg class="rs-icon text-sm" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> Source</a>
+            </dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Status</dt>
+            <dd class="font-mono text-[12.5px] text-white/50">334 commits over 37 active days &middot; 78 test files &middot; 2 eval suites &middot; still shipping</dd>
+          </div>
+        </dl>
+      </article>
+
+      <!-- Hearth -->
+      <article id="hearth" class="scroll-mt-28 overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.07] px-6 py-5">
+          <div class="flex items-center gap-3">
+            <svg class="rs-icon text-xl text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z" opacity=".5"/><path d="M9.44666 15.3975C9.11389 15.1509 8.64418 15.2207 8.39752 15.5534C8.15086 15.8862 8.22067 16.3559 8.55343 16.6026C9.52585 17.3234 10.7151 17.75 12 17.75C13.285 17.75 14.4742 17.3234 15.4467 16.6026C15.7794 16.3559 15.8492 15.8862 15.6026 15.5534C15.3559 15.2207 14.8862 15.1509 14.5534 15.3975C13.8251 15.9374 12.9459 16.25 12 16.25C11.0541 16.25 10.175 15.9374 9.44666 15.3975Z"/></g></svg>
+            <h3 class="font-geist text-xl font-medium tracking-tight">Hearth</h3>
+          </div>
+          <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">Live &middot; Aug 2026</span>
+        </div>
+        <dl class="divide-y divide-white/5">
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What it is</dt>
+            <dd class="text-sm leading-relaxed text-white/60">A room planner. Enter two dimensions and it produces three arrangements, explains in plain English why each one works, renders it in draggable 3D, and prices what you are missing.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The constraint</dt>
+            <dd class="text-sm leading-relaxed text-white/60">Every tool in this space is either a shopping catalogue or a drawing surface that makes you do the thinking. I wanted something that has an opinion and will defend it, which means the opinion has to be inspectable rather than buried in a renderer.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The hard part</dt>
+            <dd class="text-sm leading-relaxed text-white/60">A constraint solver that places furniture against real clearance, circulation and focal-point rules, then generates the sentence explaining the placement from the same rule that caused it. The explanation cannot drift from the layout because it is derived from it.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What I decided and why</dt>
+            <dd class="text-sm leading-relaxed text-white/75">The engine contract lives pinned in a single file, so the solver's opinion is one file you can open and argue with. Scattering the rules across components would have been faster to write and would have made the product unfalsifiable. Tests point at the engine directly rather than at the UI.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Stack</dt>
+            <dd class="font-mono text-[12.5px] leading-relaxed text-white/50">Next.js 15, React 19, TypeScript, Tailwind 4, Sentry, Vercel</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Links</dt>
+            <dd class="flex flex-wrap gap-2">
+              <a href="https://hearth-theta-eight.vercel.app" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.08] hover:text-white">Live app <svg class="rs-icon text-sm" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M18 15V6H9"/></svg></a>
+              <span class="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 py-1.5 text-[12px] text-white/40">Private repo, walkthrough on request</span>
+            </dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Status</dt>
+            <dd class="font-mono text-[12.5px] text-white/50">46 commits over 8 active days &middot; 12 test files &middot; shipped and live</dd>
+          </div>
+        </dl>
+      </article>
+
+      <!-- Transfer Navigator -->
+      <article id="transfer-navigator" class="scroll-mt-28 overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.07] px-6 py-5">
+          <div class="flex items-center gap-3">
+            <svg class="rs-icon text-xl text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><g fill-rule="evenodd" clip-rule="evenodd" opacity=".5"><path d="M18.5 14C16.567 14 15 15.4584 15 17.2573C15 19.0422 16.1171 21.125 17.86 21.8698C18.2663 22.0434 18.7337 22.0434 19.14 21.8698C20.8829 21.125 22 19.0422 22 17.2573C22 15.4584 20.433 14 18.5 14Z"/><path d="M5.5 2C3.567 2 2 3.45835 2 5.25732C2 7.04219 3.11708 9.12497 4.85997 9.86978C5.26626 10.0434 5.73374 10.0434 6.14003 9.86978C7.88292 9.12497 9 7.04219 9 5.25732C9 3.45835 7.433 2 5.5 2Z"/></g><path d="M19.5 17.5C19.5 18.0523 19.0523 18.5 18.5 18.5C17.9477 18.5 17.5 18.0523 17.5 17.5C17.5 16.9477 17.9477 16.5 18.5 16.5C19.0523 16.5 19.5 16.9477 19.5 17.5Z"/><path d="M6.5 5.5C6.5 6.05228 6.05228 6.5 5.5 6.5C4.94772 6.5 4.5 6.05228 4.5 5.5C4.5 4.94772 4.94772 4.5 5.5 4.5C6.05228 4.5 6.5 4.94772 6.5 5.5Z"/><path fill-rule="evenodd" d="M11.2501 5C11.2501 4.58579 11.5859 4.25 12.0001 4.25H16.132C18.8832 4.25 19.9295 7.843 17.6084 9.32007L7.19713 15.9454C6.14207 16.6168 6.61766 18.25 7.86821 18.25H10.1894L9.96977 18.0303C9.67688 17.7374 9.67688 17.2626 9.96977 16.9697C10.2627 16.6768 10.7375 16.6768 11.0304 16.9697L12.5304 18.4697C12.8233 18.7626 12.8233 19.2374 12.5304 19.5303L11.0304 21.0303C10.7375 21.3232 10.2627 21.3232 9.96977 21.0303C9.67688 20.7374 9.67688 20.2626 9.96977 19.9697L10.1894 19.75H7.86821C5.11697 19.75 4.07071 16.157 6.39181 14.6799L16.8031 8.05458C17.8581 7.38318 17.3825 5.75 16.132 5.75H12.0001C11.5859 5.75 11.2501 5.41421 11.2501 5Z" clip-rule="evenodd"/></g></svg>
+            <h3 class="font-geist text-xl font-medium tracking-tight">Transfer Navigator</h3>
+          </div>
+          <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">Live &middot; Sep 2026</span>
+        </div>
+        <dl class="divide-y divide-white/5">
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What it is</dt>
+            <dd class="text-sm leading-relaxed text-white/60">Pick a California community college, a target university and a major. It reads the real ASSIST articulation agreement and shows exactly what you still need, term by term. Tick off what you have done and the route recomputes.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The constraint</dt>
+            <dd class="text-sm leading-relaxed text-white/60">The only authoritative source is ASSIST, and it is a hostile dependency. The JSON API is undocumented, needs an XSRF handshake, rate-limits to roughly 50 calls per five minutes per IP, and sends no CORS headers at all. Some agreements exist only as PDFs.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The hard part</dt>
+            <dd class="text-sm leading-relaxed text-white/60">Getting the data at all. Every call goes through a server hop because the browser cannot make it. The handshake, the rate limit and the missing-agreement case all had to be handled as normal states rather than errors, because for a real student any of them is a Tuesday.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What I decided and why</dt>
+            <dd class="text-sm leading-relaxed text-white/75">Two paths to the same answer: the JSON API first, and a client-side PDF parse as the fallback when no agreement is exposed through the API. Building only the API path would have been half a product, because the pairs it does not cover are exactly the ones nobody has written a tool for. The cost is a second parser to maintain, and I took it.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Stack</dt>
+            <dd class="font-mono text-[12.5px] leading-relaxed text-white/50">Next.js 16, React 19, TypeScript, pdfjs-dist, ASSIST JSON API, Vitest, Vercel</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Links</dt>
+            <dd class="flex flex-wrap gap-2">
+              <a href="https://transfer-navigator.vercel.app" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.08] hover:text-white">Live app <svg class="rs-icon text-sm" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M18 15V6H9"/></svg></a>
+              <a href="https://github.com/Ray-Shaw06/transfer-navigator" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.08] hover:text-white"><svg class="rs-icon text-sm" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> Source</a>
+            </dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Status</dt>
+            <dd class="font-mono text-[12.5px] text-white/50">63 commits &middot; 22 test files &middot; shipped and live</dd>
+          </div>
+        </dl>
+      </article>
+
+      <!-- Woven Hymns -->
+      <article id="woven-hymns" class="scroll-mt-28 overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.07] px-6 py-5">
+          <div class="flex items-center gap-3">
+            <svg class="rs-icon text-xl text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M18 8C18 9.10457 17.1046 10 16 10C14.8954 10 14 9.10457 14 8C14 6.89543 14.8954 6 16 6C17.1046 6 18 6.89543 18 8Z"/><path fill-rule="evenodd" d="M11.9426 1.25H12.0574C14.3658 1.24999 16.1748 1.24998 17.5863 1.43975C19.031 1.63399 20.1711 2.03933 21.0659 2.93414C21.9607 3.82895 22.366 4.96897 22.5603 6.41371C22.75 7.82519 22.75 9.63423 22.75 11.9426V12.0309C22.75 13.9397 22.75 15.5023 22.6463 16.7745C22.5422 18.0531 22.3287 19.1214 21.8509 20.0087C21.6401 20.4001 21.3812 20.7506 21.0659 21.0659C20.1711 21.9607 19.031 22.366 17.5863 22.5603C16.1748 22.75 14.3658 22.75 12.0574 22.75H11.9426C9.63423 22.75 7.82519 22.75 6.41371 22.5603C4.96897 22.366 3.82895 21.9607 2.93414 21.0659C2.14086 20.2726 1.7312 19.2852 1.51335 18.0604C1.29935 16.8573 1.2602 15.3603 1.25207 13.5015C1.25 13.0287 1.25 12.5286 1.25 12.001L1.25 11.9426C1.24999 9.63423 1.24998 7.82519 1.43975 6.41371C1.63399 4.96897 2.03933 3.82895 2.93414 2.93414C3.82895 2.03933 4.96897 1.63399 6.41371 1.43975C7.82519 1.24998 9.63423 1.24999 11.9426 1.25ZM6.61358 2.92637C5.33517 3.09825 4.56445 3.42514 3.9948 3.9948C3.42514 4.56445 3.09825 5.33517 2.92637 6.61358C2.75159 7.91356 2.75 9.62177 2.75 12C2.75 12.5287 2.75 13.0257 2.75205 13.4949C2.76025 15.369 2.80214 16.7406 2.99017 17.7978C3.17436 18.8333 3.48774 19.4981 3.9948 20.0052C4.56445 20.5749 5.33517 20.9018 6.61358 21.0736C7.91356 21.2484 9.62177 21.25 12 21.25C14.3782 21.25 16.0864 21.2484 17.3864 21.0736C18.6648 20.9018 19.4355 20.5749 20.0052 20.0052C20.2151 19.7953 20.3872 19.5631 20.5302 19.2976C20.8619 18.6816 21.0531 17.8578 21.1513 16.6527C21.2494 15.4482 21.25 13.9459 21.25 12C21.25 9.62177 21.2484 7.91356 21.0736 6.61358C20.9018 5.33517 20.5749 4.56445 20.0052 3.9948C19.4355 3.42514 18.6648 3.09825 17.3864 2.92637C16.0864 2.75159 14.3782 2.75 12 2.75C9.62177 2.75 7.91356 2.75159 6.61358 2.92637Z" clip-rule="evenodd"/><path d="M20.6069 19.1463L17.7765 16.599C16.737 15.6634 15.1889 15.5702 14.0446 16.3744L13.7464 16.5839C12.9513 17.1428 11.8695 17.0491 11.1822 16.3618L6.89252 12.0721C6.03631 11.2159 4.66289 11.1702 3.75162 11.9675L2.75049 12.8435C2.75077 13.0665 2.75128 13.2835 2.7522 13.4949C2.7604 15.369 2.80229 16.7406 2.99032 17.7978C3.17451 18.8333 3.48788 19.4981 3.99494 20.0052C4.5646 20.5749 5.33532 20.9018 6.61372 21.0736C7.9137 21.2484 9.62192 21.25 12.0001 21.25C14.3784 21.25 16.0866 21.2484 17.3866 21.0736C18.665 20.9018 19.4357 20.5749 20.0054 20.0052C20.2153 19.7953 20.3873 19.5631 20.5303 19.2976C20.5568 19.2485 20.5823 19.1981 20.6069 19.1463Z" opacity=".5"/></g></svg>
+            <h3 class="font-geist text-xl font-medium tracking-tight">Woven Hymns</h3>
+          </div>
+          <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">Shipped &middot; Aug 2026</span>
+        </div>
+        <dl class="divide-y divide-white/5">
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What it is</dt>
+            <dd class="text-sm leading-relaxed text-white/60">A story-first exhibition preview on Kashmiri pashmina: an introduction to Kashmir, one shawl followed through eight stages, four textile terms explained, and four gallery studies referencing Met Open Access. Built for my family's shawl business.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The constraint</dt>
+            <dd class="text-sm leading-relaxed text-white/60">A real client with no photography budget, and a craft whose value is invisible in a phone photo. An image-led site would have looked like every drop-shipping storefront and would have undersold the object.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The hard part</dt>
+            <dd class="text-sm leading-relaxed text-white/60">Making a text-led page hold attention for eight stages, and shipping a Next.js app to GitHub Pages, which is a static host with no server. That meant a custom export step and a test that asserts against the rendered HTML rather than against components.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What I decided and why</dt>
+            <dd class="text-sm leading-relaxed text-white/75">Text-led over image-led, and free static hosting over a paid host. The client's constraint became the design: the writing carries the object, and licensed museum references stand in for photography I could not commission. Hosting cost stayed at zero, which for a family business is the difference between a site that stays up and one that lapses.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Stack</dt>
+            <dd class="font-mono text-[12.5px] leading-relaxed text-white/50">Next.js 16, React 19, Tailwind 4, lucide-react, custom GitHub Pages exporter, Vitest</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Links</dt>
+            <dd class="flex flex-wrap gap-2">
+              <a href="https://ray-shaw06.github.io" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/70 transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/[0.08] hover:text-white">Live site <svg class="rs-icon text-sm" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M18 15V6H9"/></svg></a>
+              <span class="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 py-1.5 text-[12px] text-white/40">Private repo, walkthrough on request</span>
+            </dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Status</dt>
+            <dd class="font-mono text-[12.5px] text-white/50">36 commits &middot; 9 test files &middot; shipped, handed over</dd>
+          </div>
+        </dl>
+      </article>
+
+      <!-- GMA Creative House -->
+      <article id="gma-creative" class="scroll-mt-28 overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0e0e11]">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.07] px-6 py-5">
+          <div class="flex items-center gap-3">
+            <svg class="rs-icon text-xl text-white/80" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" opacity=".5"/><path d="M13.4881 6.44591C13.8882 6.55311 14.1256 6.96437 14.0184 7.36447L11.4302 17.0237C11.323 17.4238 10.9117 17.6613 10.5116 17.5541C10.1115 17.4468 9.8741 17.0356 9.98131 16.6355L12.5695 6.97624C12.6767 6.57614 13.088 6.3387 13.4881 6.44591Z"/><path d="M14.9697 8.46967C15.2626 8.17678 15.7374 8.17678 16.0303 8.46967L16.2387 8.67801C16.874 9.3133 17.4038 9.84308 17.7678 10.3202C18.1521 10.8238 18.4216 11.3559 18.4216 12C18.4216 12.6441 18.1521 13.1762 17.7678 13.6798C17.4038 14.1569 16.874 14.6867 16.2387 15.322L16.0303 15.5303C15.7374 15.8232 15.2626 15.8232 14.9697 15.5303C14.6768 15.2374 14.6768 14.7626 14.9697 14.4697L15.1412 14.2981C15.8229 13.6164 16.2797 13.1574 16.5753 12.7699C16.8577 12.3998 16.9216 12.1843 16.9216 12C16.9216 11.8157 16.8577 11.6002 16.5753 11.2301C16.2797 10.8426 15.8229 10.3836 15.1412 9.70191L14.9697 9.53033C14.6768 9.23744 14.6768 8.76257 14.9697 8.46967Z"/><path d="M7.96986 8.46967C8.26275 8.17678 8.73762 8.17678 9.03052 8.46967C9.32341 8.76257 9.32341 9.23744 9.03052 9.53033L8.85894 9.70191C8.17729 10.3836 7.72052 10.8426 7.42488 11.2301C7.14245 11.6002 7.07861 11.8157 7.07861 12C7.07861 12.1843 7.14245 12.3998 7.42488 12.7699C7.72052 13.1574 8.17729 13.6164 8.85894 14.2981L9.03052 14.4697C9.32341 14.7626 9.32341 15.2374 9.03052 15.5303C8.73762 15.8232 8.26275 15.8232 7.96986 15.5303L7.76151 15.322C7.12617 14.6867 6.59638 14.1569 6.23235 13.6798C5.84811 13.1762 5.57861 12.6441 5.57861 12C5.57861 11.3559 5.84811 10.8238 6.23235 10.3202C6.59638 9.84308 7.12617 9.31331 7.76151 8.67801L7.96986 8.46967Z"/></g></svg>
+            <h3 class="font-geist text-xl font-medium tracking-tight">GMA Creative House</h3>
+          </div>
+          <span class="rounded-full bg-white/[0.06] px-2.5 py-1 text-[11px] text-white/60">Ongoing contract</span>
+        </div>
+        <dl class="divide-y divide-white/5">
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What it is</dt>
+            <dd class="text-sm leading-relaxed text-white/60">Paid contract work for a creative studio. Weekly website tasks, scoped, delivered and billed hourly against a shared log.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The constraint</dt>
+            <dd class="text-sm leading-relaxed text-white/60">Someone else's codebase, someone else's priorities, and a real invoice at the end of it. Nothing here is chosen by me, which is the point.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">The hard part</dt>
+            <dd class="text-sm leading-relaxed text-white/60">Estimating honestly, then hitting the estimate. Small tasks in unfamiliar code are where a week quietly disappears if you do not scope them before you start.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">What I decided and why</dt>
+            <dd class="text-sm leading-relaxed text-white/75">I track my own hours and send the log unprompted. It costs me billable time and it is the reason the work has kept coming. This entry is on the site because every other project on this page is something I chose to build, and this one is something a person who owes me nothing decided to pay for.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Stack</dt>
+            <dd class="font-mono text-[12.5px] leading-relaxed text-white/50">HTML, CSS, JavaScript</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Links</dt>
+            <dd class="text-sm leading-relaxed text-white/45">No public link. Client sites are the client's to publicize, not mine. References available on request.</dd>
+          </div>
+          <div class="grid gap-2 px-6 py-4 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+            <dt class="text-[11px] uppercase tracking-wider text-white/35">Status</dt>
+            <dd class="font-mono text-[12.5px] text-white/50">Ongoing &middot; weekly cadence &middot; billed hourly</dd>
+          </div>
+        </dl>
+      </article>
+    </div>
+
+    <!-- Stack grid -->
+    <div id="stack" class="mt-20">
+      <div class="mb-8 max-w-xl">
+        <div class="mb-3 text-xs uppercase tracking-[0.18em] text-white/35">What I reach for</div>
+        <p class="text-[15px] leading-relaxed text-white/45">
+          Not a list of everything I have touched. These are the tools I have shipped and
+          debugged something real with.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div class="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-[#0e0e11] px-4 py-4">
+          <svg class="rs-icon text-xl" width="1em" height="1em" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#3178c6" d="M20 0h216c11.046 0 20 8.954 20 20v216c0 11.046-8.954 20-20 20H20c-11.046 0-20-8.954-20-20V20C0 8.954 8.954 0 20 0"/><path fill="#fff" d="M150.518 200.475v27.62q6.738 3.453 15.938 5.179T185.849 235q9.934 0 18.874-1.899t15.678-6.257q6.738-4.359 10.669-11.394q3.93-7.033 3.93-17.391q0-7.51-2.246-13.163a30.8 30.8 0 0 0-6.479-10.055q-4.232-4.402-10.149-7.898t-13.347-6.602q-5.442-2.245-9.761-4.359t-7.342-4.316q-3.024-2.2-4.665-4.661t-1.641-5.567q0-2.848 1.468-5.135q1.469-2.288 4.147-3.927t6.565-2.547q3.887-.906 8.638-.906q3.456 0 7.299.518q3.844.517 7.732 1.597a54 54 0 0 1 7.558 2.719a41.7 41.7 0 0 1 6.781 3.797v-25.807q-6.306-2.417-13.778-3.582T198.633 107q-9.847 0-18.658 2.115q-8.811 2.114-15.506 6.602q-6.694 4.49-10.582 11.437Q150 134.102 150 143.769q0 12.342 7.127 21.06t21.638 14.759a292 292 0 0 1 10.625 4.575q4.924 2.244 8.509 4.66t5.658 5.265t2.073 6.474a9.9 9.9 0 0 1-1.296 4.963q-1.295 2.287-3.93 3.97t-6.565 2.632t-9.2.95q-8.983 0-17.794-3.151t-16.327-9.451m-46.036-68.733H140V109H41v22.742h35.345V233h28.137z"/></svg>
+          <span class="text-sm text-white/70">TypeScript</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-[#0e0e11] px-4 py-4">
+          <svg class="rs-icon text-xl" width="1em" height="1em" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#f7df1e" d="M0 0h256v256H0z"/><path d="m67.312 213.932l19.59-11.856c3.78 6.701 7.218 12.371 15.465 12.371c7.905 0 12.89-3.092 12.89-15.12v-81.798h24.057v82.138c0 24.917-14.606 36.259-35.916 36.259c-19.245 0-30.416-9.967-36.087-21.996m85.07-2.576l19.588-11.341c5.157 8.421 11.859 14.607 23.715 14.607c9.969 0 16.325-4.984 16.325-11.858c0-8.248-6.53-11.17-17.528-15.98l-6.013-2.58c-17.357-7.387-28.87-16.667-28.87-36.257c0-18.044 13.747-31.792 35.228-31.792c15.294 0 26.292 5.328 34.196 19.247l-18.732 12.03c-4.125-7.389-8.591-10.31-15.465-10.31c-7.046 0-11.514 4.468-11.514 10.31c0 7.217 4.468 10.14 14.778 14.608l6.014 2.577c20.45 8.765 31.963 17.7 31.963 37.804c0 21.654-17.012 33.51-39.867 33.51c-22.339 0-36.774-10.654-43.819-24.574"/></svg>
+          <span class="text-sm text-white/70">JavaScript</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-[#0e0e11] px-4 py-4">
+          <svg style="width:1.1228em" class="rs-icon text-xl" width="1em" height="1em" viewBox="0 0 256 228" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#00d8ff" d="M210.483 73.824a172 172 0 0 0-8.24-2.597c.465-1.9.893-3.777 1.273-5.621c6.238-30.281 2.16-54.676-11.769-62.708c-13.355-7.7-35.196.329-57.254 19.526a171 171 0 0 0-6.375 5.848a156 156 0 0 0-4.241-3.917C100.759 3.829 77.587-4.822 63.673 3.233C50.33 10.957 46.379 33.89 51.995 62.588a171 171 0 0 0 1.892 8.48c-3.28.932-6.445 1.924-9.474 2.98C17.309 83.498 0 98.307 0 113.668c0 15.865 18.582 31.778 46.812 41.427a146 146 0 0 0 6.921 2.165a168 168 0 0 0-2.01 9.138c-5.354 28.2-1.173 50.591 12.134 58.266c13.744 7.926 36.812-.22 59.273-19.855a146 146 0 0 0 5.342-4.923a168 168 0 0 0 6.92 6.314c21.758 18.722 43.246 26.282 56.54 18.586c13.731-7.949 18.194-32.003 12.4-61.268a145 145 0 0 0-1.535-6.842c1.62-.48 3.21-.974 4.76-1.488c29.348-9.723 48.443-25.443 48.443-41.52c0-15.417-17.868-30.326-45.517-39.844m-6.365 70.984q-2.102.694-4.3 1.345c-3.24-10.257-7.612-21.163-12.963-32.432c5.106-11 9.31-21.767 12.459-31.957c2.619.758 5.16 1.557 7.61 2.4c23.69 8.156 38.14 20.213 38.14 29.504c0 9.896-15.606 22.743-40.946 31.14m-10.514 20.834c2.562 12.94 2.927 24.64 1.23 33.787c-1.524 8.219-4.59 13.698-8.382 15.893c-8.067 4.67-25.32-1.4-43.927-17.412a157 157 0 0 1-6.437-5.87c7.214-7.889 14.423-17.06 21.459-27.246c12.376-1.098 24.068-2.894 34.671-5.345q.785 3.162 1.386 6.193M87.276 214.515c-7.882 2.783-14.16 2.863-17.955.675c-8.075-4.657-11.432-22.636-6.853-46.752a157 157 0 0 1 1.869-8.499c10.486 2.32 22.093 3.988 34.498 4.994c7.084 9.967 14.501 19.128 21.976 27.15a135 135 0 0 1-4.877 4.492c-9.933 8.682-19.886 14.842-28.658 17.94M50.35 144.747c-12.483-4.267-22.792-9.812-29.858-15.863c-6.35-5.437-9.555-10.836-9.555-15.216c0-9.322 13.897-21.212 37.076-29.293c2.813-.98 5.757-1.905 8.812-2.773c3.204 10.42 7.406 21.315 12.477 32.332c-5.137 11.18-9.399 22.249-12.634 32.792a135 135 0 0 1-6.318-1.979m12.378-84.26c-4.811-24.587-1.616-43.134 6.425-47.789c8.564-4.958 27.502 2.111 47.463 19.835a144 144 0 0 1 3.841 3.545c-7.438 7.987-14.787 17.08-21.808 26.988c-12.04 1.116-23.565 2.908-34.161 5.309a160 160 0 0 1-1.76-7.887m110.427 27.268a348 348 0 0 0-7.785-12.803c8.168 1.033 15.994 2.404 23.343 4.08c-2.206 7.072-4.956 14.465-8.193 22.045a381 381 0 0 0-7.365-13.322m-45.032-43.861c5.044 5.465 10.096 11.566 15.065 18.186a322 322 0 0 0-30.257-.006c4.974-6.559 10.069-12.652 15.192-18.18M82.802 87.83a323 323 0 0 0-7.227 13.238c-3.184-7.553-5.909-14.98-8.134-22.152c7.304-1.634 15.093-2.97 23.209-3.984a322 322 0 0 0-7.848 12.897m8.081 65.352c-8.385-.936-16.291-2.203-23.593-3.793c2.26-7.3 5.045-14.885 8.298-22.6a321 321 0 0 0 7.257 13.246c2.594 4.48 5.28 8.868 8.038 13.147m37.542 31.03c-5.184-5.592-10.354-11.779-15.403-18.433c4.902.192 9.899.29 14.978.29c5.218 0 10.376-.117 15.453-.343c-4.985 6.774-10.018 12.97-15.028 18.486m52.198-57.817c3.422 7.8 6.306 15.345 8.596 22.52c-7.422 1.694-15.436 3.058-23.88 4.071a382 382 0 0 0 7.859-13.026a347 347 0 0 0 7.425-13.565m-16.898 8.101a359 359 0 0 1-12.281 19.815a329 329 0 0 1-23.444.823c-7.967 0-15.716-.248-23.178-.732a310 310 0 0 1-12.513-19.846h.001a307 307 0 0 1-10.923-20.627a310 310 0 0 1 10.89-20.637l-.001.001a307 307 0 0 1 12.413-19.761c7.613-.576 15.42-.876 23.31-.876H128c7.926 0 15.743.303 23.354.883a329 329 0 0 1 12.335 19.695a359 359 0 0 1 11.036 20.54a330 330 0 0 1-11 20.722m22.56-122.124c8.572 4.944 11.906 24.881 6.52 51.026q-.518 2.504-1.15 5.09c-10.622-2.452-22.155-4.275-34.23-5.408c-7.034-10.017-14.323-19.124-21.64-27.008a161 161 0 0 1 5.888-5.4c18.9-16.447 36.564-22.941 44.612-18.3M128 90.808c12.625 0 22.86 10.235 22.86 22.86s-10.235 22.86-22.86 22.86s-22.86-10.235-22.86-22.86s10.235-22.86 22.86-22.86"/></svg>
+          <span class="text-sm text-white/70">React</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-[#0e0e11] px-4 py-4">
+          <svg class="rs-icon text-xl text-white" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.665 21.978A11.94 11.94 0 0 1 12 24C5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251zm-3.332-8.533l1.6 2.061V7.2h-1.6z"/></svg>
+          <span class="text-sm text-white/70">Next.js</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-[#0e0e11] px-4 py-4">
+          <svg style="width:0.8858em" class="rs-icon text-xl" width="1em" height="1em" viewBox="0 0 256 289" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#539e43" d="M128 288.464c-3.975 0-7.685-1.06-11.13-2.915l-35.247-20.936c-5.3-2.915-2.65-3.975-1.06-4.505c7.155-2.385 8.48-2.915 15.9-7.156c.796-.53 1.856-.265 2.65.265l27.032 16.166c1.06.53 2.385.53 3.18 0l105.74-61.217c1.06-.53 1.59-1.59 1.59-2.915V83.08c0-1.325-.53-2.385-1.59-2.915l-105.74-60.953c-1.06-.53-2.385-.53-3.18 0L20.405 80.166c-1.06.53-1.59 1.855-1.59 2.915v122.17c0 1.06.53 2.385 1.59 2.915l28.887 16.695c15.636 7.95 25.44-1.325 25.44-10.6V93.68c0-1.59 1.326-3.18 3.181-3.18h13.516c1.59 0 3.18 1.325 3.18 3.18v120.58c0 20.936-11.396 33.126-31.272 33.126c-6.095 0-10.865 0-24.38-6.625l-27.827-15.9C4.24 220.885 0 213.465 0 205.515V83.346C0 75.396 4.24 67.976 11.13 64L116.87 2.783c6.625-3.71 15.635-3.71 22.26 0L244.87 64C251.76 67.975 256 75.395 256 83.346v122.17c0 7.95-4.24 15.37-11.13 19.345L139.13 286.08c-3.445 1.59-7.42 2.385-11.13 2.385m32.596-84.009c-46.377 0-55.917-21.2-55.917-39.221c0-1.59 1.325-3.18 3.18-3.18h13.78c1.59 0 2.916 1.06 2.916 2.65c2.12 14.045 8.215 20.936 36.306 20.936c22.261 0 31.802-5.035 31.802-16.96c0-6.891-2.65-11.926-37.367-15.372c-28.886-2.915-46.907-9.275-46.907-32.33c0-21.467 18.02-34.187 48.232-34.187c33.921 0 50.617 11.66 52.737 37.101q0 1.193-.795 2.385c-.53.53-1.325 1.06-2.12 1.06h-13.78c-1.326 0-2.65-1.06-2.916-2.385c-3.18-14.575-11.395-19.345-33.126-19.345c-24.38 0-27.296 8.48-27.296 14.84c0 7.686 3.445 10.07 36.306 14.31c32.597 4.24 47.967 10.336 47.967 33.127c-.265 23.321-19.345 36.571-53.002 36.571"/></svg>
+          <span class="text-sm text-white/70">Node.js</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-[#0e0e11] px-4 py-4">
+          <svg style="width:1.6623em" class="rs-icon text-xl" width="1em" height="1em" viewBox="0 0 256 154" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs><linearGradient id="SVGJSB7ld0l-49" x1="-2.778%" x2="100%" y1="32%" y2="67.556%"><stop offset="0%" stop-color="#2298bd"/><stop offset="100%" stop-color="#0ed7b5"/></linearGradient></defs><path fill="url(#SVGJSB7ld0l-49)" d="M128 0Q76.8 0 64 51.2Q83.2 25.6 108.8 32c9.737 2.434 16.697 9.499 24.401 17.318C145.751 62.057 160.275 76.8 192 76.8q51.2 0 64-51.2q-19.2 25.6-44.8 19.2c-9.737-2.434-16.697-9.499-24.401-17.318C174.249 14.743 159.725 0 128 0M64 76.8q-51.2 0-64 51.2q19.2-25.6 44.8-19.2c9.737 2.434 16.697 9.499 24.401 17.318C81.751 138.857 96.275 153.6 128 153.6q51.2 0 64-51.2q-19.2 25.6-44.8 19.2c-9.737-2.434-16.697-9.499-24.401-17.318C110.249 91.543 95.725 76.8 64 76.8"/></svg>
+          <span class="text-sm text-white/70">Tailwind</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-[#0e0e11] px-4 py-4">
+          <svg style="width:0.7950em" class="rs-icon text-xl" width="1em" height="1em" viewBox="0 0 256 322" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#ff9100" d="M80.18 312.295c13.455 5.414 28.05 8.628 43.376 9.163a127.5 127.5 0 0 0 58.098-11.71c-21.145-8.307-40.294-20.455-56.638-35.56c-10.594 16.963-26.263 30.36-44.835 38.107"/><path fill="#ffc400" d="M125.013 274.193c-37.307-34.504-59.939-84.444-58.026-139.218c.062-1.78.156-3.557.266-5.334a96.63 96.63 0 0 0-50.456.528C6.838 147.614.828 167.63.079 189.069C-1.853 244.403 31.632 292.75 80.178 312.3c18.572-7.747 34.24-21.13 44.835-38.107"/><path fill="#ff9100" d="M125.015 274.191c8.674-13.88 13.933-30.154 14.545-47.687c1.61-46.12-29.394-85.794-72.306-96.865c-.11 1.777-.203 3.555-.265 5.334c-1.913 54.775 20.719 104.714 58.026 139.218"/><path fill="#dd2c00" d="M134.761 0c-24.44 19.58-43.738 45.396-55.414 75.136a180.5 180.5 0 0 0-12.113 54.515c42.912 11.07 73.917 50.745 72.306 96.865c-.612 17.532-5.887 33.79-14.545 47.687a180.7 180.7 0 0 0 56.637 35.56c42.441-19.618 72.553-61.833 74.297-111.764c1.129-32.351-11.3-61.184-28.864-85.521C208.517 86.738 134.76 0 134.76 0"/></svg>
+          <span class="text-sm text-white/70">Firebase</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-[#0e0e11] px-4 py-4">
+          <svg class="rs-icon text-xl text-white" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="m12 1.608l12 20.784H0Z"/></svg>
+          <span class="text-sm text-white/70">Vercel</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       SECTION 5 — ABOUT
+       ========================================================== -->
+  <section id="about" class="animate-on-scroll relative mx-auto max-w-7xl px-6 py-24">
+    <div class="grid items-center gap-14 lg:grid-cols-2">
+
+      <!-- Left: huge masked 50 -->
+      <div>
+        <div class="mb-4 text-xs uppercase tracking-[0.18em] text-white/35">About</div>
+        <div class="text-mask-vertical font-geist text-[9rem] font-medium leading-[0.8] tracking-[-0.06em] sm:text-[12rem]">50</div>
+        <p class="mt-4 max-w-sm text-[15px] leading-relaxed text-white/55">
+          Pounds lost in six months, which is the entire reason SpotterAI exists.
+        </p>
+      </div>
+
+      <!-- Right: about copy -->
+      <div class="space-y-5">
+        <p class="text-[15px] leading-relaxed text-white/60">
+          I grew up in Thailand, moved to the US at the end of 2024, started at a community
+          college in Pasadena, and I am transferring into UC Irvine's CS program this fall
+          as a junior.
+        </p>
+        <p class="text-[15px] leading-relaxed text-white/60">
+          When I was losing the weight I had to work out programming and nutrition on my own,
+          and almost everything I found was either confident and wrong or behind a paywall.
+          SpotterAI is the tool I wanted then, with the part I did not trust bolted down in code.
+        </p>
+        <p class="text-[15px] leading-relaxed text-white/60">
+          That is the pattern for everything on this page. I build the thing I needed and could
+          not find, then I keep going until a stranger can use it without me sitting next to them.
+          The part I actually enjoy is the second half.
+        </p>
+
+        <div class="grid gap-3 pt-3 sm:grid-cols-2">
+          <div class="rounded-2xl border border-white/[0.07] bg-[#0e0e11] p-5">
+            <div class="mb-2 text-[11px] uppercase tracking-wider text-white/35">Right now</div>
+            <p class="text-sm leading-relaxed text-white/55">
+              Junior CS at UC Irvine, still shipping SpotterAI, contracting weekly for a
+              creative studio.
+            </p>
+          </div>
+          <div class="rounded-2xl border border-white/[0.07] bg-[#0e0e11] p-5">
+            <div class="mb-2 text-[11px] uppercase tracking-wider text-white/35">Looking for</div>
+            <p class="text-sm leading-relaxed text-white/55">
+              A Summer 2027 SWE internship. Backend, infrastructure or anything where
+              correctness is the interesting problem.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div id="contact" class="relative mt-24 overflow-hidden rounded-3xl border border-white/[0.07] bg-gradient-to-b from-[#131316] to-[#0e0e11] px-6 py-20 text-center sm:px-16">
+      <div class="pointer-events-none absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.17),rgba(255,255,255,0.05)_38%,transparent_66%)]"></div>
+      <div class="relative">
+        <h2 class="mx-auto max-w-2xl font-geist text-4xl font-medium leading-tight tracking-[-0.035em] sm:text-5xl">
+          If any of this is worth<br />
+          <span class="text-white/40">twenty minutes, I am easy to reach.</span>
+        </h2>
+        <p class="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-white/50">
+          Available for a Summer 2027 SWE internship. Happy to walk through the evaluator,
+          the ASSIST integration, or anything else on this page.
+        </p>
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <a href="mailto:rehaanshaw@gmail.com" class="group relative block overflow-hidden rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-all duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:bg-white/90">
+            <span class="block transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-[150%]">rehaanshaw@gmail.com</span>
+            <span class="absolute inset-0 flex -translate-y-[150%] items-center justify-center transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-0">rehaanshaw@gmail.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/rehaanshaw/" target="_blank" rel="noopener" class="group relative block overflow-hidden rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm text-white/80 backdrop-blur-sm transition-all duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:border-white/20 hover:bg-white/[0.07] hover:text-white">
+            <span class="flex items-center gap-2 transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-[150%]">
+              <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037c-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85c3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.06 2.06 0 0 1-2.063-2.065a2.064 2.064 0 1 1 2.063 2.065m1.782 13.019H3.555V9h3.564zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg> LinkedIn
+            </span>
+            <span class="absolute inset-0 flex -translate-y-[150%] items-center justify-center gap-2 transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-0">
+              <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037c-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85c3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.06 2.06 0 0 1-2.063-2.065a2.064 2.064 0 1 1 2.063 2.065m1.782 13.019H3.555V9h3.564zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg> LinkedIn
+            </span>
+          </a>
+          <a href="https://github.com/Ray-Shaw06" target="_blank" rel="noopener" class="group relative block overflow-hidden rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm text-white/80 backdrop-blur-sm transition-all duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:border-white/20 hover:bg-white/[0.07] hover:text-white">
+            <span class="flex items-center gap-2 transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-[150%]">
+              <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> GitHub
+            </span>
+            <span class="absolute inset-0 flex -translate-y-[150%] items-center justify-center gap-2 transition-transform duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:translate-y-0">
+              <svg class="rs-icon text-base" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> GitHub
+            </span>
+          </a>
+        </div>
+        <p class="mt-8 font-mono text-[12px] text-white/35">
+          UCI CS '28 &middot; Summer 2027 &middot; Irvine, CA &middot; US citizen
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="animate-on-scroll relative z-20 mx-auto max-w-7xl px-6 pb-16 pt-10">
+  <div class="flex flex-col items-center justify-between gap-6 border-t border-white/[0.07] pt-8 sm:flex-row">
+    <div class="flex items-center gap-2.5">
+      <svg class="rs-icon rotate-90 text-xl text-white/70" width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M7.62442 4.4489C9.50121 3.69796 10.6208 3.25 12 3.25C13.3792 3.25 14.4988 3.69796 16.3756 4.4489L19.3451 5.6367C20.2996 6.01851 21.0728 6.32776 21.6035 6.60601C21.8721 6.74683 22.1323 6.90648 22.333 7.09894C22.5392 7.29668 22.75 7.59658 22.75 8C22.75 8.40342 22.5392 8.70332 22.333 8.90106C22.1323 9.09352 21.8721 9.25317 21.6035 9.39399C21.0728 9.67223 20.2996 9.98148 19.3451 10.3633L16.3756 11.5511C14.4988 12.302 13.3792 12.75 12 12.75C10.6208 12.75 9.50121 12.302 7.62443 11.5511L4.65495 10.3633C3.70037 9.98149 2.9272 9.67223 2.39647 9.39399C2.12786 9.25317 1.86765 9.09352 1.66701 8.90106C1.46085 8.70332 1.25 8.40342 1.25 8C1.25 7.59658 1.46085 7.29668 1.66701 7.09894C1.86765 6.90648 2.12786 6.74683 2.39647 6.60601C2.92721 6.32776 3.70037 6.01851 4.65496 5.63669L7.62442 4.4489Z"/><path d="M2.50248 11.4432L2.49899 11.4402C2.19062 11.1654 1.71762 11.1915 1.44158 11.4992C1.16499 11.8075 1.19103 12.282 1.49936 12.5586C1.49936 12.5586 1.49905 12.5583 1.99987 12L1.49936 12.5586L1.50044 12.5595L1.5022 12.5611L1.50682 12.5652L1.52052 12.5772C1.53164 12.5868 1.54671 12.5997 1.56573 12.6155C1.60379 12.6473 1.65768 12.6911 1.72743 12.745C1.86692 12.8528 2.06992 13.001 2.33649 13.1739C2.86958 13.5196 3.65745 13.9644 4.70015 14.3814L7.50862 15.5048L7.62429 15.5511C9.50108 16.302 10.6206 16.75 11.9999 16.75C13.3791 16.75 14.4987 16.302 16.3754 15.5511L16.4911 15.5048L19.2996 14.3814C20.3423 13.9644 21.1302 13.5196 21.6632 13.1739C21.9298 13.001 22.1328 12.8528 22.2723 12.745C22.3421 12.6911 22.3959 12.6473 22.434 12.6155C22.453 12.5997 22.4681 12.5868 22.4792 12.5772L22.4929 12.5652L22.4975 12.5611L22.4993 12.5595L22.5007 12.5583C22.809 12.2817 22.8347 11.8075 22.5582 11.4992C22.2821 11.1915 21.8093 11.1652 21.501 11.44L21.4993 11.4415L21.4973 11.4432C21.4929 11.4471 21.4846 11.4541 21.4726 11.4641C21.4486 11.4842 21.4094 11.5161 21.3551 11.5581C21.2463 11.6422 21.077 11.7663 20.8471 11.9154C20.3872 12.2136 19.6857 12.6115 18.7425 12.9887L15.934 14.1121C13.9092 14.922 13.0603 15.25 11.9999 15.25C10.9395 15.25 10.0905 14.922 8.06571 14.1121L5.25724 12.9887C4.31406 12.6115 3.61251 12.2136 3.15267 11.9154C2.92276 11.7663 2.7534 11.6422 2.64465 11.5581C2.59029 11.5161 2.5511 11.4842 2.52709 11.4641C2.51509 11.4541 2.50689 11.4471 2.50248 11.4432Z" opacity=".5"/><path d="M2.50248 11.4432L2.49899 11.4402C2.19062 11.1654 1.71762 11.1915 1.44158 11.4992C1.16499 11.8075 1.19103 12.282 1.49936 12.5586C1.49936 12.5586 1.49905 12.5583 1.99987 12L1.49936 12.5586L1.50044 12.5595L1.5022 12.5611L1.50682 12.5652L1.52052 12.5772C1.53164 12.5868 1.54671 12.5997 1.56573 12.6155C1.60379 12.6473 1.65768 12.6911 1.72743 12.745C1.86692 12.8528 2.06992 13.001 2.33649 13.1739C2.86958 13.5196 3.65745 13.9644 4.70015 14.3814L7.50862 15.5048L7.62429 15.5511C9.50108 16.302 10.6206 16.75 11.9999 16.75C13.3791 16.75 14.4987 16.302 16.3754 15.5511L16.4911 15.5048L19.2996 14.3814C20.3423 13.9644 21.1302 13.5196 21.6632 13.1739C21.9298 13.001 22.1328 12.8528 22.2723 12.745C22.3421 12.6911 22.3959 12.6473 22.434 12.6155C22.453 12.5997 22.4681 12.5868 22.4792 12.5772L22.4929 12.5652L22.4975 12.5611L22.4993 12.5595L22.5007 12.5583C22.809 12.2817 22.8347 11.8075 22.5582 11.4992C22.2821 11.1915 21.8093 11.1652 21.501 11.44L21.4993 11.4415L21.4973 11.4432C21.4929 11.4471 21.4846 11.4541 21.4726 11.4641C21.4486 11.4842 21.4094 11.5161 21.3551 11.5581C21.2463 11.6422 21.077 11.7663 20.8471 11.9154C20.3872 12.2136 19.6857 12.6115 18.7425 12.9887L15.934 14.1121C13.9092 14.922 13.0603 15.25 11.9999 15.25C10.9395 15.25 10.0905 14.922 8.06571 14.1121L5.25724 12.9887C4.31406 12.6115 3.61251 12.2136 3.15267 11.9154C2.92276 11.7663 2.7534 11.6422 2.64465 11.5581C2.59029 11.5161 2.5511 11.4842 2.52709 11.4641C2.51509 11.4541 2.50689 11.4471 2.50248 11.4432Z" opacity=".5"/><path d="M2.49883 15.4991C2.19045 15.2243 1.71762 15.2506 1.44158 15.5583C1.16499 15.8666 1.19103 16.3411 1.49936 16.6177L1.50044 16.6186L1.5022 16.6202L1.50682 16.6243L1.52052 16.6362C1.53164 16.6459 1.54671 16.6587 1.56573 16.6746C1.60379 16.7064 1.65768 16.7502 1.72743 16.8041C1.86692 16.9119 2.06992 17.0601 2.33649 17.233C2.86958 17.5787 3.65745 18.0234 4.70015 18.4405L7.50862 19.5639L7.62429 19.6102C9.50108 20.3611 10.6206 20.8091 11.9999 20.8091C13.3791 20.8091 14.4987 20.3611 16.3754 19.6102L16.4911 19.5639L19.2996 18.4405C20.3423 18.0234 21.1302 17.5787 21.6632 17.233C21.9298 17.0601 22.1328 16.9119 22.2723 16.8041C22.3421 16.7502 22.3959 16.7064 22.434 16.6746C22.453 16.6587 22.4681 16.6459 22.4792 16.6362L22.4929 16.6243L22.4975 16.6202L22.4993 16.6186L22.5007 16.6174C22.809 16.3408 22.8347 15.8666 22.5582 15.5583C22.2821 15.2506 21.8093 15.2243 21.501 15.4991L21.4993 15.5005L21.4973 15.5023C21.4929 15.5061 21.4846 15.5132 21.4726 15.5232C21.4486 15.5432 21.4094 15.5752 21.3551 15.6172C21.2463 15.7013 21.077 15.8254 20.8471 15.9745C20.3872 16.2727 19.6857 16.6705 18.7425 17.0478L15.934 18.1712C13.9092 18.9811 13.0603 19.3091 11.9999 19.3091C10.9395 19.3091 10.0905 18.9811 8.06571 18.1712L5.25724 17.0478C4.31406 16.6705 3.61251 16.2727 3.15267 15.9745C2.92276 15.8254 2.7534 15.7013 2.64465 15.6172C2.59029 15.5752 2.5511 15.5432 2.52709 15.5232C2.51509 15.5132 2.50689 15.5061 2.50248 15.5023L2.49883 15.4991Z" opacity=".5"/></g></svg>
+      <span class="font-geist text-sm font-medium tracking-tight text-white/70">Rehaan Shaw</span>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-white/45">
+      <a href="mailto:rehaanshaw@gmail.com" class="transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">Email</a>
+      <a href="https://github.com/Ray-Shaw06" target="_blank" rel="noopener" class="transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">GitHub</a>
+      <a href="https://www.linkedin.com/in/rehaanshaw/" target="_blank" rel="noopener" class="transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">LinkedIn</a>
+      <a href="/resume.pdf" class="transition-colors duration-1000 ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:text-white">Resume</a>
+    </div>
+    <p class="text-xs text-white/30">Built and deployed by me.</p>
+  </div>
+</footer>
+
+<!-- IntersectionObserver: scroll-driven entrance -->
+<script>
+(function () {
+  var targets = document.querySelectorAll(".animate-on-scroll");
+
+  if (!("IntersectionObserver" in window)) {
+    for (var i = 0; i < targets.length; i++) targets[i].classList.add("is-visible");
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { root: null, rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+
+  targets.forEach(function (el) { observer.observe(el); });
+})();
+</script>
+
+</body>
+</html>
