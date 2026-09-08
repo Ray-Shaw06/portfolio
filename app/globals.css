@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+@theme {
+  --font-geist: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ==========================================================================
+   Lumina design system.
+   Ported verbatim from the v1 hand-written site/index.html so the visual
+   language is unchanged by the framework migration. Keyframe names, the
+   easing curve and every shadow stack are preserved exactly.
+   ========================================================================== */
+
+  :root {
+    --ease-lumina: cubic-bezier(0.15, 0.83, 0.66, 1);
+  }
+
+  /* ---------- Keyframes (source definitions, preserved verbatim in name) ---------- */
+
+  @keyframes animationIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes lumina-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+
+  @keyframes lumina-pulse {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.06); }
+  }
+
+  @keyframes lumina-scan {
+    0%   { transform: translateY(-120%); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { transform: translateY(120%);  opacity: 0; }
+  }
+
+  @keyframes lumina-shine {
+    0%   { transform: translateX(-130%) skewX(-12deg); }
+    100% { transform: translateX(230%)  skewX(-12deg); }
+  }
+
+  @keyframes lumina-highlight {
+    0%, 100% { background-color: rgba(255, 255, 255, 0.02); }
+    50%      { background-color: rgba(255, 255, 255, 0.07); }
+  }
+
+  @keyframes lumina-scale {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.05); }
+  }
+
+  @keyframes lumina-blink {
+    0%, 49%   { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  @keyframes lumina-load {
+    0%   { width: 0%; }
+    100% { width: 100%; }
+  }
+
+  /* ---------- Glassmorphism ---------- */
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+      0 8px 32px rgba(0, 0, 0, 0.45),
+      0 24px 64px rgba(0, 0, 0, 0.28);
+    transition: transform 1000ms var(--ease-lumina), box-shadow 1000ms var(--ease-lumina);
+  }
+
+  /* Hovering a glass card lifts it above its neighbours in the cluster. */
+  .glass-card:hover {
+    z-index: 100;
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.10),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+      0 12px 40px rgba(0, 0, 0, 0.55),
+      0 32px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  .glass-highlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.03) 18%,
+      rgba(255, 255, 255, 0) 45%
+    );
+    mix-blend-mode: overlay;
+  }
+
+  /* ---------- Scrollbar suppression (dashboard sidebar) ---------- */
+
+  /* ---------- Hero cluster ----------
+     The scattered, rotated cluster is the desktop composition. Below 640px the
+     cards overlap enough to clip their own text, so they fall back to a plain
+     stack and every number stays readable. */
+
+  @media (max-width: 639.98px) {
+    div.hero-cluster {
+      position: static;
+      display: grid;
+      gap: 0.75rem;
+      height: auto;
+    }
+    div.hero-cluster > div.glass-card {
+      position: static;
+      inset: auto;
+      width: 100%;
+      transform: none;
+    }
+  }
+
+  /* ---------- Inline icons ---------- */
+
+  .rs-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    flex: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ---------- Scroll-driven entrance ---------- */
+
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 900ms var(--ease-lumina),
+      transform 900ms var(--ease-lumina);
+    will-change: opacity, transform;
+  }
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Aura background component (z: -10) ---------- */
+
+  .aura-background-component {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    background-color: #09090b;
+    pointer-events: none;
+  }
+  .aura-background-component::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(60% 40% at 50% 0%,   rgba(120, 119, 198, 0.22) 0%, rgba(9, 9, 11, 0) 70%),
+      radial-gradient(40% 30% at 12% 18%,  rgba(56, 189, 248, 0.14)  0%, rgba(9, 9, 11, 0) 70%),
+      radial-gradient(45% 35% at 88% 26%,  rgba(232, 121, 249, 0.12) 0%, rgba(9, 9, 11, 0) 70%),
+      radial-gradient(70% 50% at 50% 100%, rgba(63, 63, 70, 0.30)    0%, rgba(9, 9, 11, 0) 75%);
+    filter: blur(40px);
+  }
+  .aura-background-component canvas,
+  .aura-background-component [data-us-project] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Grain over the aura so the gradients never band on wide displays. */
+  .aura-background-component::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Misc ---------- */
+
+  .inner-shadow-btn {
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.40),
+      0 1px 2px rgba(0, 0, 0, 0.50);
+  }
+
+  .text-mask-vertical {
+    background: linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0.55) 42%, rgba(255, 255, 255, 0.06) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .animate-on-scroll { opacity: 1; transform: none; }
+  }
+
+
+/* Scroll entrance is progressive enhancement. With JS off every section
+   renders at full opacity instead of staying hidden. This replaces the v1
+   <noscript> block, which cannot work in a React tree. */
+@media (scripting: none) {
+  .animate-on-scroll { opacity: 1; transform: none; }
+}

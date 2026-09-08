@@ -1,1 +1,8 @@
 .impeccable/hook.cache.json
+node_modules/
+.next/
+out/
+.vercel
+.env*
+*.tsbuildinfo
+next-env.d.ts
