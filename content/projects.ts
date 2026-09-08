@@ -71,7 +71,7 @@ export const projects: Project[] = [
       { label: "Live app", href: "https://spotterai.xyz" },
       { label: "Source", href: "https://github.com/Ray-Shaw06/spotterai" },
     ],
-    heroShot: "/shots/spotterai-hero.png",
+    heroShot: "/shots/spotterai-hero.jpg",
     heroCaption: "The plan safety audit, flags above the plan.",
     essaySlugs: ["evaluator-bug", "grading-the-model"],
     cardBlurb:
@@ -104,7 +104,7 @@ export const projects: Project[] = [
       { label: "Live app", href: "https://hearth-theta-eight.vercel.app" },
       { label: "Source", note: "Private repo, walkthrough on request" },
     ],
-    heroShot: "/shots/hearth-layouts.png",
+    heroShot: "/shots/hearth-layouts.jpg",
     heroCaption:
       "Three solved arrangements for the same room, each labelled with the rule that produced it.",
     cardBlurb:
@@ -185,7 +185,7 @@ export const projects: Project[] = [
       { label: "Live site", href: "https://ray-shaw06.github.io" },
       { label: "Source", note: "Private repo, walkthrough on request" },
     ],
-    heroShot: "/shots/woven-hymns-hero.png",
+    heroShot: "/shots/woven-hymns-hero.jpg",
     heroCaption: "The opening of the eight-stage narrative.",
     cardBlurb:
       "A story-first exhibition preview on Kashmiri pashmina, built for my family's shawl business. Text-led, because the client had no photography budget.",
