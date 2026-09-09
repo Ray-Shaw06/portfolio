@@ -361,7 +361,11 @@ nothing ships that cannot be traced.
 | 63 commits, Transfer Navigator | `git -C ~/transfer-navigator log`, verified 2026-09-08 |
 | 36 commits, Woven Hymns | `git -C ~/woven-hymns log`, verified 2026-09-08 |
 | 479 commits since June | Sum of the four project repos: SpotterAI 334, Transfer Navigator 63, Hearth 46, Woven Hymns 36. Hearth and Woven Hymns are private repos, so this number is stated but not independently verifiable by a reader |
-| 79 units, 3.78 GPA at PCC | `~/life-brain/context/me.md`, GPA confirmed by Rehaan 2026-09-08 |
+| 79 units, 3.78 GPA at PCC | Rehaan_Shaw_CS_Resume, Google Doc, modified 2026-09-02; GPA confirmed by Rehaan 2026-09-08 |
+| Dean's Honors, Spring 2025 and Fall 2025 | Rehaan_Shaw_CS_Resume, verified 2026-09-08 |
+| Honors Program, A.A.S. Computer Science, Jan 2025 to Jun 2026 | Rehaan_Shaw_CS_Resume, verified 2026-09-08 |
+| Secretary, AI and Machine Learning Club at PCC, Mar 2025 to Jun 2026 | Rehaan_Shaw_CS_Resume, verified 2026-09-08 |
+| SpotterAI custom domain spotterai.xyz | Live, 200 verified 2026-09-08; also cited on the resume |
 | Moved from Thailand Dec 2024 | `~/life-brain/context/me.md` |
 | UCI CS, 12 units fall 2026, expected June 2028 | `~/life-brain/school/courses/fall-2026-schedule.md` |
 | Terminal-Bench 2 task authoring, Handshake AI | `~/life-brain/brain/notes/2026-08-05_terminal-bench-task-authoring.md` |
