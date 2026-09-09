@@ -17,6 +17,15 @@ export const profile = {
     { when: "Sep 2026", what: "Transferred to UC Irvine", detail: "Donald Bren School of Information and Computer Sciences." },
     { when: "Jun 2028", what: "B.S. Computer Science", detail: "Expected." },
   ],
+  /** Photographs shown as a strip beside the timeline. Order is deliberate:
+   *  out in the world, at work, training. */
+  strip: [
+    { src: "/photos/p03", alt: "Outside a chocolate shop in Pasadena", pos: "50% 42%" },
+    { src: "/photos/p05", alt: "On a street corner in Whittier", pos: "70% 40%" },
+    { src: "/photos/p09", alt: "Working on a laptop", pos: "50% 50%" },
+    { src: "/photos/p13", alt: "In the weight room", pos: "45% 24%" },
+    { src: "/photos/p25", alt: "Training with a weighted vest", pos: "50% 20%" },
+  ],
   fallCourses: [
     "CS 122A Intro to Data Management",
     "STATS 67 Probability and Statistics for CS",
