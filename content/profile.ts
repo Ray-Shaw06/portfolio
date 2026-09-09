@@ -7,9 +7,6 @@ export const profile = {
   github: "https://github.com/Ray-Shaw06",
   linkedin: "https://www.linkedin.com/in/rehaanshaw/",
   resume: "/resume.pdf",
-  /** Set to a path under /photos once a portrait is chosen. About renders the
-   *  numeric "50" block until then, so an empty slot never breaks the page. */
-  portrait: null as string | null,
   looking:
     "A Summer 2027 internship, SWE or AI engineering. Evaluation, reliability, backend, anywhere correctness is the interesting problem.",
   timeline: [
