@@ -7,11 +7,25 @@ import { IconArrow } from "@/components/ui/icons.tsx";
 export const metadata: Metadata = {
   title: "Work, Rehaan Shaw",
   description:
-    "Six projects: paid Terminal-Bench task and grader authoring, an AI fitness copilot audited by deterministic code, a room-planning constraint solver, an ASSIST transfer planner, a pashmina exhibition, and ongoing client work.",
+    "Four shipped products: an AI fitness copilot audited by deterministic code, a room-planning constraint solver, an ASSIST articulation transfer planner, and a Kashmiri pashmina exhibition.",
 };
 
 const WORDS = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten"];
 const word = (n: number) => WORDS[n] ?? String(n);
+
+/** Only mentions categories that actually have entries, so removing the last
+ *  project in a group cannot leave the page saying "Zero are paid work". */
+function summary(solo: number, client: number, paid: number): string {
+  const parts: string[] = [];
+  if (solo) parts.push(`${word(solo)} ${solo === 1 ? "is a product" : "are products"} I designed, built and deployed on my own`);
+  if (client) parts.push(`${word(client)} ${client === 1 ? "is" : "are"} client work`);
+  if (paid) parts.push(`${word(paid)} ${paid === 1 ? "is" : "are"} paid work`);
+  if (parts.length === 0) return "";
+  // Only the opening clause is capitalised; the rest run on mid-sentence.
+  const lower = parts.map((t, i) => (i === 0 ? t : t.charAt(0).toLowerCase() + t.slice(1)));
+  const last = lower.pop() as string;
+  return (lower.length ? `${lower.join(", ")}, and ${last}` : last) + ".";
+}
 
 export default function WorkIndex() {
   const paid = projects.filter((p) => p.kind === "paid");
@@ -26,10 +40,8 @@ export default function WorkIndex() {
         <span className="text-white/40">all of them running.</span>
       </h1>
       <p className="mt-7 max-w-[64ch] text-[16px] leading-relaxed text-white/60">
-        {word(paid.length)} {paid.length === 1 ? "is" : "are"} paid work.{" "}
-        {word(solo.length)} are products I designed, built and deployed on my own.{" "}
-        {word(client.length)} {client.length === 1 ? "is" : "are"} client work. Nothing
-        here is coursework, and nothing here is a tutorial I followed.
+        {summary(solo.length, client.length, paid.length)} Nothing here is coursework, and nothing
+        here is a tutorial I followed.
       </p>
 
       <Group label="Paid" items={paid} />

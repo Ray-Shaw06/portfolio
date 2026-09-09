@@ -8,7 +8,7 @@ const PROSE = ["oneLine", "constraint", "hardPart", "decision", "cost", "cardBlu
 test("every project is present and complete", () => {
   // A floor, not an exact count: adding a project should not break the suite,
   // but silently losing one should.
-  assert.ok(projects.length >= 7, `expected at least 7 projects, got ${projects.length}`);
+  assert.ok(projects.length >= 4, `expected at least 4 projects, got ${projects.length}`);
   for (const p of projects) {
     for (const field of ["slug", "name", "status", ...PROSE] as const) {
       assert.ok(
@@ -47,25 +47,6 @@ test("no em dashes in prose copy", () => {
   }
 });
 
-test("dynamo has its own section, not a card", () => {
-  const d = projects.find((p) => p.slug === "dynamo");
-  assert.ok(d, "dynamo project missing");
-  assert.equal(d!.showAsCard, false);
-  assert.ok(projects.filter((p) => p.showAsCard).length >= 5);
-});
-
-test("no client deliverables are published for the paid work", () => {
-  const d = projects.find((p) => p.slug === "dynamo")!;
-  const blob = [d.oneLine, d.constraint, d.hardPart, d.decision, d.cost].join(" ");
-  for (const leak of ["solve.sh", "instruction.md", "task.toml", "check.sh"]) {
-    assert.ok(!blob.includes(leak), `dynamo copy names a client deliverable file: ${leak}`);
-  }
-  assert.ok(
-    d.links.every((l) => !l.href),
-    "dynamo must publish no link to client work",
-  );
-});
-
 test("screening line names both role types", () => {
   assert.match(profile.screeningFacts, /SWE or AI engineering/);
 });
@@ -80,4 +61,14 @@ test("the evaluator check count matches the code, not the stale marketing copy",
   const s = projects.find((p) => p.slug === "spotterai")!;
   const checks = s.facts.find((f) => f.label === "Deterministic checks")!;
   assert.equal(checks.value, "14");
+});
+
+test("every listed project is reachable, so nothing is a dead card", () => {
+  for (const p of projects) {
+    assert.ok(p.showAsCard, `${p.slug} is in the data but shown nowhere`);
+    assert.ok(
+      p.links.some((l) => l.href),
+      `${p.slug} publishes no link, so a reader cannot verify it`,
+    );
+  }
 });

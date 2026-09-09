@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects, projectBySlug } from "@/content/projects.ts";
 import { essayBySlug } from "@/content/essays.ts";
-import RedGreen from "@/components/ui/RedGreen.tsx";
 import { ActionButton, EASE, MonoLabel, Rule } from "@/components/ui/primitives.tsx";
 import { IconArrow } from "@/components/ui/icons.tsx";
 
@@ -65,11 +64,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {/* Field 3: the hero artifact. Every project gets one piece of real
           evidence rather than a decorative screenshot. */}
       <div className="mt-14">
-        {p.slug === "dynamo" ? (
-          <RedGreen />
-        ) : p.slug === "gma-creative" ? (
-          <BilledLog />
-        ) : p.heroShot ? (
+        {p.heroShot ? (
           <figure>
             <picture>
               <source
@@ -204,36 +199,5 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </ActionButton>
       </nav>
     </article>
-  );
-}
-
-/** GMA Creative has no public link, so the billed log is the evidence. */
-function BilledLog() {
-  const rows = [
-    { task: "landing copy pass", hours: "1.5h" },
-    { task: "gallery rebuild", hours: "3.0h" },
-    { task: "mobile nav fix", hours: "0.75h" },
-  ];
-  return (
-    <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 sm:p-8">
-      <div className="flex items-baseline justify-between">
-        <MonoLabel>week log</MonoLabel>
-        <MonoLabel className="text-white/50">billed</MonoLabel>
-      </div>
-      <ul className="mt-5 space-y-0">
-        {rows.map((r) => (
-          <li
-            key={r.task}
-            className="flex items-baseline justify-between border-t border-white/[0.07] py-3 first:border-0"
-          >
-            <span className="text-[14px] text-white/70">{r.task}</span>
-            <span className="font-mono text-[12.5px] tabular-nums text-white/75">{r.hours}</span>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-5 text-[12.5px] leading-relaxed text-white/50">
-        Representative week. I track my own hours and send the log unprompted.
-      </p>
-    </div>
   );
 }

@@ -2,39 +2,6 @@ import type { Project } from "./types.ts";
 
 export const projects: Project[] = [
   {
-    slug: "dynamo",
-    name: "Terminal-Bench task authoring",
-    kind: "paid",
-    status: "Paid, ongoing since Aug 2026",
-    oneLine:
-      "I write exams for AI coding agents. A task is a container with something broken in it, an instruction, a test suite, and a reference solution proving it can be done. I write the grader too.",
-    constraint:
-      "A benchmark task is only worth anything if it is hard enough to break a capable agent and precise enough to grade without a human in the loop. Those two pull against each other. Make it harder and it gets ambiguous, make it clearer and the agent solves it on the first try.",
-    hardPart:
-      "Proving a task is valid before it counts. The tests have to fail on the untouched container and pass after the reference solution runs, and that pair is the entire proof. Red first means the task is not accidentally already solved. Green after means it is solvable and the grader recognises a correct answer. Anything that fails either half is not a task, it is a bug. Every task is then reviewed by another author before it enters the benchmark, so the bar is not whether it works for me, it is whether someone else reads the instruction and agrees the grader is fair.",
-    decision:
-      "Over-specify the instruction rather than leave room for interpretation. Every numbered line exists because a test checks it, and no test asserts anything the instruction never stated. The alternative reads more naturally and is unfair: the model fails for a reason it had no way to anticipate, and review rejects the task. I also write a generalisation test for anything parsing-shaped, because without one an agent passes by printing the expected answer.",
-    cost:
-      "Instructions that read like a specification rather than like a person asking for something. That is a real loss in naturalism, and I take it, because a task that grades unfairly is worthless and a task that reads a bit mechanically is merely less pretty.",
-    stack: ["Docker", "Bash", "Python", "pytest", "Terminal-Bench 2"],
-    facts: [
-      { label: "What a task is", value: "4 files", source: "Dockerfile, instruction, tests, reference solution" },
-      { label: "Validity proof", value: "red then green", source: "Tests fail on the untouched container, pass after the reference solution" },
-      { label: "Employer", value: "Handshake AI", source: "Contract, remote, since Nov 2025" },
-    ],
-    links: [
-      {
-        label: "No public link",
-        note: "Tasks I author are client work product. This page describes the discipline, not the deliverables.",
-      },
-    ],
-    heroCaption:
-      "The red/green validity loop. Illustrative test names, not a task I authored.",
-    cardBlurb:
-      "Paid work authoring benchmark tasks and graders built to break AI coding agents.",
-    showAsCard: false,
-  },
-  {
     slug: "spotterai",
     name: "SpotterAI",
     kind: "product",
@@ -156,49 +123,6 @@ export const projects: Project[] = [
     showAsCard: true,
   },
   {
-    slug: "hasta-agosto",
-    name: "hasta agosto",
-    kind: "product",
-    status: "Live and private, since Jul 2026",
-    oneLine:
-      "A password-gated site built as a gift: a 27-door letter calendar that unlocks one door a day, and a live trip feed with reactions, comments, a shared map and push notifications.",
-    constraint:
-      "A fixed deadline I could not move, because it had to work the day a trip started, and exactly one user who would notice every bug. It also had to hold up on a phone abroad, on hotel wifi and roaming data, which meant slow connections and long gaps offline were the normal case rather than the edge case.",
-    hardPart:
-      "Making it feel like an app without making anyone sign up for one. There are no accounts: a single password unlocks a session, and everything after that is server-verified so the gate is real rather than a hidden div. On top of that sit 24 API routes over Supabase, web push for the daily door, and a shared map, all built so a dropped connection loses nothing.",
-    decision:
-      "A password gate and a noindex header instead of real accounts. Accounts would have meant email verification, password resets and an account settings page, which is a week of work and a worse experience for an audience of one. The tradeoff is that it cannot be indexed or shared, and for this project that was the point rather than a limitation.",
-    cost:
-      "It is private, so it is the one project here I cannot hand you a link to. That is deliberate and it is not going to change. It is also the reason it was originally left off this site entirely, which undersold the engineering: 19 pages and 24 API routes against a live database is more system than anything else I have built alone.",
-    stack: [
-      "Next.js 16",
-      "React 19",
-      "TypeScript",
-      "Supabase",
-      "Web Push",
-      "Leaflet",
-      "Sentry",
-      "Vitest",
-    ],
-    facts: [
-      { label: "Commits", value: "147", source: "git log, verified 2026-09-09" },
-      { label: "Active days", value: "23", source: "git log unique commit dates" },
-      { label: "Pages", value: "19", source: "src/app page routes" },
-      { label: "API routes", value: "24", source: "src/app/api route handlers" },
-      { label: "Components", value: "44", source: "src/**/*.tsx" },
-      { label: "Test files", value: "37", source: "Vitest, unit and DOM" },
-    ],
-    links: [
-      {
-        label: "No public link",
-        note: "Password-gated and noindexed by design. Happy to walk through the code and the schema on a call.",
-      },
-    ],
-    cardBlurb:
-      "A private, password-gated gift site: a 27-door letter calendar and a live trip feed with push notifications, reactions and a shared map. 19 pages and 24 API routes over Supabase.",
-    showAsCard: true,
-  },
-  {
     slug: "woven-hymns",
     name: "Woven Hymns",
     kind: "client",
@@ -238,36 +162,7 @@ export const projects: Project[] = [
       "A story-first exhibition preview on Kashmiri pashmina, built for my family's shawl business. Text-led, because the client had no photography budget.",
     showAsCard: true,
   },
-  {
-    slug: "gma-creative",
-    name: "GMA Creative House",
-    kind: "client",
-    status: "Ongoing contract",
-    oneLine:
-      "Paid contract work for a creative studio. Weekly website tasks, scoped, delivered and billed hourly against a shared log.",
-    constraint:
-      "Someone else's codebase, someone else's priorities, and a real invoice at the end of it. Nothing here is chosen by me, which is the point.",
-    hardPart:
-      "Estimating honestly, then hitting the estimate. Small tasks in unfamiliar code are where a week quietly disappears if you do not scope them before you start.",
-    decision:
-      "I track my own hours and send the log unprompted. Every other project on this page is something I chose to build. This one is something a person who owes me nothing decided to pay for.",
-    cost:
-      "Sending the log unprompted costs me billable time, every week. It is also the reason the work has kept coming.",
-    stack: ["HTML", "CSS", "JavaScript"],
-    facts: [
-      { label: "Cadence", value: "weekly", source: "Ongoing contract" },
-      { label: "Billing", value: "hourly", source: "Self-tracked, shared log" },
-    ],
-    links: [
-      {
-        label: "No public link",
-        note: "Client sites are the client's to publicise, not mine. References available on request.",
-      },
-    ],
-    cardBlurb:
-      "Ongoing paid contract work. Weekly website tasks for a creative studio, scoped and billed hourly. Someone who is not related to the outcome pays for this.",
-    showAsCard: true,
-  },
+
 ];
 
 export const projectBySlug = (slug: string) => projects.find((p) => p.slug === slug);
