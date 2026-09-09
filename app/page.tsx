@@ -1,8 +1,43 @@
+import Hero from "@/components/home/Hero.tsx";
+import PaidWork from "@/components/home/PaidWork.tsx";
+import SpotterHero from "@/components/home/SpotterHero.tsx";
+import HardPart from "@/components/home/HardPart.tsx";
+import SelectedWork from "@/components/home/SelectedWork.tsx";
+import HowIWork from "@/components/home/HowIWork.tsx";
+import Writing from "@/components/home/Writing.tsx";
+import ThePath from "@/components/home/ThePath.tsx";
+import About from "@/components/home/About.tsx";
+import Contact from "@/components/home/Contact.tsx";
+import { Rule } from "@/components/ui/primitives.tsx";
+
 export default function Home() {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-32">
-      <h1 className="font-geist text-6xl font-medium tracking-[-0.045em]">Scaffold</h1>
-      <p className="mt-4 font-mono text-sm text-white/50">Lumina tokens loaded.</p>
-    </main>
+    <>
+      <Hero />
+      <Divider />
+      <PaidWork />
+      <Divider />
+      <SpotterHero />
+      <HardPart />
+      <Divider />
+      <SelectedWork />
+      <Divider />
+      <HowIWork />
+      <Divider />
+      <Writing />
+      <Divider />
+      <ThePath />
+      <Divider />
+      <About />
+      <Contact />
+    </>
+  );
+}
+
+function Divider() {
+  return (
+    <div className="mx-auto max-w-7xl px-6">
+      <Rule />
+    </div>
   );
 }
