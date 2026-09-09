@@ -30,7 +30,7 @@ export default function Hero() {
           </p>
 
           <div className={`mt-10 flex flex-wrap items-center gap-3 ${fadeIn(0.45)}`}>
-            <ActionButton href="/#work">See the work</ActionButton>
+            <ActionButton href="/work/">See the work</ActionButton>
             <ActionButton href={profile.resume} variant="ghost">
               Resume
             </ActionButton>

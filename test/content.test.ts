@@ -5,8 +5,10 @@ import { profile } from "../content/profile.ts";
 
 const PROSE = ["oneLine", "constraint", "hardPart", "decision", "cost", "cardBlurb"] as const;
 
-test("all six projects are present and complete", () => {
-  assert.equal(projects.length, 6);
+test("every project is present and complete", () => {
+  // A floor, not an exact count: adding a project should not break the suite,
+  // but silently losing one should.
+  assert.ok(projects.length >= 7, `expected at least 7 projects, got ${projects.length}`);
   for (const p of projects) {
     for (const field of ["slug", "name", "status", ...PROSE] as const) {
       assert.ok(
@@ -49,7 +51,7 @@ test("dynamo has its own section, not a card", () => {
   const d = projects.find((p) => p.slug === "dynamo");
   assert.ok(d, "dynamo project missing");
   assert.equal(d!.showAsCard, false);
-  assert.equal(projects.filter((p) => p.showAsCard).length, 5);
+  assert.ok(projects.filter((p) => p.showAsCard).length >= 5);
 });
 
 test("no client deliverables are published for the paid work", () => {

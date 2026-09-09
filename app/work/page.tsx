@@ -10,25 +10,31 @@ export const metadata: Metadata = {
     "Six projects: paid Terminal-Bench task and grader authoring, an AI fitness copilot audited by deterministic code, a room-planning constraint solver, an ASSIST transfer planner, a pashmina exhibition, and ongoing client work.",
 };
 
+const WORDS = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten"];
+const word = (n: number) => WORDS[n] ?? String(n);
+
 export default function WorkIndex() {
   const paid = projects.filter((p) => p.kind === "paid");
-  const built = projects.filter((p) => p.kind !== "paid");
+  const solo = projects.filter((p) => p.kind === "product");
+  const client = projects.filter((p) => p.kind === "client");
 
   return (
     <div className="mx-auto max-w-7xl px-6 pb-24 pt-36 md:pt-44">
       <h1 className="font-geist text-[2.75rem] font-medium leading-[1.02] tracking-[-0.04em] sm:text-6xl">
-        Six things,
+        {word(projects.length)} things,
         <br />
         <span className="text-white/40">all of them running.</span>
       </h1>
       <p className="mt-7 max-w-[64ch] text-[16px] leading-relaxed text-white/60">
-        One is paid work. Four are products I designed, built and deployed on my own. One is
-        ongoing client work. Nothing here is coursework, and nothing here is a tutorial I followed.
+        {word(paid.length)} {paid.length === 1 ? "is" : "are"} paid work.{" "}
+        {word(solo.length)} are products I designed, built and deployed on my own.{" "}
+        {word(client.length)} {client.length === 1 ? "is" : "are"} client work. Nothing
+        here is coursework, and nothing here is a tutorial I followed.
       </p>
 
       <Group label="Paid" items={paid} />
-      <Group label="Built and shipped solo" items={built.filter((p) => p.kind === "product")} />
-      <Group label="Client work" items={built.filter((p) => p.kind === "client")} />
+      <Group label="Built and shipped solo" items={solo} />
+      <Group label="Client work" items={client} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { profile } from "@/content/profile.ts";
 import { EASE } from "@/components/ui/primitives.tsx";
 
 const nav = [
-  { label: "Work", href: "/#work" },
+  { label: "Work", href: "/work/" },
   { label: "How I work", href: "/#how-i-work" },
   { label: "Writing", href: "/writing/" },
   { label: "About", href: "/#about" },
