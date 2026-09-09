@@ -40,8 +40,25 @@ export default function Carousel() {
 
   useEffect(() => {
     if (paused || reduced) return;
-    const id = window.setInterval(() => step(1), INTERVAL);
-    return () => window.clearInterval(id);
+    // Wait for the main thread to go quiet before starting. Scheduling the
+    // timer during hydration competes with first paint for no benefit: nobody
+    // is looking at slide two in the first second.
+    let id = 0;
+    const start = () => {
+      id = window.setInterval(() => step(1), INTERVAL);
+    };
+    const ric = (window as unknown as {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+    }).requestIdleCallback;
+    const handle = ric ? ric(start, { timeout: 2500 }) : window.setTimeout(start, 1200);
+    return () => {
+      if (id) window.clearInterval(id);
+      const cic = (window as unknown as {
+        cancelIdleCallback?: (h: number) => void;
+      }).cancelIdleCallback;
+      if (ric && cic) cic(handle as number);
+      else window.clearTimeout(handle as number);
+    };
   }, [paused, reduced, step]);
 
   return (
