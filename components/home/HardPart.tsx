@@ -17,12 +17,12 @@ export default function HardPart() {
               <>
                 Making a model&rsquo;s output
                 <br />
-                <span className="text-white/40">something you can check.</span>
+                <span className="text-white/55">something you can check.</span>
               </>
             }
           />
 
-          <div className="animate-on-scroll mt-8 max-w-[66ch] space-y-5 text-[15px] leading-[1.75] text-white/55">
+          <div className="animate-on-scroll mt-8 max-w-[66ch] space-y-5 text-[15px] leading-[1.75] text-white/65">
             <p>
               Gemini writes the training plan. A pure-code evaluator, with no second model call
               anywhere in the path, grades that plan against fourteen named checks whose thresholds
@@ -52,7 +52,7 @@ export default function HardPart() {
         <div className="animate-on-scroll">
           <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
             <MonoLabel>docs/rubric-sources.md</MonoLabel>
-            <p className="mt-3 text-[13px] leading-relaxed text-white/45">
+            <p className="mt-3 text-[13px] leading-relaxed text-white/55">
               How each threshold is graded. Three of them are weak or contradicted, and they are at
               the top of the document rather than buried in it.
             </p>
@@ -62,12 +62,12 @@ export default function HardPart() {
                   <div className={`font-mono text-[11.5px] uppercase tracking-wider ${g.tone}`}>
                     {g.grade}
                   </div>
-                  <p className="mt-1.5 text-[13px] leading-relaxed text-white/50">{g.meaning}</p>
+                  <p className="mt-1.5 text-[13px] leading-relaxed text-white/60">{g.meaning}</p>
                 </li>
               ))}
             </ul>
           </div>
-          <p className="mt-4 text-[12.5px] leading-relaxed text-white/35">
+          <p className="mt-4 text-[12.5px] leading-relaxed text-white/50">
             A threshold you cannot cite is a threshold you picked.
           </p>
         </div>

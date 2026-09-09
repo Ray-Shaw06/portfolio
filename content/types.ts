@@ -31,6 +31,8 @@ export interface Project {
   facts: Fact[];
   links: ProjectLink[];
   heroShot?: string;
+  /** Intrinsic pixel size, so the slot is reserved before the image loads. */
+  heroShotSize?: [number, number];
   heroCaption?: string;
   essaySlugs?: string[];
   cardBlurb: string;

@@ -22,6 +22,12 @@ export async function generateMetadata({
   return { title: `${p.name}, Rehaan Shaw`, description: p.oneLine };
 }
 
+/** Sibling WebP built alongside each screenshot. */
+function webp(src: string, width?: number) {
+  const base = src.replace(/\.(png|jpe?g)$/i, "");
+  return width ? `${base}@${width}.webp` : `${base}.webp`;
+}
+
 const FIELDS = [
   { key: "constraint", label: "The constraint" },
   { key: "hardPart", label: "The hard part" },
@@ -41,7 +47,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <article className="mx-auto max-w-5xl px-6 pb-28 pt-36 md:pt-44">
       <Link
         href="/#work"
-        className="group inline-flex items-center gap-2 text-[13px] text-white/40 transition-colors duration-500 hover:text-white"
+        className="group inline-flex items-center gap-2 text-[13px] text-white/55 transition-colors duration-500 hover:text-white"
         style={{ transitionTimingFunction: EASE }}
       >
         <IconArrow className="rotate-180 text-base transition-transform duration-500 group-hover:-translate-x-0.5" />
@@ -52,8 +58,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <h1 className="font-geist text-[2.75rem] font-medium leading-[1.02] tracking-[-0.04em] sm:text-6xl">
           {p.name}
         </h1>
-        <div className="mt-4 font-mono text-[11.5px] text-white/40">{p.status}</div>
-        <p className="mt-7 max-w-[62ch] text-[16.5px] leading-[1.7] text-white/70">{p.oneLine}</p>
+        <div className="mt-4 font-mono text-[11.5px] text-white/55">{p.status}</div>
+        <p className="mt-7 max-w-[62ch] text-[16.5px] leading-[1.7] text-white/80">{p.oneLine}</p>
       </header>
 
       {/* Field 3: the hero artifact. Every project gets one piece of real
@@ -65,18 +71,27 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <BilledLog />
         ) : p.heroShot ? (
           <figure>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={p.heroShot}
-              alt={p.heroCaption ?? `${p.name} in use`}
-              className="w-full rounded-2xl border border-white/[0.08]"
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet={`${webp(p.heroShot, 900)} 900w, ${webp(p.heroShot)} 1800w`}
+                sizes="(max-width: 768px) 100vw, 976px"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={p.heroShot}
+                alt={p.heroCaption ?? `${p.name} in use`}
+                width={p.heroShotSize?.[0]}
+                height={p.heroShotSize?.[1]}
+                className="h-auto w-full rounded-2xl border border-white/[0.08]"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </picture>
           </figure>
         ) : null}
         {p.heroCaption ? (
-          <figcaption className="mt-4 font-mono text-[11px] leading-relaxed text-white/30">
+          <figcaption className="mt-4 font-mono text-[11px] leading-relaxed text-white/50">
             {p.heroCaption}
           </figcaption>
         ) : null}
@@ -86,10 +101,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="space-y-12">
           {FIELDS.map((f) => (
             <section key={f.key}>
-              <h2 className="font-geist text-[13px] font-medium uppercase tracking-[0.14em] text-white/35">
+              <h2 className="font-geist text-[13px] font-medium uppercase tracking-[0.14em] text-white/50">
                 {f.label}
               </h2>
-              <p className="mt-4 max-w-[66ch] text-[15.5px] leading-[1.75] text-white/60">
+              <p className="mt-4 max-w-[66ch] text-[15.5px] leading-[1.75] text-white/70">
                 {p[f.key]}
               </p>
             </section>
@@ -101,7 +116,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <MonoLabel>Stack</MonoLabel>
             <ul className="mt-3 space-y-1.5">
               {p.stack.map((s) => (
-                <li key={s} className="font-mono text-[12px] text-white/55">
+                <li key={s} className="font-mono text-[12px] text-white/65">
                   {s}
                 </li>
               ))}
@@ -113,7 +128,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <dl className="mt-3 space-y-3">
               {p.facts.map((f) => (
                 <div key={f.label} className="flex items-baseline justify-between gap-4">
-                  <dt className="text-[12.5px] leading-snug text-white/45">{f.label}</dt>
+                  <dt className="text-[12.5px] leading-snug text-white/55">{f.label}</dt>
                   <dd className="font-geist text-[15px] font-medium tabular-nums text-white/85">
                     {f.value}
                   </dd>
@@ -132,14 +147,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     href={l.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="group flex items-center gap-2 text-[13.5px] text-white/70 transition-colors duration-500 hover:text-white"
+                    className="group flex items-center gap-2 text-[13.5px] text-white/80 transition-colors duration-500 hover:text-white"
                     style={{ transitionTimingFunction: EASE }}
                   >
                     {l.label}
                     <IconArrow className="text-sm transition-transform duration-500 group-hover:translate-x-0.5" />
                   </a>
                 ) : (
-                  <p key={l.label} className="text-[12.5px] leading-relaxed text-white/40">
+                  <p key={l.label} className="text-[12.5px] leading-relaxed text-white/55">
                     {l.note}
                   </p>
                 ),
@@ -158,7 +173,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     <Link
                       key={s}
                       href={`/writing/${s}/`}
-                      className="block text-[13.5px] leading-snug text-white/70 underline-offset-4 transition-colors duration-500 hover:text-white hover:underline"
+                      className="block text-[13.5px] leading-snug text-white/80 underline-offset-4 transition-colors duration-500 hover:text-white hover:underline"
                       style={{ transitionTimingFunction: EASE }}
                     >
                       {e.title}
@@ -179,8 +194,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           className="group inline-flex items-baseline gap-3 transition-colors duration-500"
           style={{ transitionTimingFunction: EASE }}
         >
-          <span className="font-mono text-[11px] uppercase tracking-wider text-white/30">Next</span>
-          <span className="font-geist text-xl font-medium tracking-[-0.02em] text-white/70 group-hover:text-white">
+          <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">Next</span>
+          <span className="font-geist text-xl font-medium tracking-[-0.02em] text-white/80 group-hover:text-white">
             {next.name}
           </span>
         </Link>
@@ -203,7 +218,7 @@ function BilledLog() {
     <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 sm:p-8">
       <div className="flex items-baseline justify-between">
         <MonoLabel>week log</MonoLabel>
-        <MonoLabel className="text-white/30">billed</MonoLabel>
+        <MonoLabel className="text-white/50">billed</MonoLabel>
       </div>
       <ul className="mt-5 space-y-0">
         {rows.map((r) => (
@@ -211,12 +226,12 @@ function BilledLog() {
             key={r.task}
             className="flex items-baseline justify-between border-t border-white/[0.07] py-3 first:border-0"
           >
-            <span className="text-[14px] text-white/60">{r.task}</span>
+            <span className="text-[14px] text-white/70">{r.task}</span>
             <span className="font-mono text-[12.5px] tabular-nums text-white/75">{r.hours}</span>
           </li>
         ))}
       </ul>
-      <p className="mt-5 text-[12.5px] leading-relaxed text-white/35">
+      <p className="mt-5 text-[12.5px] leading-relaxed text-white/50">
         Representative week. I track my own hours and send the log unprompted.
       </p>
     </div>

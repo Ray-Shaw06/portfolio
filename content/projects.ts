@@ -72,6 +72,7 @@ export const projects: Project[] = [
       { label: "Source", href: "https://github.com/Ray-Shaw06/spotterai" },
     ],
     heroShot: "/shots/spotterai-hero.jpg",
+    heroShotSize: [1800, 1125],
     heroCaption: "The plan safety audit, flags above the plan.",
     essaySlugs: ["evaluator-bug", "grading-the-model"],
     cardBlurb:
@@ -105,6 +106,7 @@ export const projects: Project[] = [
       { label: "Source", note: "Private repo, walkthrough on request" },
     ],
     heroShot: "/shots/hearth-layouts.jpg",
+    heroShotSize: [1800, 947],
     heroCaption:
       "Three solved arrangements for the same room, each labelled with the rule that produced it.",
     cardBlurb:
@@ -146,6 +148,7 @@ export const projects: Project[] = [
       { label: "Source", href: "https://github.com/Ray-Shaw06/transfer-navigator" },
     ],
     heroShot: "/shots/transfer-navigator-route.png",
+    heroShotSize: [1000, 830],
     heroCaption:
       "My own route: Pasadena City College to UCI Computer Science, 22 units across 5 terms, computed from the live agreement.",
     cardBlurb:
@@ -186,6 +189,7 @@ export const projects: Project[] = [
       { label: "Source", note: "Private repo, walkthrough on request" },
     ],
     heroShot: "/shots/woven-hymns-hero.jpg",
+    heroShotSize: [1800, 1125],
     heroCaption: "The opening of the eight-stage narrative.",
     cardBlurb:
       "A story-first exhibition preview on Kashmiri pashmina, built for my family's shawl business. Text-led, because the client had no photography budget.",

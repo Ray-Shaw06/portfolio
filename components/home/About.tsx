@@ -8,14 +8,14 @@ export default function About() {
           <div className="font-geist text-7xl font-medium leading-none tracking-[-0.04em] text-white/90 tabular-nums">
             50
           </div>
-          <p className="mt-4 max-w-[26ch] text-[14px] leading-relaxed text-white/45">
+          <p className="mt-4 max-w-[26ch] text-[14px] leading-relaxed text-white/55">
             Pounds lost in six months, which is the entire reason SpotterAI exists.
           </p>
         </div>
 
         <div>
           <SectionHeading title="Why I build what I build." />
-          <div className="animate-on-scroll mt-8 max-w-[66ch] space-y-5 text-[15px] leading-[1.75] text-white/55">
+          <div className="animate-on-scroll mt-8 max-w-[66ch] space-y-5 text-[15px] leading-[1.75] text-white/65">
             <p>
               When I was losing the weight I had to work out programming and nutrition on my own,
               and almost everything I found was either confident and wrong or behind a paywall.

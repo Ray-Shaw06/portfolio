@@ -31,14 +31,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="bg-[#09090b] font-inter text-white antialiased selection:bg-white/10 overflow-x-hidden">
         <a
-          href="#work"
+          href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:text-black"
         >
-          Skip to work
+          Skip to content
         </a>
         <Aura />
         <Header />
-        <main className="relative z-20">{children}</main>
+        <main id="main" tabIndex={-1} className="relative z-20">{children}</main>
         <Footer />
         <ScrollReveal />
       </body>

@@ -36,7 +36,7 @@ export default function HowIWork() {
           <>
             I work fast with AI.
             <br />
-            <span className="text-white/40">These are the gates</span>
+            <span className="text-white/55">These are the gates</span>
             <br />
             I put around it.
           </>
@@ -54,11 +54,11 @@ export default function HowIWork() {
               <div className="font-geist text-lg font-medium tracking-[-0.02em] text-white/85">
                 {s.stage}
               </div>
-              <MonoLabel plain className="mt-1.5 block text-white/30">
+              <MonoLabel plain className="mt-1.5 block text-white/50">
                 {s.artifact}
               </MonoLabel>
             </div>
-            <p className="max-w-[66ch] text-[14.5px] leading-relaxed text-white/55">{s.body}</p>
+            <p className="max-w-[66ch] text-[14.5px] leading-relaxed text-white/65">{s.body}</p>
             <span className="sr-only">Stage {i + 1}</span>
           </li>
         ))}

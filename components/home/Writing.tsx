@@ -11,7 +11,7 @@ export default function Writing() {
           <>
             Two pieces about
             <br />
-            <span className="text-white/40">being wrong in public.</span>
+            <span className="text-white/55">being wrong in public.</span>
           </>
         }
         lede="Both are about the same system. One is the argument for how it works. The other is the time it failed and I had to go and find out why."
@@ -29,11 +29,11 @@ export default function Writing() {
               &ldquo;{e.pullQuote}&rdquo;
             </blockquote>
             <h3 className="mt-6 text-[15px] font-medium text-white/85">{e.title}</h3>
-            <p className="mt-3 max-w-[58ch] flex-1 text-[14px] leading-relaxed text-white/50">
+            <p className="mt-3 max-w-[58ch] flex-1 text-[14px] leading-relaxed text-white/60">
               {e.argues}
             </p>
             <span
-              className="mt-6 inline-flex items-center gap-2 text-[13.5px] text-white/40 transition-colors duration-500 group-hover:text-white"
+              className="mt-6 inline-flex items-center gap-2 text-[13.5px] text-white/55 transition-colors duration-500 group-hover:text-white"
               style={{ transitionTimingFunction: EASE }}
             >
               Read it

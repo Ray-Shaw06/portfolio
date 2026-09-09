@@ -8,24 +8,24 @@ export default function Hero() {
       <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-8">
         <div className="relative z-20">
           <h1
-            className={`font-geist text-[3.25rem] font-medium leading-[0.98] tracking-[-0.045em] text-white sm:text-6xl lg:text-[4.25rem] ${fadeIn(0.15)}`}
+            className="font-geist text-[3.25rem] font-medium leading-[0.98] tracking-[-0.045em] text-white sm:text-6xl lg:text-[4.25rem]"
           >
             I build software
             <br />
             that has to be
             <br />
-            <span className="text-white/40">trusted,</span>
+            <span className="text-white/55">trusted,</span>
             <br />
             not just demoed.
           </h1>
 
-          <p className={`mt-7 max-w-[46ch] text-[15px] leading-relaxed text-white/55 ${fadeIn(0.3)}`}>
+          <p className={`mt-7 max-w-[46ch] text-[15px] leading-relaxed text-white/65 ${fadeIn(0.3)}`}>
             Junior CS at UC Irvine. I get paid to write the benchmark tasks and graders that
             break AI coding agents. On my own time I ship products where the model&rsquo;s output
             is audited by plain code before anyone is allowed to see it.
           </p>
 
-          <p className={`mt-6 max-w-[52ch] text-pretty font-mono text-[12.5px] leading-relaxed text-white/40 ${fadeIn(0.38)}`}>
+          <p className={`mt-6 max-w-[52ch] text-pretty font-mono text-[12.5px] leading-relaxed text-white/55 ${fadeIn(0.38)}`}>
             {profile.screeningFacts}
           </p>
 
@@ -64,11 +64,11 @@ export default function Hero() {
                   ) : (
                     <IconWarning className="text-[13px] text-amber-300" />
                   )}
-                  <span className="font-mono text-[10.5px] text-white/70">{r.t}</span>
+                  <span className="font-mono text-[10.5px] text-white/80">{r.t}</span>
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-[11px] leading-relaxed text-white/35">
+            <p className="mt-3 text-[11px] leading-relaxed text-white/50">
               Flags first, then the plan. The auditor never certifies.
             </p>
           </GlassCard>
@@ -85,7 +85,7 @@ export default function Hero() {
                 <span className="text-emerald-200/90">after: 4 / 4 passing</span>
               </div>
             </div>
-            <p className="mt-3 text-[11px] leading-relaxed text-white/35">
+            <p className="mt-3 text-[11px] leading-relaxed text-white/50">
               Red then green is the proof a task is neither already solved nor impossible.
             </p>
           </GlassCard>
@@ -95,13 +95,13 @@ export default function Hero() {
             <div className="mt-3 space-y-2">
               {["model generates plan", "pure-code evaluator", "flags first, then plan"].map((s, i) => (
                 <div key={s} className="flex items-center gap-2.5">
-                  <span className="font-mono text-[10px] text-white/30 tabular-nums">{i + 1}</span>
-                  <span className="text-[11.5px] text-white/60">{s}</span>
+                  <span className="font-mono text-[10px] text-white/50 tabular-nums">{i + 1}</span>
+                  <span className="text-[11.5px] text-white/70">{s}</span>
                 </div>
               ))}
             </div>
             <div className="mt-3 border-t border-white/[0.07] pt-2.5">
-              <span className="font-mono text-[10.5px] text-white/40">0 LLM calls in the audit</span>
+              <span className="font-mono text-[10.5px] text-white/55">0 LLM calls in the audit</span>
             </div>
           </GlassCard>
         </div>

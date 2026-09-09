@@ -44,7 +44,7 @@ export default async function EssayPage({ params }: { params: Promise<{ slug: st
 
       <Link
         href="/writing/"
-        className="group inline-flex items-center gap-2 text-[13px] text-white/40 transition-colors duration-500 hover:text-white"
+        className="group inline-flex items-center gap-2 text-[13px] text-white/55 transition-colors duration-500 hover:text-white"
         style={{ transitionTimingFunction: EASE }}
       >
         <IconArrow className="rotate-180 text-base transition-transform duration-500 group-hover:-translate-x-0.5" />
@@ -55,7 +55,7 @@ export default async function EssayPage({ params }: { params: Promise<{ slug: st
         <h1 className="font-geist text-[2.5rem] font-medium leading-[1.06] tracking-[-0.04em] text-balance sm:text-[3.25rem]">
           {e.title}
         </h1>
-        <div className="mt-5 font-mono text-[11.5px] text-white/40">{e.date}</div>
+        <div className="mt-5 font-mono text-[11.5px] text-white/55">{e.date}</div>
       </header>
 
       <div className="reading mt-14" dangerouslySetInnerHTML={{ __html: html }} />
@@ -69,8 +69,8 @@ export default async function EssayPage({ params }: { params: Promise<{ slug: st
             className="group inline-flex items-baseline gap-3"
             style={{ transitionTimingFunction: EASE }}
           >
-            <span className="font-mono text-[11px] uppercase tracking-wider text-white/30">Next</span>
-            <span className="font-geist text-lg font-medium tracking-[-0.02em] text-white/70 group-hover:text-white">
+            <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">Next</span>
+            <span className="font-geist text-lg font-medium tracking-[-0.02em] text-white/80 group-hover:text-white">
               {other.title}
             </span>
           </Link>

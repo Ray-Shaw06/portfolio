@@ -12,7 +12,7 @@ export default function SelectedWork() {
           <>
             Five things I built,
             <br />
-            <span className="text-white/40">shipped, and left running.</span>
+            <span className="text-white/55">shipped, and left running.</span>
           </>
         }
         lede="Every one of these is live right now and deployed by me. Nothing here is coursework and nothing here is a tutorial."
@@ -32,16 +32,16 @@ export default function SelectedWork() {
               <h3 className="font-geist text-2xl font-medium tracking-[-0.025em] text-white">
                 {p.name}
               </h3>
-              <div className="mt-2 font-mono text-[11px] text-white/35">{p.status}</div>
+              <div className="mt-2 font-mono text-[11px] text-white/50">{p.status}</div>
             </div>
 
             <div>
-              <p className="max-w-[62ch] text-[14.5px] leading-relaxed text-white/55">{p.cardBlurb}</p>
-              <div className="mt-3 font-mono text-[11px] text-white/30">{p.stack.join(" · ")}</div>
+              <p className="max-w-[62ch] text-[14.5px] leading-relaxed text-white/65">{p.cardBlurb}</p>
+              <div className="mt-3 font-mono text-[11px] text-white/50">{p.stack.join(" · ")}</div>
             </div>
 
             <span
-              className="inline-flex items-center gap-2 text-[13.5px] text-white/40 transition-colors duration-500 group-hover:text-white"
+              className="inline-flex items-center gap-2 text-[13.5px] text-white/55 transition-colors duration-500 group-hover:text-white"
               style={{ transitionTimingFunction: EASE }}
             >
               Read the detail

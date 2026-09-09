@@ -15,7 +15,7 @@ export default function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="font-geist text-[15px] font-medium tracking-[-0.02em] text-white transition-colors duration-500 hover:text-white/70"
+          className="font-geist text-[15px] font-medium tracking-[-0.02em] text-white transition-colors duration-500 hover:text-white/80"
           style={{ transitionTimingFunction: EASE }}
         >
           {profile.name}
@@ -26,7 +26,7 @@ export default function Header() {
             <Link
               key={n.href}
               href={n.href}
-              className="text-[13px] text-white/50 transition-colors duration-500 hover:text-white"
+              className="text-[13px] text-white/60 transition-colors duration-500 hover:text-white"
               style={{ transitionTimingFunction: EASE }}
             >
               {n.label}
@@ -37,7 +37,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <a
             href={`mailto:${profile.email}`}
-            className="hidden text-[13px] text-white/50 transition-colors duration-500 hover:text-white sm:block"
+            className="hidden text-[13px] text-white/60 transition-colors duration-500 hover:text-white sm:block"
             style={{ transitionTimingFunction: EASE }}
           >
             Email

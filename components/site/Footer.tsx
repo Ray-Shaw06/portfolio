@@ -14,10 +14,10 @@ export default function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <div className="font-geist text-[15px] font-medium tracking-[-0.02em]">{profile.name}</div>
-          <p className="mt-3 font-mono text-[11.5px] leading-relaxed text-white/40">
+          <p className="mt-3 font-mono text-[11.5px] leading-relaxed text-white/55">
             {profile.screeningFacts}
           </p>
-          <p className="mt-3 text-[13px] text-white/35">
+          <p className="mt-3 text-[13px] text-white/50">
             Built and deployed by me. This site&rsquo;s own source is public.
           </p>
         </div>
@@ -27,7 +27,7 @@ export default function Footer() {
             <a
               key={l.label}
               href={l.href}
-              className="text-[13px] text-white/50 transition-colors duration-500 hover:text-white"
+              className="text-[13px] text-white/60 transition-colors duration-500 hover:text-white"
               style={{ transitionTimingFunction: EASE }}
             >
               {l.label}

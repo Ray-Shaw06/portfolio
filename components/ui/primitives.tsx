@@ -20,7 +20,7 @@ export function MonoLabel({
   plain?: boolean;
 }) {
   const shape = plain ? "text-[10.5px]" : "text-[10px] uppercase tracking-wider";
-  return <span className={`font-mono ${shape} text-white/45 ${className}`}>{children}</span>;
+  return <span className={`font-mono ${shape} text-white/55 ${className}`}>{children}</span>;
 }
 
 export function GlassCard({
@@ -118,7 +118,7 @@ export function SectionHeading({
         {title}
       </h2>
       {lede ? (
-        <p className="mt-6 max-w-[60ch] text-[15px] leading-relaxed text-white/50">{lede}</p>
+        <p className="mt-6 max-w-[60ch] text-[15px] leading-relaxed text-white/60">{lede}</p>
       ) : null}
     </div>
   );
@@ -143,7 +143,7 @@ export function StatRow({
           {i > 0 ? <div className="hidden h-8 w-px bg-white/10 sm:block" aria-hidden="true" /> : null}
           <div>
             <div className="font-geist text-2xl font-medium tracking-tight tabular-nums">{s.value}</div>
-            <div className="mt-1 text-xs text-white/40">{s.label}</div>
+            <div className="mt-1 text-xs text-white/55">{s.label}</div>
           </div>
         </div>
       ))}

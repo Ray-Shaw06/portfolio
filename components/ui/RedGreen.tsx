@@ -67,8 +67,8 @@ function Panel({
       </div>
 
       <div className="mt-4 rounded-xl bg-black/40 p-3.5">
-        <div className="font-mono text-[11px] text-white/45">
-          <span className="text-white/25">$ </span>
+        <div className="font-mono text-[11px] text-white/55">
+          <span className="text-white/45">$ </span>
           {command}
         </div>
         <div className="mt-2.5 space-y-1">
@@ -79,7 +79,7 @@ function Panel({
               ) : (
                 <IconCross className={`text-[12px] ${accent.text}`} />
               )}
-              <span className="font-mono text-[10.5px] text-white/55">{t}</span>
+              <span className="font-mono text-[10.5px] text-white/65">{t}</span>
               <span className={`ml-auto font-mono text-[10px] ${accent.text}`}>
                 {pass ? "PASS" : "FAIL"}
               </span>
@@ -88,7 +88,7 @@ function Panel({
         </div>
       </div>
 
-      <p className="mt-4 text-[12.5px] leading-relaxed text-white/45">{caption}</p>
+      <p className="mt-4 text-[12.5px] leading-relaxed text-white/55">{caption}</p>
     </div>
   );
 }

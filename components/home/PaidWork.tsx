@@ -24,7 +24,7 @@ export default function PaidWork() {
             <br />
             the exams that break
             <br />
-            <span className="text-white/40">AI coding agents.</span>
+            <span className="text-white/55">AI coding agents.</span>
           </>
         }
         lede={
@@ -38,7 +38,7 @@ export default function PaidWork() {
 
       <div className="animate-on-scroll mt-14">
         <RedGreen />
-        <p className="mt-4 font-mono text-[11px] text-white/30">
+        <p className="mt-4 font-mono text-[11px] text-white/50">
           Illustrative test names. Tasks I author are client work product and are not published here.
         </p>
       </div>
@@ -47,7 +47,7 @@ export default function PaidWork() {
         {DISCIPLINES.map((d) => (
           <div key={d.name}>
             <h3 className="font-geist text-xl font-medium tracking-[-0.02em]">{d.name}</h3>
-            <p className="mt-3 max-w-[62ch] text-[14.5px] leading-relaxed text-white/50">{d.body}</p>
+            <p className="mt-3 max-w-[62ch] text-[14.5px] leading-relaxed text-white/60">{d.body}</p>
           </div>
         ))}
       </div>
@@ -55,13 +55,13 @@ export default function PaidWork() {
       <div className="animate-on-scroll mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
         <Link
           href="/work/dynamo/"
-          className="group inline-flex items-center gap-2 text-[14px] text-white/70 transition-colors duration-500 hover:text-white"
+          className="group inline-flex items-center gap-2 text-[14px] text-white/80 transition-colors duration-500 hover:text-white"
           style={{ transitionTimingFunction: EASE }}
         >
           Read the detail
           <IconArrow className="text-base transition-transform duration-500 group-hover:translate-x-0.5" />
         </Link>
-        <MonoLabel className="text-white/30">
+        <MonoLabel className="text-white/50">
           Dockerfile · instruction · tests · reference solution
         </MonoLabel>
       </div>

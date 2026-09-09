@@ -15,7 +15,7 @@ export default function WorkIndex() {
   return (
     <div className="mx-auto max-w-5xl px-6 pt-40">
       <meta httpEquiv="refresh" content="0; url=/#work" />
-      <p className="text-[15px] text-white/60">
+      <p className="text-[15px] text-white/70">
         Redirecting to <a className="underline underline-offset-4" href="/#work">selected work</a>.
       </p>
     </div>
