@@ -68,18 +68,31 @@
      cards overlap enough to clip their own text, so they fall back to a plain
      stack and every number stays readable. */
 
+  /* On phones the scattered cluster overlaps its own text, and stacking the
+     three cards vertically cost ~600px and pushed everything below it off the
+     first screens. A swipeable row keeps all three and their content while
+     collapsing the height. */
   @media (max-width: 639.98px) {
     div.hero-cluster {
       position: static;
-      display: grid;
+      display: flex;
       gap: 0.75rem;
       height: auto;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      margin-inline: -1.5rem;
+      padding-inline: 1.5rem;
     }
+    div.hero-cluster::-webkit-scrollbar { display: none; }
     div.hero-cluster > div.glass-card {
       position: static;
       inset: auto;
-      width: 100%;
+      width: 78%;
+      flex: 0 0 auto;
       transform: none;
+      scroll-snap-align: start;
     }
   }
 
@@ -92,6 +105,9 @@
     vertical-align: -0.125em;
     flex: none;
   }
+
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
 
   /* ---------- Scroll-driven entrance ---------- */
 

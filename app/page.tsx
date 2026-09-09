@@ -1,4 +1,5 @@
 import Hero from "@/components/home/Hero.tsx";
+import Carousel from "@/components/home/Carousel.tsx";
 import PaidWork from "@/components/home/PaidWork.tsx";
 import SpotterHero from "@/components/home/SpotterHero.tsx";
 import HardPart from "@/components/home/HardPart.tsx";
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Carousel />
       <Divider />
       <PaidWork />
       <Divider />

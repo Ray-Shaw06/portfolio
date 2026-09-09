@@ -30,28 +30,6 @@ export default function ThePath() {
         ))}
       </ol>
 
-      {/* Not decoration: the timeline above is dates, this is the same years
-          with a person in them. Kept quiet so it supports the page rather
-          than competing with it. */}
-      <ul className="animate-on-scroll mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-        {profile.strip.map((ph) => (
-          <li key={ph.src}>
-            <picture>
-              <source type="image/webp" srcSet={`${ph.src}.webp?v=2`} />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`${ph.src}.jpg?v=2`}
-                alt={ph.alt}
-                loading="lazy"
-                decoding="async"
-                style={{ objectPosition: ph.pos }}
-                className="aspect-square w-full rounded-xl border border-white/[0.08] object-cover grayscale-[0.15]"
-              />
-            </picture>
-          </li>
-        ))}
-      </ul>
-
       <div className="animate-on-scroll mt-10 flex flex-wrap items-baseline gap-x-3 gap-y-2">
         <MonoLabel className="text-white/50">Fall 2026 at UCI</MonoLabel>
         <span className="font-mono text-[11.5px] text-white/55">

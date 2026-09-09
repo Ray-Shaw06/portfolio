@@ -11,7 +11,7 @@ export const projects: Project[] = [
     constraint:
       "A benchmark task is only worth anything if it is hard enough to break a capable agent and precise enough to grade without a human in the loop. Those two pull against each other. Make it harder and it gets ambiguous, make it clearer and the agent solves it on the first try.",
     hardPart:
-      "Proving a task is valid before it counts. The tests have to fail on the untouched container and pass after the reference solution runs, and that pair is the entire proof. Red first means the task is not accidentally already solved. Green after means it is solvable and the grader recognises a correct answer. Anything that fails either half is not a task, it is a bug.",
+      "Proving a task is valid before it counts. The tests have to fail on the untouched container and pass after the reference solution runs, and that pair is the entire proof. Red first means the task is not accidentally already solved. Green after means it is solvable and the grader recognises a correct answer. Anything that fails either half is not a task, it is a bug. Every task is then reviewed by another author before it enters the benchmark, so the bar is not whether it works for me, it is whether someone else reads the instruction and agrees the grader is fair.",
     decision:
       "Over-specify the instruction rather than leave room for interpretation. Every numbered line exists because a test checks it, and no test asserts anything the instruction never stated. The alternative reads more naturally and is unfair: the model fails for a reason it had no way to anticipate, and review rejects the task. I also write a generalisation test for anything parsing-shaped, because without one an agent passes by printing the expected answer.",
     cost:
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     decision:
       "The auditor is code, not a second model call. A model grading a model is nondeterministic, costs money on every plan, and cannot be unit tested. A rubric in code returns the same verdict every run, costs nothing, and has a test suite pointed at it. It also runs in under a millisecond, offline, in the browser, which means it can go in CI. A vibe cannot go in CI.",
     cost:
-      "My rubric is heuristic and will miss things a doctor would catch. So the evaluator is written to flag and never to certify, and every threshold is cited in a sources file that grades how good the evidence behind it actually is. Three of those are judgement calls and say so. One was contradicted by the literature, and I removed the claim rather than the check.",
+      "My rubric is heuristic and will miss things a doctor would catch. So the evaluator is written to flag and never to certify, and every threshold is cited in a sources file that grades how good the evidence behind it actually is. Three of those are judgement calls and say so. One was contradicted by the literature, and I removed the claim rather than the check. The other cost is the stack. Building it as 86 hand-rolled ES modules with my own router bought me no dependency churn and a tiny payload, and it also means the routing and state problems I solved are ones a framework had already solved properly. On a codebase other people had to work in I would not make that call again.",
     stack: [
       "Vanilla JS ES modules",
       "Gemini",

@@ -4,7 +4,7 @@ import { EASE, SectionHeading } from "@/components/ui/primitives.tsx";
 import { IconArrow } from "@/components/ui/icons.tsx";
 
 export default function SelectedWork() {
-  const cards = projects.filter((p) => p.showAsCard);
+  const cards = projects.filter((p) => p.showAsCard).slice(0, 3);
   return (
     <section id="work" className="relative mx-auto max-w-7xl scroll-mt-24 px-6 py-24">
       <SectionHeading
@@ -50,6 +50,15 @@ export default function SelectedWork() {
           </Link>
         ))}
       </div>
+
+      <Link
+        href="/work/"
+        className="group mt-8 inline-flex items-center gap-2 text-[14px] text-white/70 transition-colors duration-500 hover:text-white"
+        style={{ transitionTimingFunction: EASE }}
+      >
+        All six projects, in depth
+        <IconArrow className="text-base transition-transform duration-500 group-hover:translate-x-0.5" />
+      </Link>
     </section>
   );
 }

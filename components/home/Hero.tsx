@@ -4,7 +4,7 @@ import { IconWarning, IconCheck } from "@/components/ui/icons.tsx";
 
 export default function Hero() {
   return (
-    <section className="relative mx-auto max-w-7xl px-6 pb-28 pt-40 md:pt-48">
+    <section className="relative mx-auto max-w-7xl px-6 pb-10 pt-32 md:pt-36">
       <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-8">
         <div className="relative z-20">
           <h1
@@ -44,7 +44,7 @@ export default function Hero() {
 
         {/* The proof cluster. Two claims, one paid and one solo, both about
             checking a model rather than calling one. */}
-        <div className="hero-cluster relative h-[560px] sm:h-[620px]" aria-label="At a glance">
+        <div className="hero-cluster relative h-[500px] sm:h-[560px]" aria-label="At a glance">
           <GlassCard className={`absolute left-0 top-0 z-50 w-56 rotate-[-4deg] p-4 sm:w-64 ${fadeIn(0.2, 1.1)}`}>
             <div className="mb-3 flex items-center justify-between">
               <MonoLabel>evaluator</MonoLabel>
@@ -73,7 +73,7 @@ export default function Hero() {
             </p>
           </GlassCard>
 
-          <GlassCard className={`absolute right-0 top-[13.5rem] z-40 w-60 rotate-[3deg] p-4 sm:w-72 ${fadeIn(0.32, 1.1)}`}>
+          <GlassCard className={`absolute right-0 top-[12rem] z-40 w-60 rotate-[3deg] p-4 sm:w-72 ${fadeIn(0.32, 1.1)}`}>
             <MonoLabel>terminal-bench task</MonoLabel>
             <div className="mt-3 space-y-1.5 font-mono text-[10.5px]">
               <div className="flex items-center gap-2 rounded-lg bg-rose-400/[0.07] px-2.5 py-1.5">
