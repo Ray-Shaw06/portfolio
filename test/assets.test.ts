@@ -12,9 +12,14 @@ test("every heroShot file exists in public/", () => {
   }
 });
 
-test("the resume is present and is the CS resume", () => {
+test("the resume is present, is a real PDF, and is one page", () => {
   assert.ok(existsSync("public/resume.pdf"), "public/resume.pdf missing");
-  assert.equal(statSync("public/resume.pdf").size, 123138);
+  const buf = readFileSync("public/resume.pdf");
+  assert.equal(buf.subarray(0, 5).toString(), "%PDF-", "not a PDF");
+  const pages = (buf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
+  assert.equal(pages, 1, `resume should be 1 page, found ${pages}`);
+  const kb = statSync("public/resume.pdf").size / 1024;
+  assert.ok(kb > 20 && kb < 800, `resume size looks wrong: ${Math.round(kb)}KB`);
 });
 
 test("no single image is large enough to hurt LCP", () => {

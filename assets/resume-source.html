@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Rehaan Shaw Resume</title>
+<style>
+  @page { size: 8.5in 11in; margin: 0.4in 0.52in; }
+  * { box-sizing: border-box; }
+  body { font-family: "Times New Roman", Times, serif; font-size: 10.1pt; line-height: 1.17; color: #000; margin: 0; }
+  h1 { font-size: 19pt; font-weight: bold; margin: 0 0 2pt; letter-spacing: .2pt; }
+  .contact { font-size: 9pt; margin-bottom: 5pt; }
+  h2 { font-size: 10.5pt; font-weight: bold; letter-spacing: .6pt; margin: 4pt 0 1pt;
+       border-bottom: 1px solid #000; padding-bottom: 1pt; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; }
+  .org { font-weight: bold; }
+  .sub { font-style: italic; }
+  ul { margin: 2pt 0 0; padding-left: 14pt; }
+  li { margin-bottom: 1.5pt; text-align: justify; }
+  .tight { margin-bottom: 2pt; }
+  .skills { margin-top: 2pt; }
+</style></head><body>
+
+<h1>Rehaan Shaw</h1>
+<div class="contact">Irvine, CA | linkedin.com/in/rehaanshaw | +1 (562) 640-7026 | rehaanshaw@gmail.com | github.com/Ray-Shaw06 | rehaanshaw.vercel.app</div>
+
+<h2>EDUCATION</h2>
+<div class="tight">
+  <div class="row"><span class="org">University of California, Irvine</span><span>Irvine, CA</span></div>
+  <div class="row"><span class="sub">B.S. in Computer Science</span><span>Expected Graduation: June 2028</span></div>
+  <ul>
+    <li>Incoming transfer student, Fall 2026, Donald Bren School of Information and Computer Sciences</li>
+    <li>Coursework: Introduction to Software Engineering, Introduction to Data Management, Probability &amp; Statistics for Computer Science</li>
+  </ul>
+</div>
+<div class="tight">
+  <div class="row"><span class="org">Pasadena City College</span><span>Pasadena, CA</span></div>
+  <div class="row"><span class="sub">Associate of Applied Science, Computer Science</span><span>January 2025 - June 2026</span></div>
+  <ul>
+    <li>GPA: 3.78 | 79 units completed | Dean&rsquo;s Honors (Spring 2025, Fall 2025) | Honors Program</li>
+    <li>Coursework: Data Structures (C++), Fundamentals of Computer Science I-III (C++, Java), Discrete Mathematics, Linear Algebra, Multivariable Calculus, Differential Equations</li>
+  </ul>
+</div>
+
+<h2>WORK EXPERIENCE</h2>
+<div class="tight">
+  <div class="row"><span class="org">Handshake AI</span><span>Remote</span></div>
+  <div class="row"><span class="sub">Contract AI Trainer, LLM Evaluation &amp; Benchmark Authoring</span><span>November 2025 - Present</span></div>
+  <ul>
+    <li>Author Terminal-Bench 2 tasks that stress AI coding agents, each a Docker environment containing a real fault, a written instruction, a test suite, and a reference solution, along with the grader that marks agent attempts.</li>
+    <li>Validate every task with a red/green proof, requiring tests to fail on the untouched container and pass after the reference solution, so a task is neither accidentally pre-solved nor unsolvable.</li>
+    <li>Write generalization tests that substitute held-out inputs at grade time, closing the failure mode where an agent passes a parsing task by printing the expected answer; previously labeled and reviewed model outputs against detailed rubrics for correctness, consistency, and policy compliance.</li>
+  </ul>
+</div>
+
+<h2>PROJECTS</h2>
+<div class="tight">
+  <div class="row"><span class="org">SpotterAI, AI Fitness Copilot with Deterministic Safety Auditing</span><span>spotterai.xyz</span></div>
+  <div class="row"><span class="sub">JavaScript (ES Modules), Gemini, Firebase Admin, Vercel Serverless</span><span>github.com/Ray-Shaw06/spotterai</span></div>
+  <ul>
+    <li>Made AI-generated training plans auditable by building a deterministic, pure-code evaluator that runs 14 named safety and quality checks with zero model calls in the audit path, surfacing flags ahead of the plan rather than a score.</li>
+    <li>Benchmarked the evaluator at 18 of 18 risky plans caught and 0 safe plans incorrectly flagged across 23 red-team cases, wired into CI so a regression fails the build, with a public red-team page anyone can use to attack it.</li>
+    <li>Shipped and deployed solo to a live public domain as 86 client-side ES modules with a hand-rolled router and zero framework dependencies, backed by 6 Vercel serverless functions and 78 test files.</li>
+    <li>Cut hosting cost to $0 and removed the signup barrier with a local-first architecture that keeps workout, nutrition, bodyweight, and pain data in browser storage, with JSON export and import for portability.</li>
+  </ul>
+</div>
+<div class="tight">
+  <div class="row"><span class="org">Transfer Navigator, ASSIST Articulation Planner</span><span>transfer-navigator.vercel.app</span></div>
+  <div class="row"><span class="sub">Next.js, React, TypeScript, pdfjs-dist</span><span>github.com/Ray-Shaw06/transfer-navigator</span></div>
+  <ul>
+    <li>Turned California ASSIST articulation agreements into term-by-term transfer plans across 116 community colleges and 65 campuses, against an undocumented API with an XSRF handshake, a rate limit, and no CORS headers.</li>
+    <li>Kept the tool useful where the API has no agreement by adding a client-side PDF parsing fallback, covering the school pairings that no other tool handles.</li>
+  </ul>
+</div>
+<div class="tight">
+  <div class="row"><span class="org">Graphing Calculator, Expression Parser &amp; Evaluator</span><span>C++</span></div>
+  <ul>
+    <li>Evaluated arbitrary user-entered expressions by implementing the shunting-yard algorithm with stack-based postfix evaluation, resolving operator precedence and nested parentheses.</li>
+  </ul>
+</div>
+
+<h2>LEADERSHIP EXPERIENCE</h2>
+<div class="tight">
+  <div class="row"><span class="org">AI &amp; Machine Learning Club, Pasadena City College</span><span>Pasadena, CA</span></div>
+  <div class="row"><span class="sub">Secretary &amp; Social Media Intern</span><span>March 2025 - June 2026</span></div>
+  <ul>
+    <li>Kept the officer team aligned on action items across two semesters by maintaining meeting minutes, shared calendars, and task lists as a single source of truth.</li>
+    <li>Promoted the AI Horizons Convention by designing and publishing the &ldquo;Event Partner Reveal&rdquo; announcing the club&rsquo;s partnership with Caltech&rsquo;s mentorship program.</li>
+  </ul>
+</div>
+
+<h2>SKILLS</h2>
+<div class="skills">
+<div><b>Skills:</b> C++ | Java | Python | JavaScript (ES Modules) | TypeScript | React | Next.js | HTML | CSS | Docker | Bash | pytest | Git | Vercel | Data Structures &amp; Algorithms | LLM Evaluation &amp; Benchmark Design | Deterministic Output Auditing | Client-Side Architecture | Web Accessibility</div>
+<div style="margin-top:2pt"><b>Certifications:</b> freeCodeCamp Responsive Web Design, Scientific Computing with Python</div>
+</div>
+
+</body></html>

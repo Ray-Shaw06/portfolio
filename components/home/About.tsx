@@ -1,3 +1,4 @@
+import { profile } from "@/content/profile.ts";
 import { SectionHeading } from "@/components/ui/primitives.tsx";
 
 export default function About() {
