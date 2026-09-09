@@ -60,19 +60,27 @@ export default function Carousel() {
         aria-live="off"
         className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth rounded-2xl focus-visible:outline-2"
       >
-        {profile.strip.map((ph) => (
+        {profile.strip.map((ph, i) => (
           <li
             key={ph.src}
             className="w-[78%] shrink-0 snap-start sm:w-[46%] lg:w-[31%]"
           >
             <picture>
-              <source type="image/webp" srcSet={`${ph.src}.webp?v=2`} />
+              {/* Displayed around 380px wide, so the 520px variant covers 1x
+                  and the 900px one covers retina. Loading all five eagerly
+                  cost 1.6s of LCP; only the first slide is eager now. */}
+              <source
+                type="image/webp"
+                srcSet={`${ph.src}@520.webp 520w, ${ph.src}.webp?v=3 760w`}
+                sizes="(max-width: 640px) 78vw, (max-width: 1024px) 46vw, 31vw"
+              />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`${ph.src}.jpg?v=2`}
+                src={`${ph.src}.jpg?v=3`}
                 alt={ph.alt}
                 style={{ objectPosition: ph.pos }}
-                loading="eager"
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : "low"}
                 decoding="async"
                 className="aspect-[4/3] w-full rounded-2xl border border-white/[0.08] object-cover grayscale-[0.12]"
               />
