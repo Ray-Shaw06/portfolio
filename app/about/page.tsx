@@ -61,9 +61,23 @@ export default function About() {
             <p>
               Every single thing on this site started the same way: I needed it, I could not find
               it, and nobody was coming to make it for me. Transfer Navigator exists because I sat
-              there trying to read an ASSIST agreement at midnight and could not work out whether I
-              would make it out in time. Woven Hymns exists because my family sells shawls and
-              could not afford a photographer.
+              there at midnight trying to read an ASSIST agreement, unable to work out whether I
+              would make it out in time.
+            </p>
+            <p>
+              Woven Hymns is the one I am quietest and proudest about. My parents sell Kashmiri
+              shawls, and they had paid a web development team to build them a site. Six months
+              went by. Then they asked me to take a look at what they had been given, and I looked
+              at it and told them I could do better than that.
+            </p>
+            <p>
+              Which is an easy thing to say to your own parents and a much harder thing to then go
+              and do. It took me <strong>four working days spread over three weeks</strong>, and it
+              has been live ever since. There was no photography budget, so the writing had to
+              carry an object that a phone camera flattens, and I built it text-led on purpose
+              rather than as an apology. I am not going to pretend that was a fair fight on effort.
+              It is just the one time I got to find out whether I was as good as I thought I was,
+              and the answer was yes.
             </p>
             <p>
               And I care, genuinely, about the part most people skip. Anyone can get a demo working.
