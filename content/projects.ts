@@ -130,13 +130,13 @@ export const projects: Project[] = [
     oneLine:
       "A story-first exhibition preview on Kashmiri pashmina: an introduction to Kashmir, one shawl followed through eight stages, four textile terms explained, and four gallery studies referencing Met Open Access. Built for my family's shawl business.",
     constraint:
-      "A real client with no photography budget, and a craft whose value is invisible in a phone photo. An image-led site would have looked like every drop-shipping storefront and would have undersold the object.",
+      "My parents had already paid a web development team to build this. Six months went by, they asked me to look at what they had been given, and I told them I could do better than that. So the constraint was that I had said it out loud and then had to go and be right. On top of that: no photography budget, and a craft whose value is invisible in a phone photo, so an image-led site would have looked like every drop-shipping storefront and undersold the object.",
     hardPart:
       "Making a text-led page hold attention for eight stages, and shipping a Next.js app to GitHub Pages, which is a static host with no server. That meant a custom export step and a test that asserts against the rendered HTML rather than against components.",
     decision:
-      "Text-led over image-led, and free static hosting over a paid host. The client's constraint became the design: the writing carries the object, and licensed museum references stand in for photography I could not commission.",
+      "Text-led over image-led, and free static hosting over a paid host. Their constraint became the design: the writing carries the object, and licensed museum references stand in for photography nobody was going to pay for. The team before me had treated a missing photo budget as a problem to work around. I treated it as the brief.",
     cost:
-      "A text-led page asks more of a visitor than a photograph does, and some will not give it. In exchange the hosting bill is zero, which for a family business is the difference between a site that stays up and one that lapses.",
+      "A text-led page asks more of a visitor than a photograph does, and some will not give it. In exchange the hosting bill is zero, which for a family business is the difference between a site that stays up and one that lapses. And I will not pretend four days against six months was a fair comparison on effort: they were building to a brief and a contract, and I was building for my own parents with no one to answer to but them.",
     stack: [
       "Next.js 16",
       "React 19",
@@ -146,7 +146,8 @@ export const projects: Project[] = [
       "Vitest",
     ],
     facts: [
-      { label: "Commits", value: "36", source: "git log, verified 2026-09-08" },
+      { label: "Commits", value: "36", source: "git log, verified 2026-09-09" },
+      { label: "Working days", value: "4", source: "Unique commit dates, 21 Jul to 12 Aug 2026" },
       { label: "Test files", value: "9", source: "Assert against rendered HTML" },
       { label: "Narrative stages", value: "8", source: "One shawl, followed through" },
       { label: "Hosting cost", value: "$0", source: "GitHub Pages" },
@@ -159,7 +160,7 @@ export const projects: Project[] = [
     heroShotSize: [1800, 1125],
     heroCaption: "The opening of the eight-stage narrative.",
     cardBlurb:
-      "A story-first exhibition preview on Kashmiri pashmina, built for my family's shawl business. Text-led, because the client had no photography budget.",
+      "A story-first exhibition preview on Kashmiri pashmina for my family's shawl business, rebuilt after a paid web team spent six months on it. Four working days across three weeks, live ever since.",
     showAsCard: true,
   },
 
