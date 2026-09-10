@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { profile } from "@/content/profile.ts";
 import { EASE } from "@/components/ui/primitives.tsx";
 
@@ -9,12 +12,31 @@ const nav = [
   { label: "About", href: "/about/" },
 ];
 
+/**
+ * Two mechanisms on purpose, and they do different jobs.
+ *
+ * The visual highlight comes from a server-rendered rule emitted by each
+ * section layout (see ActiveSection), so the current item is already marked in
+ * the HTML and never flashes unhighlighted while JavaScript loads.
+ *
+ * aria-current is set here, because CSS cannot express it and App Router gives
+ * a root layout no server-side pathname. Hydration adds the semantics on top of
+ * a picture that is already correct.
+ */
 export default function Header() {
+  const pathname = usePathname() ?? "/";
+
+  const isCurrent = (href: string) => {
+    const path = pathname.endsWith("/") ? pathname : `${pathname}/`;
+    return path === href || path.startsWith(href);
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-[100] border-b border-white/[0.06] bg-[#09090b]/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link
           href="/"
+          aria-current={pathname === "/" ? "page" : undefined}
           className="font-geist text-[15px] font-medium tracking-[-0.02em] text-white transition-colors duration-500 hover:text-white/70"
           style={{ transitionTimingFunction: EASE }}
         >
@@ -27,6 +49,7 @@ export default function Header() {
               key={n.href}
               href={n.href}
               data-nav={n.href}
+              aria-current={isCurrent(n.href) ? "page" : undefined}
               className="relative rounded-full px-3 py-1.5 text-[13px] text-white/50 transition-colors duration-500 hover:text-white"
               style={{ transitionTimingFunction: EASE }}
             >
@@ -67,6 +90,7 @@ export default function Header() {
             key={n.href}
             href={n.href}
             data-nav={n.href}
+            aria-current={isCurrent(n.href) ? "page" : undefined}
             className="nav-pill shrink-0 rounded-full px-3 py-1.5 text-[12.5px] text-white/50 transition-colors duration-500"
             style={{ transitionTimingFunction: EASE }}
           >
