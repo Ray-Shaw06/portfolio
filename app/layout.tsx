@@ -17,6 +17,17 @@ export const metadata: Metadata = {
     "Junior CS at UC Irvine. Paid to write the benchmark tasks and graders that break AI coding agents, and ships production software solo. Seeking Summer 2027 SWE or AI engineering internships.",
   openGraph: {
     type: "website",
+    siteName: "Rehaan Shaw",
+    url: "https://rehaanshaw.vercel.app",
+    title: "Rehaan Shaw, software engineer, UCI CS '28",
+    description:
+      "I build the systems that check AI systems. Five products shipped solo, plus paid benchmark and grader authoring.",
+  },
+  // summary_large_image is the difference between a thumbnail and a full-width
+  // card. The image itself comes from app/opengraph-image.jpg, which Next
+  // resolves against metadataBase above.
+  twitter: {
+    card: "summary_large_image",
     title: "Rehaan Shaw, software engineer, UCI CS '28",
     description:
       "I build the systems that check AI systems. Five products shipped solo, plus paid benchmark and grader authoring.",
