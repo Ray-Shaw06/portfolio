@@ -108,7 +108,7 @@ output exposed it.
 `trust.js` was the second, and I only found it in review. The Trust Report was
 still printing:
 
-> **High confidence** — no critical issues or warnings, and inputs look complete
+> **High confidence**: no critical issues or warnings, and inputs look complete
 
 on audits where two checks had never run. The audit panel said "Nothing flagged,
 but 2 checks could not be assessed." The Trust Report, on the same data, said

@@ -66,7 +66,7 @@ export function ActionButton({
   const skin =
     variant === "primary"
       ? "bg-white font-medium text-black hover:bg-white/90"
-      : "border border-white/10 bg-white/[0.03] text-white/80 backdrop-blur-sm hover:border-white/20 hover:bg-white/[0.07] hover:text-white";
+      : "border border-white/10 bg-white/[0.03] text-white/80 hover:border-white/20 hover:bg-white/[0.07] hover:text-white";
   const isRoute =
     href.startsWith("/") && !href.includes(".") && !href.startsWith("//");
   const external = !isRoute;

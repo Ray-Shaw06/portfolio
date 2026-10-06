@@ -87,10 +87,10 @@ export default function Home() {
           <details className="work-reel-transcript">
             <summary>Read the reel</summary>
             <ol>
-              <li><Link href="/work/spotterai/">SpotterAI</Link> — AI fitness plans audited by 11 core safety checks before training.</li>
-              <li><Link href="/work/hearth/">Hearth</Link> — Three explainable room arrangements from a constraint solver.</li>
-              <li><Link href="/work/transfer-navigator/">Transfer Navigator</Link> — Real articulation agreements become an editable term plan.</li>
-              <li><Link href="/work/woven-hymns/">Woven Hymns</Link> — A sourced digital exhibition about Kashmiri pashmina.</li>
+              <li><Link href="/work/spotterai/">SpotterAI</Link>: AI fitness plans audited by 11 core safety checks before training.</li>
+              <li><Link href="/work/hearth/">Hearth</Link>: Three explainable room arrangements from a constraint solver.</li>
+              <li><Link href="/work/transfer-navigator/">Transfer Navigator</Link>: Real articulation agreements become an editable term plan.</li>
+              <li><Link href="/work/woven-hymns/">Woven Hymns</Link>: A sourced digital exhibition about Kashmiri pashmina.</li>
             </ol>
           </details>
         </div>

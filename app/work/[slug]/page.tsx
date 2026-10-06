@@ -49,7 +49,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <header className="project-report-header">
           <div className="project-report-topline">
             <Link href="/work/"><IconArrow className="project-arrow-up-left" /> All work</Link>
-            <span>Field report / {number}—{String(projects.length).padStart(2, "0")}</span>
+            <span>Field report / {number} of {String(projects.length).padStart(2, "0")}</span>
           </div>
           <div className="project-report-heading">
             <div>

@@ -58,7 +58,7 @@ export default function WorkIndex() {
 
       <div className="work-index-ledger" id="projects">
         <div className="work-index-ledger-head">
-          <span>Index / 01—0{projects.length}</span>
+          <span>Index / 01 to 0{projects.length}</span>
           <span>Open a project for the full record</span>
         </div>
         {projects.map((project, index) => {
