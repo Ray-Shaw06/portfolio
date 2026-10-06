@@ -2,7 +2,7 @@
   "name": "portfolio",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start -p 4311",
     "test": "node --no-warnings --experimental-strip-types --test test/*.test.ts"
   },
