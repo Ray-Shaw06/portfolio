@@ -65,6 +65,37 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="work-reel" aria-labelledby="work-reel-heading">
+        <div className="work-reel-inner">
+          <div className="work-reel-head">
+            <div>
+              <span className="work-reel-kicker">The work / in motion</span>
+              <h2 id="work-reel-heading">Four builds.<br /><em>Twenty-two seconds.</em></h2>
+            </div>
+            <p>A quick look at the real interfaces behind the case studies. Pick a project below to inspect the decisions and evidence.</p>
+          </div>
+          <figure className="work-reel-player">
+            <video controls playsInline preload="none" poster="/media/work-reel.jpg" aria-label="Rehaan Shaw's 22-second reel showing SpotterAI, Hearth, Transfer Navigator, and Woven Hymns">
+              <source src="/media/work-reel.mp4" type="video/mp4" />
+              Your browser does not support video playback.
+            </video>
+            <figcaption>
+              <span>Rehaan Shaw / work reel</span>
+              <span>22 seconds · Sound optional</span>
+            </figcaption>
+          </figure>
+          <details className="work-reel-transcript">
+            <summary>Read the reel</summary>
+            <ol>
+              <li><Link href="/work/spotterai/">SpotterAI</Link> — AI fitness plans audited by 11 core safety checks before training.</li>
+              <li><Link href="/work/hearth/">Hearth</Link> — Three explainable room arrangements from a constraint solver.</li>
+              <li><Link href="/work/transfer-navigator/">Transfer Navigator</Link> — Real articulation agreements become an editable term plan.</li>
+              <li><Link href="/work/woven-hymns/">Woven Hymns</Link> — A sourced digital exhibition about Kashmiri pashmina.</li>
+            </ol>
+          </details>
+        </div>
+      </section>
+
       <ProjectStage items={stageItems} />
 
       <section className="paid-work" aria-labelledby="paid-work-heading">

@@ -187,11 +187,11 @@
    ========================================================================== */
 
 .reading {
-  --reading-fg: rgba(255, 255, 255, 0.78);
-  --reading-dim: rgba(255, 255, 255, 0.52);
+  --reading-fg: rgba(255, 255, 255, 0.9);
+  --reading-dim: rgba(255, 255, 255, 0.7);
   color: var(--reading-fg);
-  font-size: 16.5px;
-  line-height: 1.78;
+  font-size: 18px;
+  line-height: 1.72;
 }
 
 /* A quiet ground behind the column so the animated aura never sits under
@@ -259,7 +259,7 @@
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(0, 0, 0, 0.42);
-  font-size: 12.5px;
+  font-size: 14px;
   line-height: 1.6;
 }
 .reading pre code { padding: 0; background: none; font-size: inherit; color: rgba(255, 255, 255, 0.82); }
@@ -281,7 +281,7 @@
 .reading table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13.5px;
+  font-size: 15px;
   font-variant-numeric: tabular-nums;
 }
 .reading th, .reading td {
@@ -292,7 +292,7 @@
 }
 .reading th {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.08em;

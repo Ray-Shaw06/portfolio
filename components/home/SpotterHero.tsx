@@ -3,7 +3,7 @@ import { projectBySlug } from "@/content/projects.ts";
 import { ActionButton, MonoLabel, SectionHeading } from "@/components/ui/primitives.tsx";
 
 const BENCH = [
-  { label: "deterministic checks", value: "14" },
+  { label: "core safety checks", value: "11" },
   { label: "red-team cases", value: "23" },
   { label: "risky plans caught", value: "18 / 18" },
   { label: "safe plans falsely flagged", value: "0" },

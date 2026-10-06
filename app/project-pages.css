@@ -459,14 +459,14 @@
 .project-report-header-bottom div span {
   color: #9fa69d;
   font-family: var(--mono, monospace);
-  font-size: .66rem;
+  font-size: .8rem;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
 
 .project-report-header-bottom strong {
   color: #edece4;
-  font-size: .86rem;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
 }
@@ -479,7 +479,7 @@
   padding: .9rem 1rem;
   background: var(--project-accent);
   color: var(--ink, #101312);
-  font-size: .8rem;
+  font-size: .95rem;
   font-weight: 700;
   transition: transform .25s ease;
 }
@@ -521,7 +521,7 @@
   margin: auto;
   padding: 1.1rem clamp(1.25rem, 3.5vw, 3.75rem) 1.25rem;
   color: #f2ede3;
-  font-size: .82rem;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -529,10 +529,44 @@
   flex: none;
   color: var(--project-accent);
   font-family: var(--mono, monospace);
-  font-size: .65rem;
+  font-size: .78rem;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
+
+.project-demo {
+  background: #1e2d25;
+  padding: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 3.5vw, 3.75rem);
+}
+
+.project-demo-inner {
+  display: grid;
+  grid-template-columns: minmax(16rem, .55fr) minmax(0, 1.45fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  max-width: 1392px;
+  margin: auto;
+}
+
+.project-demo-kicker {
+  color: var(--project-accent);
+  font-family: var(--mono, monospace);
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.project-demo h2 {
+  margin: 1.5rem 0 1.8rem;
+  font-size: clamp(2.8rem, 4.7vw, 5.2rem);
+  font-weight: 550;
+  line-height: .98;
+  letter-spacing: -.04em;
+}
+
+.project-demo h2 em { color: var(--project-accent); font-family: var(--serif, Georgia, serif); font-weight: 400; }
+.project-demo p { max-width: 38ch; color: #e0e7dd; font-size: 1.13rem; line-height: 1.65; }
+.project-demo video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #101312; border: 1px solid rgba(243,240,232,.35); box-shadow: 0 35px 70px rgba(0,0,0,.2); }
 
 .project-report-evidence {
   display: grid;
@@ -566,8 +600,8 @@
 .project-report-evidence-intro p {
   max-width: 22rem;
   margin: 1.6rem 0 0;
-  color: #aab0a7;
-  font-size: .95rem;
+  color: #d4d9d0;
+  font-size: 1.1rem;
   line-height: 1.6;
 }
 
@@ -591,7 +625,7 @@
   order: 2;
   margin-top: .55rem;
   color: #f1f0e7;
-  font-size: .88rem;
+  font-size: 1rem;
   line-height: 1.35;
 }
 
@@ -609,9 +643,9 @@
 .project-report-facts small {
   order: 3;
   margin-top: .45rem;
-  color: #9da49b;
+  color: #c0c9bd;
   font-family: var(--mono, monospace);
-  font-size: .63rem;
+  font-size: .76rem;
   line-height: 1.45;
 }
 
@@ -645,7 +679,7 @@
   flex-direction: column;
   gap: 1rem;
   font-family: var(--mono, monospace);
-  font-size: .64rem;
+  font-size: .8rem;
   line-height: 1.45;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -660,7 +694,7 @@
 
 .project-report-chapter-meta span:last-child {
   max-width: 10rem;
-  color: #959f96;
+  color: #bdc8bc;
 }
 
 .project-report-chapter h3 {
@@ -673,11 +707,11 @@
 }
 
 .project-report-chapter p {
-  max-width: 66ch;
+  max-width: 62ch;
   margin: 0;
-  color: #c8cec5;
-  font-size: clamp(1.03rem, 1.25vw, 1.18rem);
-  line-height: 1.72;
+  color: #e0e5dc;
+  font-size: clamp(1.13rem, 1.35vw, 1.25rem);
+  line-height: 1.7;
 }
 
 .project-report-aside {
@@ -696,7 +730,7 @@
   margin: 0 0 1.4rem;
   color: var(--project-accent);
   font-family: var(--mono, monospace);
-  font-size: .68rem;
+  font-size: .8rem;
   font-weight: 500;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -711,8 +745,8 @@
 }
 
 .project-report-aside li {
-  color: #c8cec5;
-  font-size: .85rem;
+  color: #d8dfd5;
+  font-size: 1rem;
   line-height: 1.42;
 }
 
@@ -738,7 +772,7 @@
   gap: 1rem;
   padding: 1rem 0;
   color: var(--project-accent) !important;
-  font-size: .85rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -800,6 +834,8 @@
 }
 
 @media (max-width: 1050px) {
+  .project-demo-inner { grid-template-columns: 1fr; }
+  .project-demo-copy { max-width: 44rem; }
   .work-index-intro-grid {
     grid-template-columns: minmax(0, 1fr) minmax(14rem, .5fr);
   }

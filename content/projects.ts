@@ -11,7 +11,7 @@ export const projects: Project[] = [
     constraint:
       "A language model will confidently write a training week that hurts someone. Shipping the raw output was never an option, and I had no budget for a human reviewer or a second paid model.",
     hardPart:
-      "A deterministic evaluator in plain code that grades a generated plan against fourteen named checks, returns a per-check pass, warn or fail, and puts the flags above the plan instead of under it. A separate pure screen refuses pain, injury, medical and disordered-eating requests before any API call is made at all.",
+      "A deterministic evaluator in plain code grades a generated plan against 11 core checks, with additional checks when cardio or injuries are declared. It returns a per-check pass, warn or fail and puts the flags above the plan instead of under it. A separate pure screen refuses pain, injury, medical and disordered-eating requests before any API call is made at all.",
     decision:
       "The auditor is code, not a second model call. A model grading a model is nondeterministic, costs money on every plan, and cannot be unit tested. A rubric in code returns the same verdict every run, costs nothing, and has a test suite pointed at it. It also runs in under a millisecond, offline, in the browser, which means it can go in CI. A vibe cannot go in CI.",
     cost:
@@ -25,7 +25,7 @@ export const projects: Project[] = [
       "node:test",
     ],
     facts: [
-      { label: "Deterministic checks", value: "14", source: "evaluator.js check functions" },
+      { label: "Core safety checks", value: "11", source: "SpotterAI README; up to 15 with context" },
       { label: "Red-team cases", value: "23", source: "docs/grading-the-model.md" },
       { label: "Risky plans caught", value: "18 / 18", source: "docs/grading-the-model.md" },
       { label: "Safe plans falsely flagged", value: "0", source: "docs/grading-the-model.md" },

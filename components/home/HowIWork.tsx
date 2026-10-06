@@ -45,7 +45,7 @@ export default function HowIWork() {
                 {s.artifact}
               </MonoLabel>
             </div>
-            <p className="max-w-[66ch] text-[14.5px] leading-relaxed text-white/65">{s.body}</p>
+            <p className="max-w-[62ch] text-[17px] leading-relaxed text-white/85">{s.body}</p>
             <span className="sr-only">Stage {i + 1}</span>
           </li>
         ))}

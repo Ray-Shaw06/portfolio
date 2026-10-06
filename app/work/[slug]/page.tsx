@@ -96,6 +96,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </figure>
         ) : null}
 
+        {slug === "spotterai" ? (
+          <section className="project-demo" aria-labelledby="project-demo-heading">
+            <div className="project-demo-inner">
+              <div className="project-demo-copy">
+                <span className="project-demo-kicker">Product demo / 21 seconds</span>
+                <h2 id="project-demo-heading">See the audit<br /><em>in action.</em></h2>
+                <p>This SpotterAI demo shows the plan audit, safety flags, and the public Safety Lab. The evaluator uses 11 core checks, with extra checks for plans that include cardio or injury context.</p>
+              </div>
+              <video controls playsInline preload="none" poster="/media/spotterai-demo.jpg" aria-label="SpotterAI product demonstration">
+                <source src="/media/spotterai-demo.mp4" type="video/mp4" />
+                Your browser does not support video playback.
+              </video>
+            </div>
+          </section>
+        ) : null}
+
         <section className="project-report-evidence" aria-labelledby="evidence-heading">
           <div className="project-report-evidence-intro">
             <h2 id="evidence-heading">Proof over<br /><em>promises.</em></h2>

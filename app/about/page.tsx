@@ -81,11 +81,11 @@ export default function About() {
             <ol className="mt-5 space-y-0">
               {profile.timeline.map((t) => (
                 <li key={t.when} className="border-t border-white/[0.08] py-4 first:border-0 first:pt-0">
-                  <MonoLabel className="text-white/40">{t.when}</MonoLabel>
-                  <div className="mt-1.5 font-geist text-[15px] font-medium leading-snug tracking-[-0.015em] text-white/90">
+                  <MonoLabel className="text-white/70">{t.when}</MonoLabel>
+                  <div className="mt-1.5 font-geist text-[17px] font-medium leading-snug tracking-[-0.015em] text-white/90">
                     {t.what}
                   </div>
-                  <p className="mt-1 text-[12.5px] leading-relaxed text-white/50">{t.detail}</p>
+                  <p className="mt-1 text-[15px] leading-relaxed text-white/75">{t.detail}</p>
                 </li>
               ))}
             </ol>
@@ -94,7 +94,7 @@ export default function About() {
               <MonoLabel>Fall 2026 at UCI</MonoLabel>
               <ul className="mt-3 space-y-1.5">
                 {profile.fallCourses.map((c) => (
-                  <li key={c} className="font-mono text-[11.5px] leading-relaxed text-white/55">
+                  <li key={c} className="font-mono text-[13px] leading-relaxed text-white/75">
                     {c}
                   </li>
                 ))}

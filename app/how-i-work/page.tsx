@@ -19,7 +19,7 @@ export default function HowIWorkPage() {
           <br />
           <span className="text-white/40">a lot of code now.</span>
         </h1>
-        <p className="mt-7 max-w-[62ch] text-[16.5px] leading-relaxed text-white/65">
+        <p className="mt-7 max-w-[62ch] text-[18px] leading-relaxed text-white/85">
           So speed on its own is not a claim worth making. What is worth showing is what has to be
           true before I believe any of it, and every gate below has a committed artifact behind it
           rather than a promise.

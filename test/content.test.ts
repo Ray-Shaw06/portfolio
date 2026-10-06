@@ -57,10 +57,10 @@ test("SpotterAI uses the custom domain, not the vercel subdomain", () => {
   assert.equal(live.href, "https://spotterai.xyz");
 });
 
-test("the evaluator check count matches the code, not the stale marketing copy", () => {
+test("the evaluator count states the core checks shown in the live app", () => {
   const s = projects.find((p) => p.slug === "spotterai")!;
-  const checks = s.facts.find((f) => f.label === "Deterministic checks")!;
-  assert.equal(checks.value, "14");
+  const checks = s.facts.find((f) => f.label === "Core safety checks")!;
+  assert.equal(checks.value, "11");
 });
 
 test("every listed project is reachable, so nothing is a dead card", () => {

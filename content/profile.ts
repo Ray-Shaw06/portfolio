@@ -33,7 +33,7 @@ export const profile = {
   ],
   heroStats: [
     { label: "public projects", value: "4", source: "The four records in content/projects.ts" },
-    { label: "published evaluator checks", value: "14", source: "SpotterAI benchmark v1.4.0" },
+    { label: "core safety checks", value: "11", source: "SpotterAI README; up to 15 with context" },
     { label: "technical essays", value: "2", source: "The two records in content/essays.ts" },
   ],
 };
