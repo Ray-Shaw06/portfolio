@@ -88,19 +88,19 @@ export const projects: Project[] = [
     oneLine:
       "Pick a California community college, a target university and a major. It reads the real ASSIST articulation agreement and shows exactly what you still need, term by term. Tick off what you have done and the route recomputes.",
     constraint:
-      "The only authoritative source is ASSIST, and it is a hostile dependency. The JSON API is undocumented, needs an XSRF handshake, rate-limits to roughly 50 calls per five minutes per IP, and sends no CORS headers at all. Some agreements exist only as PDFs.",
+      "A useful transfer plan has to start with the actual articulation agreement. The upstream data can be unavailable or incomplete, and some agreements are only published as PDFs. The planner has to show those gaps clearly instead of guessing what a student needs.",
     hardPart:
-      "Getting the data at all. Every call goes through a server hop because the browser cannot make it. The handshake, the rate limit and the missing-agreement case all had to be handled as normal states rather than errors, because for a real student any of them is a Tuesday.",
+      "Turning different agreement formats into one course model, then recomputing a term-by-term route as a student marks courses complete. Missing agreements and uncertain matches are explicit states, so the interface never treats absent data as a completed requirement.",
     decision:
-      "Two paths to the same answer: the JSON API first, and a client-side PDF parse as the fallback when no agreement is exposed through the API. Building only the API path would have been half a product, because the pairs it does not cover are exactly the ones nobody has written a tool for.",
+      "The agreement parser and the planning engine are separate. Structured data and a client-side PDF fallback both feed the same model, while the route computation stays testable without a live upstream response.",
     cost:
-      "A second parser to maintain, forever, against a format I do not control. I took it, because the alternative was a tool that works for the students who already had options.",
+      "Two input paths mean more maintenance when agreement formats change. I chose that cost so a student with a PDF-only agreement can still use the planner, and I keep the source agreement visible for verification.",
     stack: [
       "Next.js 16",
       "React 19",
       "TypeScript",
       "pdfjs-dist",
-      "ASSIST JSON API",
+      "ASSIST agreements",
       "Vitest",
       "Vercel",
     ],
@@ -130,13 +130,13 @@ export const projects: Project[] = [
     oneLine:
       "A story-first exhibition preview on Kashmiri pashmina: an introduction to Kashmir, one shawl followed through eight stages, four textile terms explained, and four gallery studies referencing Met Open Access. Built for my family's shawl business.",
     constraint:
-      "My parents had already paid a web development team to build this. Six months went by, they asked me to look at what they had been given, and I told them I could do better than that. So the constraint was that I had said it out loud and then had to go and be right. On top of that: no photography budget, and a craft whose value is invisible in a phone photo, so an image-led site would have looked like every drop-shipping storefront and undersold the object.",
+      "My family needed a site that conveyed the craft behind Kashmiri shawls without a photography budget. Texture, labor, and provenance are hard to communicate in a generic product grid, so the story had to carry the experience.",
     hardPart:
       "Making a text-led page hold attention for eight stages, and shipping a Next.js app to GitHub Pages, which is a static host with no server. That meant a custom export step and a test that asserts against the rendered HTML rather than against components.",
     decision:
-      "Text-led over image-led, and free static hosting over a paid host. Their constraint became the design: the writing carries the object, and licensed museum references stand in for photography nobody was going to pay for. The team before me had treated a missing photo budget as a problem to work around. I treated it as the brief.",
+      "I made the writing the primary visual system and used attributed museum references where they added context. A static export on GitHub Pages kept the exhibition accessible without a hosting bill.",
     cost:
-      "A text-led page asks more of a visitor than a photograph does, and some will not give it. In exchange the hosting bill is zero, which for a family business is the difference between a site that stays up and one that lapses. And I will not pretend four days against six months was a fair comparison on effort: they were building to a brief and a contract, and I was building for my own parents with no one to answer to but them.",
+      "A text-led experience asks visitors to spend more time reading, and it is an exhibition preview rather than a storefront. The tradeoff was deliberate: the site explains the craft while keeping hosting cost at zero.",
     stack: [
       "Next.js 16",
       "React 19",
@@ -160,7 +160,7 @@ export const projects: Project[] = [
     heroShotSize: [1800, 1125],
     heroCaption: "The opening of the eight-stage narrative.",
     cardBlurb:
-      "A story-first exhibition preview on Kashmiri pashmina for my family's shawl business, rebuilt after a paid web team spent six months on it. Four working days across three weeks, live ever since.",
+      "A story-first exhibition preview on Kashmiri pashmina for my family's shawl business. Eight stages of making, attributed visual references, and a static site that costs nothing to host.",
     showAsCard: true,
   },
 

@@ -10,7 +10,7 @@ export default function SelectedWork() {
       <SectionHeading
         title={
           <>
-            Five things I built,
+            Four things I built,
             <br />
             <span className="text-white/55">shipped, and left running.</span>
           </>
@@ -56,7 +56,7 @@ export default function SelectedWork() {
         className="group mt-8 inline-flex items-center gap-2 text-[14px] text-white/70 transition-colors duration-500 hover:text-white"
         style={{ transitionTimingFunction: EASE }}
       >
-        All six projects, in depth
+        All four projects, in depth
         <IconArrow className="text-base transition-transform duration-500 group-hover:translate-x-0.5" />
       </Link>
     </section>

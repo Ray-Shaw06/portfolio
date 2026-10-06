@@ -32,8 +32,8 @@ export const profile = {
     "SWE 43 Intro to Software Engineering",
   ],
   heroStats: [
-    { label: "products shipped", value: "5", source: "Four public projects plus ongoing client work" },
-    { label: "commits since June", value: "479", source: "Sum of the four project repos" },
-    { label: "infrastructure cost", value: "$0", source: "Free tiers across all deployments, by design" },
+    { label: "public projects", value: "4", source: "The four records in content/projects.ts" },
+    { label: "published evaluator checks", value: "14", source: "SpotterAI benchmark v1.4.0" },
+    { label: "technical essays", value: "2", source: "The two records in content/essays.ts" },
   ],
 };

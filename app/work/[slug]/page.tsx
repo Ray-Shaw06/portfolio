@@ -3,11 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects, projectBySlug } from "@/content/projects.ts";
 import { essayBySlug } from "@/content/essays.ts";
-import { ActionButton, EASE, MonoLabel, Rule } from "@/components/ui/primitives.tsx";
 import { IconArrow } from "@/components/ui/icons.tsx";
+import "../../project-pages.css";
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+  return projects.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({
@@ -16,188 +16,170 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const p = projectBySlug(slug);
-  if (!p) return {};
-  return { title: `${p.name}, Rehaan Shaw`, description: p.oneLine };
+  const project = projectBySlug(slug);
+  if (!project) return {};
+  return { title: `${project.name}, Rehaan Shaw`, description: project.oneLine };
 }
 
-/** Sibling WebP built alongside each screenshot. */
 function webp(src: string, width?: number) {
   const base = src.replace(/\.(png|jpe?g)$/i, "");
   return width ? `${base}@${width}.webp` : `${base}.webp`;
 }
 
-const FIELDS = [
-  { key: "constraint", label: "The constraint" },
-  { key: "hardPart", label: "The hard part" },
-  { key: "decision", label: "What I decided and why" },
-  { key: "cost", label: "What it cost me" },
+const fields = [
+  { key: "constraint", label: "The constraint", prompt: "What had to be solved" },
+  { key: "hardPart", label: "The technical center", prompt: "Where the difficulty lived" },
+  { key: "decision", label: "The decision", prompt: "Why I built it this way" },
+  { key: "cost", label: "The tradeoff", prompt: "What I gave up" },
 ] as const;
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const p = projectBySlug(slug);
-  if (!p) notFound();
+  const project = projectBySlug(slug);
+  if (!project) notFound();
 
-  const idx = projects.findIndex((x) => x.slug === slug);
-  const next = projects[(idx + 1) % projects.length];
+  const index = projects.findIndex((item) => item.slug === slug);
+  const next = projects[(index + 1) % projects.length];
+  const number = String(index + 1).padStart(2, "0");
+  const liveLink = project.links.find((link) => link.href && /live/i.test(link.label));
 
   return (
-    <article className="mx-auto max-w-5xl px-6 pb-28 pt-36 md:pt-44">
-      <Link
-        href="/#work"
-        className="group inline-flex items-center gap-2 text-[13px] text-white/55 transition-colors duration-500 hover:text-white"
-        style={{ transitionTimingFunction: EASE }}
-      >
-        <IconArrow className="rotate-180 text-base transition-transform duration-500 group-hover:-translate-x-0.5" />
-        All work
-      </Link>
+    <div className={`project-report project-report--${project.slug}`}>
+      <article>
+        <header className="project-report-header">
+          <div className="project-report-topline">
+            <Link href="/work/"><IconArrow className="project-arrow-up-left" /> All work</Link>
+            <span>Field report / {number}—{String(projects.length).padStart(2, "0")}</span>
+          </div>
+          <div className="project-report-heading">
+            <div>
+              <h1>{project.name}<span aria-hidden="true">.</span></h1>
+            </div>
+            <p className="project-report-dek">{project.oneLine}</p>
+          </div>
+          <div className="project-report-header-bottom">
+            <div><span>Status</span><strong>{project.status}</strong></div>
+            <div><span>Primary stack</span><strong>{project.stack.slice(0, 3).join(" / ")}</strong></div>
+            {liveLink?.href ? (
+              <a href={liveLink.href} target="_blank" rel="noreferrer">
+                Open the live project <IconArrow className="project-arrow-up-right" />
+              </a>
+            ) : null}
+          </div>
+        </header>
 
-      <header className="mt-8">
-        <h1 className="font-geist text-[2.75rem] font-medium leading-[1.02] tracking-[-0.04em] sm:text-6xl">
-          {p.name}
-        </h1>
-        <div className="mt-4 font-mono text-[11.5px] text-white/55">{p.status}</div>
-        <p className="mt-7 max-w-[62ch] text-[16.5px] leading-[1.7] text-white/80">{p.oneLine}</p>
-      </header>
-
-      {/* Field 3: the hero artifact. Every project gets one piece of real
-          evidence rather than a decorative screenshot. */}
-      <div className="mt-14">
-        {p.heroShot ? (
-          <figure>
+        {project.heroShot ? (
+          <figure className="project-report-artifact">
+            <div className="project-report-artifact-bar">
+              <span>Real artifact</span>
+              <span>{project.name} in use</span>
+            </div>
             <picture>
               <source
                 type="image/webp"
-                srcSet={`${webp(p.heroShot, 900)} 900w, ${webp(p.heroShot)} 1800w`}
-                sizes="(max-width: 768px) 100vw, 976px"
+                srcSet={`${webp(project.heroShot, 900)} 900w, ${webp(project.heroShot)} ${project.heroShotSize?.[0] ?? 1800}w`}
+                sizes="100vw"
               />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={p.heroShot}
-                alt={p.heroCaption ?? `${p.name} in use`}
-                width={p.heroShotSize?.[0]}
-                height={p.heroShotSize?.[1]}
-                className="h-auto w-full rounded-2xl border border-white/[0.08]"
+                src={project.heroShot}
+                alt={project.heroCaption ?? `${project.name} in use`}
+                width={project.heroShotSize?.[0]}
+                height={project.heroShotSize?.[1]}
                 fetchPriority="high"
                 decoding="async"
               />
             </picture>
+            {project.heroCaption ? (
+              <figcaption><span>In use</span>{project.heroCaption}</figcaption>
+            ) : null}
           </figure>
         ) : null}
-        {p.heroCaption ? (
-          <figcaption className="mt-4 font-mono text-[11px] leading-relaxed text-white/50">
-            {p.heroCaption}
-          </figcaption>
-        ) : null}
-      </div>
 
-      <div className="mt-16 grid gap-14 lg:grid-cols-[1fr_18rem] lg:gap-16">
-        <div className="space-y-12">
-          {FIELDS.map((f) => (
-            <section key={f.key}>
-              <h2 className="font-geist text-[13px] font-medium uppercase tracking-[0.14em] text-white/50">
-                {f.label}
-              </h2>
-              <p className="mt-4 max-w-[66ch] text-[15.5px] leading-[1.75] text-white/70">
-                {p[f.key]}
-              </p>
-            </section>
-          ))}
+        <section className="project-report-evidence" aria-labelledby="evidence-heading">
+          <div className="project-report-evidence-intro">
+            <h2 id="evidence-heading">Proof over<br /><em>promises.</em></h2>
+            <p>Counts and outcomes from the work, with their source stated under each number.</p>
+          </div>
+          <dl className="project-report-facts">
+            {project.facts.map((fact) => (
+              <div key={fact.label}>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+                <small>{fact.source}</small>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <div className="project-report-body">
+          <div className="project-report-narrative">
+            <div className="project-report-narrative-heading">
+              <h2>Why it works<br /><em>the way it does.</em></h2>
+            </div>
+            {fields.map((field, fieldIndex) => (
+              <section className="project-report-chapter" key={field.key}>
+                <div className="project-report-chapter-meta">
+                  <span>{String(fieldIndex + 1).padStart(2, "0")}</span>
+                  <span>{field.prompt}</span>
+                </div>
+                <div>
+                  <h3>{field.label}</h3>
+                  <p>{project[field.key]}</p>
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <aside className="project-report-aside" aria-label="Project details">
+            <div className="project-report-aside-block">
+              <h2>Technology</h2>
+              <ul>{project.stack.map((item) => <li key={item}>{item}</li>)}</ul>
+            </div>
+            <div className="project-report-aside-block">
+              <h2>Explore</h2>
+              <ul className="project-report-links">
+                {project.links.map((link) => (
+                  <li key={link.label}>
+                    {link.href ? (
+                      <a href={link.href} target="_blank" rel="noreferrer">
+                        {link.label}<IconArrow className="project-arrow-up-right" />
+                      </a>
+                    ) : <span>{link.note}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {project.essaySlugs?.length ? (
+              <div className="project-report-aside-block">
+                <h2>Further reading</h2>
+                <ul className="project-report-links">
+                  {project.essaySlugs.map((essaySlug) => {
+                    const essay = essayBySlug(essaySlug);
+                    if (!essay) return null;
+                    return (
+                      <li key={essaySlug}>
+                        <Link href={`/writing/${essaySlug}/`}>{essay.title}<IconArrow className="project-arrow-up-right" /></Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : null}
+            <Link className="project-report-contact" href="/#contact">
+              Talk through the build <IconArrow className="project-arrow-up-right" />
+            </Link>
+          </aside>
         </div>
 
-        <aside className="space-y-10 lg:sticky lg:top-28 lg:self-start">
+        <nav className="project-report-next" aria-label="More work">
           <div>
-            <MonoLabel>Stack</MonoLabel>
-            <ul className="mt-3 space-y-1.5">
-              {p.stack.map((s) => (
-                <li key={s} className="font-mono text-[12px] text-white/65">
-                  {s}
-                </li>
-              ))}
-            </ul>
+            <span className="project-report-section-id">Next field report / {String(((index + 1) % projects.length) + 1).padStart(2, "0")}</span>
+            <Link href={`/work/${next.slug}/`}>{next.name}<IconArrow className="project-arrow-up-right" /></Link>
           </div>
-
-          <div>
-            <MonoLabel>Numbers</MonoLabel>
-            <dl className="mt-3 space-y-3">
-              {p.facts.map((f) => (
-                <div key={f.label} className="flex items-baseline justify-between gap-4">
-                  <dt className="text-[12.5px] leading-snug text-white/55">{f.label}</dt>
-                  <dd className="font-geist text-[15px] font-medium tabular-nums text-white/85">
-                    {f.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          <div>
-            <MonoLabel>Links</MonoLabel>
-            <div className="mt-3 space-y-2.5">
-              {p.links.map((l) =>
-                l.href ? (
-                  <a
-                    key={l.label}
-                    href={l.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group flex items-center gap-2 text-[13.5px] text-white/80 transition-colors duration-500 hover:text-white"
-                    style={{ transitionTimingFunction: EASE }}
-                  >
-                    {l.label}
-                    <IconArrow className="text-sm transition-transform duration-500 group-hover:translate-x-0.5" />
-                  </a>
-                ) : (
-                  <p key={l.label} className="text-[12.5px] leading-relaxed text-white/55">
-                    {l.note}
-                  </p>
-                ),
-              )}
-            </div>
-          </div>
-
-          {p.essaySlugs?.length ? (
-            <div>
-              <MonoLabel>Written up</MonoLabel>
-              <div className="mt-3 space-y-2.5">
-                {p.essaySlugs.map((s) => {
-                  const e = essayBySlug(s);
-                  if (!e) return null;
-                  return (
-                    <Link
-                      key={s}
-                      href={`/writing/${s}/`}
-                      className="block text-[13.5px] leading-snug text-white/80 underline-offset-4 transition-colors duration-500 hover:text-white hover:underline"
-                      style={{ transitionTimingFunction: EASE }}
-                    >
-                      {e.title}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          ) : null}
-        </aside>
-      </div>
-
-      <Rule className="mt-20" />
-
-      <nav className="mt-8 flex items-center justify-between gap-6" aria-label="More work">
-        <Link
-          href={`/work/${next.slug}/`}
-          className="group inline-flex items-baseline gap-3 transition-colors duration-500"
-          style={{ transitionTimingFunction: EASE }}
-        >
-          <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">Next</span>
-          <span className="font-geist text-xl font-medium tracking-[-0.02em] text-white/80 group-hover:text-white">
-            {next.name}
-          </span>
-        </Link>
-        <ActionButton href="/#contact" variant="ghost">
-          Get in touch
-        </ActionButton>
-      </nav>
-    </article>
+          <Link className="project-report-all" href="/work/">View the full index <IconArrow className="project-arrow-up-right" /></Link>
+        </nav>
+      </article>
+    </div>
   );
 }

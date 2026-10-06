@@ -378,7 +378,6 @@ nothing ships that cannot be traced.
 - A blog beyond the two finished essays. Two real pieces is a writing section.
   Three headings and a "coming soon" is not.
 - CMS, admin, contact form, analytics, light/dark toggle, custom domain, i18n.
-- hasta-agosto. Private, noindexed, personal.
 - Publishing any Handshake client deliverable. See 7.3.
 - Grade breakdown beyond the GPA.
 - Motion beyond the existing Lumina fades. No scroll-jacking, no parallax.

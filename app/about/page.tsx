@@ -14,11 +14,11 @@ export default function About() {
     <div className="pb-24 pt-36 md:pt-44">
       <div className="mx-auto max-w-7xl px-6">
         <h1 className="max-w-[18ch] font-geist text-[2.75rem] font-medium leading-[1.03] tracking-[-0.04em] sm:text-6xl">
-          I got here late and
+          I learned a new system.
           <br />
-          <span className="text-white/40">I have been making up
+          <span className="text-white/40">Then I started building
           <br />
-          for it ever since.</span>
+          better ones.</span>
         </h1>
       </div>
 
@@ -30,68 +30,49 @@ export default function About() {
         <div className="grid gap-14 lg:grid-cols-[1fr_20rem] lg:gap-20">
           <div className="reading max-w-[64ch]">
             <p>
-              I grew up in Thailand. At the end of 2024 I moved to the United States, and a few
-              weeks later I walked into a community college classroom having never taken a class in
-              the American system. I did not know how registration worked. I did not know what a
-              unit was. I picked the hardest schedule anyone would let me have, because I had
-              already lost enough time and I was not going to lose more.
+              I grew up in Thailand and moved to the United States at the end of 2024. A few weeks
+              later I started at Pasadena City College, learning a new academic system while taking
+              the courses I needed to transfer into computer science.
             </p>
             <p>
-              Four terms later I had <strong>79 units and a 3.78</strong>, Dean&rsquo;s Honors twice,
-              and a transfer to UC Irvine. I am not telling you that because it is impressive on
-              paper. I am telling you because it is the same thing I do with everything: find the
-              thing I do not understand yet, refuse to be beaten by it, and go until it is mine.
+              Four terms later I had <strong>79 units and a 3.78 GPA</strong>, Dean&rsquo;s Honors
+              twice, and a transfer to UC Irvine. The experience taught me how to work through a
+              complicated system: trace the rules, test my understanding, and make the path visible.
             </p>
 
-            <h2>The 50 pounds</h2>
+            <h2>Build from lived friction</h2>
             <p>
-              Somewhere in there I lost fifty pounds in six months. Nobody helped me. I read
-              everything I could find and most of it was confident and wrong, or it was correct and
-              locked behind ninety dollars a month. I worked out the programming and the nutrition
-              myself, badly at first, then less badly, and it changed how I think about almost
-              everything.
+              While learning to train and manage my nutrition, I kept finding confident advice
+              without a way to check it. That became SpotterAI: a fitness copilot whose generated
+              plans are reviewed by deterministic checks before someone relies on them.
             </p>
             <p>
-              That is where SpotterAI came from. Not from a hackathon prompt or a list of project
-              ideas. From standing in a gym on my own with no idea whether what I was doing
-              was going to hurt me, and deciding that nobody else should have to guess.
+              Transfer Navigator came from the same instinct. I had sat with an articulation
+              agreement trying to work out what I still needed, so I built a planner that turns an
+              agreement into a route a student can inspect and update.
             </p>
 
-            <h2>Why I build the way I build</h2>
+            <h2>Make the reasoning inspectable</h2>
             <p>
-              Every single thing on this site started the same way: I needed it, I could not find
-              it, and nobody was coming to make it for me. Transfer Navigator exists because I sat
-              there at midnight trying to read an ASSIST agreement, unable to work out whether I
-              would make it out in time.
+              At Handshake AI, I author Terminal-Bench 2 tasks and graders. The work has to expose
+              whether an agent actually solved the problem, not merely produced a plausible answer.
+              That same standard shapes my own products: a decision should be testable, and a
+              failure should tell me what to change.
             </p>
             <p>
-              Woven Hymns is the one I am quietest and proudest about. My parents sell Kashmiri
-              shawls, and they had paid a web development team to build them a site. Six months
-              went by. Then they asked me to take a look at what they had been given, and I looked
-              at it and told them I could do better than that.
+              For Woven Hymns, the constraint was different. My family wanted to explain the craft
+              behind Kashmiri shawls without a photography budget. I made the writing and the
+              eight-stage journey the center of an exhibition preview, with attributed museum
+              references and static hosting.
             </p>
             <p>
-              Which is an easy thing to say to your own parents and a much harder thing to then go
-              and do. It took me <strong>four working days spread over three weeks</strong>, and it
-              has been live ever since. There was no photography budget, so the writing had to
-              carry an object that a phone camera flattens, and I built it text-led on purpose
-              rather than as an apology. I am not going to pretend that was a fair fight on effort.
-              It is just the one time I got to find out whether I was as good as I thought I was,
-              and the answer was yes.
+              I like small, clear systems that can survive contact with real users. That means
+              writing down the constraint, making the mechanism visible, and showing the tradeoff
+              alongside the result.
             </p>
             <p>
-              And I care, genuinely, about the part most people skip. Anyone can get a demo working.
-              The interesting problem is what happens when a stranger uses it and you are not there,
-              and it is three in the morning, and the model has confidently told them to do
-              something stupid. That is why my evaluator is written in plain code instead of asking
-              a second model to be careful. It is why I published the document that proves one of my
-              own thresholds was wrong. I would rather be corrected in public than be trusted for
-              something I had not actually earned.
-            </p>
-            <p>
-              I ship alone right now because that is what I have. What I actually want is to be the
-              least experienced person in a room full of engineers who are better than me, and to
-              close that gap faster than anyone expects me to.
+              I am looking for a Summer 2027 SWE or AI engineering internship where I can work
+              alongside people who challenge my assumptions and help me build more reliable systems.
             </p>
           </div>
 

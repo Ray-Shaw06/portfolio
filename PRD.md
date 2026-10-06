@@ -76,7 +76,6 @@ Explicitly out of scope for v1. Listed so they do not creep in:
 - Analytics.
 - Manual light/dark toggle. System preference only.
 - Custom domain.
-- hasta-agosto. It is password-gated, noindexed, and personal.
 - Motion beyond short fades. No scroll-jacking, no parallax, no cursor effects.
 - Internationalization.
 
@@ -325,7 +324,6 @@ Choices made during design, recorded so they are not relitigated:
   worth a blank box in front of a recruiter.
 - **50-lb story at headline length only.** One sentence, no numbers beyond the
   headline, no photos.
-- **hasta-agosto excluded.** Private, noindexed, and a personal gift.
 - **Graduation year is 2028.** Junior transfer entering fall 2026, senior year
   2027-28. This makes Summer 2027 the standard junior-year SWE intern cycle, the
   one that converts to full-time offers, not an exploratory first-year program.
